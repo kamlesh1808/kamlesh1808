@@ -6,19 +6,16 @@ I lead, plan, design, code, QA, support, manage, and work collaboratively to del
 
 I am a self-starter with a business-centric attitude.
 
-### CAREER ACCOMPLISHMENTS
+#### SKILLS 
+• Tech Leadership • Java • Spring Boot • Google Cloud Platform • Scrum
 
-- Tech Leadership working hand-in-hand with Business stakeholders at several organizations
-- Advisor and Implementor of Software Engineering processes and best practices
-- Top Java coder on professional and personal projects
+#### INTERESTS
 
-### SKILLS
+• Ice Hockey • Kotlin
 
-- Tech Leadership • Java • Spring Boot • Google Cloud Platform • Scrum
+###
+### [![text](https://img.shields.io/badge/LinkedIn-0077B5?style=for-the-badge&logo=linkedin&logoColor=white)](https://www.linkedin.com/in/kamlesh18)
 
-### INTERESTS
-
-- Ice Hockey • Kotlin
 
 <!--
 **kamlesh1808/kamlesh1808** is a ✨ _special_ ✨ repository because its `README.md` (this file) appears on your GitHub profile.
