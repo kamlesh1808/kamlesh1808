@@ -1,4 +1,4 @@
-Hi, I am Kamlesh Patel, a hands-on Senior Software Engineer with 20 years of experience. 
+Hi, I am Kamlesh Patel, a hands-on Senior Software Engineer. 
 
 I lead, plan, design, code, QA, manage, and work collaboratively to deliver high-quality features using Scrum.
 
