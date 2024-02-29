@@ -1,6 +1,6 @@
-Hi, I am Kamlesh Patel, a hands-on Senior Software Engineer. 
+Hi, I am Kamlesh Patel, a Senior Software Engineer with 20 years of experience.
 
-I lead, plan, design, code, QA, manage, and work collaboratively to deliver high-quality features using Scrum.
+I am currently on the Priceline - Hotels Engineering team. I lead, plan, design, code, QA, manage, and work collaboratively to deliver high-quality features using Scrum.
 
 I am a self-starter with a business-centric attitude.
 
