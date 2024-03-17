@@ -1,8 +1,4 @@
-Hi, I am Kamlesh Patel, a Senior Software Engineer with 20 years of experience.
-
-I am currently on the Priceline - Hotels Engineering team. I lead, plan, design, code, QA, manage, and work collaboratively to deliver high-quality features using Scrum.
-
-I am a self-starter with a business-centric attitude.
+Hi, I am Kamlesh Patel, an experienced Software Engineer.
 
 ###
 ### [![text](https://img.shields.io/badge/LinkedIn-0077B5?style=for-the-badge&logo=linkedin&logoColor=white)](https://www.linkedin.com/in/kamlesh18)
