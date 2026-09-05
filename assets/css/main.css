@@ -1,0 +1,322 @@
+@import url('https://fonts.googleapis.com/css2?family=Fira+Code:wght@300;400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600;9..40,700&family=Fraunces:opsz,wght@9..144,600;9..144,700&display=swap');
+
+/* Base font — Fira Code across entire app */
+html, body { font-family: 'Fira Code', monospace; }
+h1, h2, h3, h4, h5, h6, p, li, a, span, div, input, textarea, button, label, select { font-family: 'Fira Code', monospace; }
+
+:root { --ink: #20211f; --muted: #6c7069; --paper: #fbfaf6; --line: #e4e1d8; --lime: #dbeb9b; --orange: #ffd0a8; --green: #2e7d32; }
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; font-size: 120%; }
+body { background: var(--paper); color: var(--ink); font-family: 'Fira Code', monospace; font-size: 1.05rem; line-height: 1.65; }
+a { color: inherit; text-decoration: none; } a:hover { color: #b84f28; }
+.site-header { background: rgba(251,250,246,.92); border-bottom: 1px solid var(--green); backdrop-filter: blur(12px); }
+.navbar-brand { font-size: 1.05rem; letter-spacing: -.02em; } .brand-mark { display: inline-grid; place-items: center; width: 29px; height: 29px; margin-right: 7px; border-radius: 50%; background: var(--ink); color: var(--lime); font-family: 'Fira Code', monospace; font-size: .65rem; }
+.nav-link { color: #1a1a1a; font-weight: 600; padding: .375rem 1.5rem !important; background: var(--orange); border: 1px solid var(--orange); border-radius: 50rem; transition: color .2s, background .2s, border-color .2s; } .nav-link.active { color: #1a1a1a; font-weight: 700; background: #ffbe8a; border-color: #ffbe8a; border-radius: 50rem; } .nav-link:hover { color: #1a1a1a; background: #ffbe8a; border-color: #ffbe8a; border-radius: 50rem; } .nav-link:focus-visible { outline: 2px solid var(--orange); outline-offset: 2px; }
+.navbar-toggler { border: 0; font-size: 1.25rem; } .navbar-toggler:focus { box-shadow: none; }
+.hero { padding: clamp(5rem, 12vw, 9rem) 0 clamp(4rem, 9vw, 7rem); border-bottom: 1px solid var(--line); background: radial-gradient(circle at 80% 30%, #eef4d5 0, transparent 24%), var(--paper); }
+.eyebrow { margin-bottom: .7rem; color: #7c804f; font: 500 .74rem 'Fira Code', monospace; letter-spacing: .1em; }
+h1,h2,h3,h4,h5,h6 { font-family: 'Fira Code', monospace; letter-spacing: -.045em; line-height: 1.06; } h1 { font-size: clamp(2.7rem, 6.2vw, 5.3rem); font-weight: 700; } h1 em { font-family: 'Fira Code', monospace; font-weight: 600; } h2 { font-size: clamp(1.65rem, 3vw, 2.3rem); font-weight: 700; } h3 { font-size: 1.25rem; font-weight: 700; }
+.hero-copy { max-width: 570px; color: var(--muted); margin: 1.7rem 0 2rem; font-size: clamp(1.08rem, 2vw, 1.25rem); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.btn-dark { background: var(--ink); border-color: var(--ink); } .btn-dark:hover { background: #3b3d38; border-color: #3b3d38; }
+.content-section,.page-shell { padding-top: clamp(3.5rem, 8vw, 6rem); padding-bottom: 2rem; }
+.section-title { display:flex; align-items:end; justify-content:space-between; margin-bottom: 2rem; }.section-title h2 { margin:0; }.section-title > span { color:var(--muted); font: .75rem 'Fira Code', monospace; }
+.post-card { height:100%; padding: 1.7rem; border:1px solid var(--line); border-radius: 14px; background: #fffefa; transition: transform .2s, box-shadow .2s; }.post-card:hover { transform: translateY(-4px); box-shadow: 0 12px 35px rgba(35,35,30,.08); }.post-card h2 { font-size:1.55rem; margin-bottom:.9rem; }.post-excerpt { color:var(--muted); font-size: .98rem; }.tag { display:inline-block; padding:.18rem .55rem; border-radius: 20px; background: #e6f4ea; color:#0f3a2a; border:1px solid #b6dfc5; font: 500 .96rem 'Fira Code', monospace; }.read-link { font-size:.9rem; font-weight:600; }.empty-state { padding:3rem; text-align:center; border:1px dashed var(--line); color:var(--muted); }
+.article-shell { max-width: 850px; padding-top: 3.5rem; }.back-link { color:var(--muted); font-size:.9rem; }.article-header { padding: 2.6rem 0 2rem; border-bottom:1px solid var(--line); }.article-header h1 { font-size: clamp(1.25rem, 2.5vw, 2.125rem); }.article-lede { max-width:650px; margin-top:1.4rem; color:var(--muted); font-size:1.2rem; }.article-meta { display:flex; gap:.55rem; color:var(--muted); font: .75rem 'Fira Code', monospace; }.article-body { max-width:700px; padding:3rem 0; }.article-body h2 { margin: 2.8rem 0 1rem; font-size: 1.8rem; }.article-body p,.article-body li { font-size:1.08rem; }.article-body a { text-decoration:underline; text-underline-offset:3px; }.article-body blockquote { margin:2rem 0; padding:1rem 1.3rem; border-left:3px solid var(--orange); background:#fff3eb; font-family:'Fira Code', monospace; font-size:1.25rem; }.article-body code { color:#9b3d1c; }.article-body pre { padding:1rem; overflow:auto; border-radius:8px; background:#292b27; color:#f5f4ec; }
+.page-shell { min-height:70vh; }.page-shell .lead { color:var(--muted); font-size:1.2rem; }.profile-card,.skills-card,.contact-form { padding:2rem; border:1px solid var(--line); border-radius:14px; background:#fffefa; }.avatar { display:grid; place-items:center; width:95px; height:95px; margin-bottom:1.4rem; border-radius:50%; background:var(--lime); font:700 1.8rem 'Fira Code', monospace; }.profile-line { padding:.55rem 0; border-top:1px solid var(--line); color:var(--muted); font-size:.92rem; }.profile-line i { width:22px; color:#798748; }.timeline-item { position:relative; padding: 0 0 2rem 1.45rem; border-left:1px solid var(--line); }.timeline-item:before { content:''; position:absolute; left:-5px; top:7px; width:9px; height:9px; border-radius:50%; background:var(--orange); }.timeline-date { margin:0 0 .25rem; color:var(--muted); font:.72rem 'Fira Code', monospace; }.timeline-item h3 span { color:var(--muted); font-weight:400; }.timeline-item p:last-child { color:var(--muted); }.resume h2 { font-size:1.35rem; margin-bottom:1.5rem; }.contact-email { display:inline-block; margin-top:1rem; font-size:1.2rem; font-weight:600; border-bottom:2px solid var(--orange); }.contact-form label { font-size:1.05rem; font-weight:600; }.form-control { padding:.7rem .8rem; border-color:var(--line); background:#fffefa; }.form-control:focus { border-color:#9fac6c; box-shadow:0 0 0 .2rem rgba(180,198,112,.22); background:white; }.site-footer { border-top:1px solid var(--line); color:var(--muted); font-size:.85rem; }.site-footer a { font-size:1.1rem; }
+.contact-info { display: flex; flex-direction: column; gap: .75rem; margin-top: 1rem; }
+.contact-info a { color: var(--muted); font-size: 1.05rem; transition: color .2s; }
+.contact-info a:hover { color: var(--orange); }
+/* Contact page — match about page base (body 1.05rem at 120% root ≈ 1.26rem effective) */
+.contact-shell { font-size: 1.05rem; }
+.contact-shell h1 { font-size: 2rem; }
+.contact-shell h2 { font-size: 1.25rem; }
+.contact-shell p, .contact-shell li, .contact-shell a, .contact-shell label, .contact-shell input, .contact-shell textarea, .contact-shell button { font-size: 1.05rem; }
+.contact-form .form-control, .contact-form .btn { font-size: 1.05rem; }
+.resume-contact { color: var(--ink); font-size: 1rem; line-height: 1.6; }
+.resume-contact a { color: #0b57d0; text-decoration: underline; text-underline-offset: 3px; text-decoration-thickness: 1.5px; text-decoration-color: currentColor; font-weight: 500; transition: color .2s; }
+.resume-contact a:hover { color: #083da0; text-decoration-thickness: 2px; }
+.resume-contact a:focus-visible { outline: 2px solid #1f6feb; outline-offset: 2px; border-radius: 2px; }
+@media (max-width: 991px) { .navbar-collapse { padding-top: .8rem; }.navbar-nav { align-items:stretch !important; gap: .5rem; }.nav-link { padding:.375rem 1.5rem !important; text-align:center; }.contact-shell h1 { font-size:2rem; } }
+@media (max-width: 575px) { .hero { padding-top:4.5rem; }.post-card { padding:1.35rem; }.article-shell { padding-top:2rem; }.article-body { padding-top:2rem; }.section-title { align-items:start; }.profile-card,.skills-card,.contact-form { padding:1.35rem; } .hero-copy { white-space: nowrap; font-size: clamp(0.82rem, 3.8vw, 1.08rem); } }
+
+/* GitHub-inspired dark theme */
+:root { --ink:#f0f6fc; --muted:#8b949e; --paper:#0d1117; --line:#30363d; --lime:#58a6ff; --orange:#ffcc99; }
+body { background:#0d1117; color:#f0f6fc; }
+a:hover,.read-link,.contact-email { color:#58a6ff; }
+.site-header { background:rgba(13,17,23,.92); }
+.navbar-brand { color:#f0f6fc; }.brand-mark { background:#f0f6fc; color:#0d1117; }
+.hero { background:radial-gradient(circle at 82% 22%,rgba(31,111,235,.22),transparent 26%),radial-gradient(circle at 70% 72%,rgba(88,166,255,.06),transparent 30%),#0d1117; }
+.eyebrow { color:#58a6ff; }
+.btn-dark { background:#238636; border-color:rgba(240,246,252,.1); color:#fff; }.btn-dark:hover { background:#2ea043; border-color:rgba(240,246,252,.1); color:#fff; }
+.nav-link { color:#0d1117; background:var(--orange); border-color:var(--orange); } .nav-link.active { color:#0d1117; background:#ffbe8a; border-color:#ffbe8a; } .nav-link:hover { color:#0d1117; background:#ffbe8a; border-color:#ffbe8a; } .nav-link:focus-visible { outline:2px solid #ffcc99; outline-offset:2px; }
+.btn-outline-dark { border-color:#30363d; color:#f0f6fc; }.btn-outline-dark:hover { background:#21262d; border-color:#8b949e; color:#f0f6fc; }
+.post-card,.profile-card,.skills-card,.contact-form { border-color:#30363d; border-radius:10px; background:#161b22; }.post-card:hover { border-color:#58a6ff; box-shadow:0 12px 35px rgba(1,4,9,.32); }.post-card h2 a:hover { color:#58a6ff; }
+.tag { border:1px solid rgba(167,243,208,0.28); background:#14261e; color:#a7f3d0; }
+.badge { font-size: 0.96rem !important; background:#14261e !important; border:1px solid rgba(167,243,208,0.28) !important; color:#a7f3d0 !important; font-weight:500; }
+@media (prefers-color-scheme: light) {
+  .tag { background:#e6f4ea; border-color:#b6dfc5; color:#0f3a2a; }
+  .badge { background:#e6f4ea !important; border-color:#b6dfc5 !important; color:#0f3a2a !important; }
+}
+.article-body a { color:#58a6ff; }.article-body blockquote { border-left-color:#58a6ff; background:rgba(56,139,253,.08); color:#c9d1d9; }.article-body code { padding:.1rem .3rem; border-radius:4px; background:rgba(110,118,129,.4); color:#ff7b72; }.article-body pre { border:1px solid #30363d; background:#010409; color:#c9d1d9; }.article-body pre code { padding:0; background:transparent; color:inherit; }
+.avatar { background:#1f6feb; color:#fff; }.profile-line i { color:#58a6ff; }.timeline-item:before { background:#58a6ff; }
+.form-control { color:#f0f6fc; border-color:#30363d; background:#0d1117; }.form-control::placeholder { color:#6e7681; }.form-control:focus { color:#f0f6fc; border-color:#1f6feb; box-shadow:0 0 0 .2rem rgba(31,111,235,.25); background:#0d1117; }.alert-success { color:#aff5b4; background:#132a1a; border-color:#238636; }
+.resume-contact { color: #f0f6fc; }
+.resume-contact a { color: #58a6ff; }
+.resume-contact a:hover { color: #79c0ff; }
+.resume-contact a:focus-visible { outline-color: #58a6ff; }
+
+/* A warm accent, used sparingly beside the GitHub blue. */
+.hero { background:radial-gradient(circle at 82% 22%,rgba(31,111,235,.22),transparent 26%),radial-gradient(circle at 70% 72%,rgba(247,129,102,.12),transparent 30%),#0d1117; }
+.hero h1 em { color:#f78166; }.article-body blockquote { border-left-color:#f78166; background:rgba(247,129,102,.08); }.profile-line i,.timeline-item:before { color:#f78166; background-color:#f78166; }
+/* Resume contact — light theme override for WCAG AA when prefers-color-scheme: light */
+@media (prefers-color-scheme: light) {
+  .resume-contact { color: #20211f; }
+  .resume-contact a { color: #0b57d0; }
+  .resume-contact a:hover { color: #083da0; }
+  .resume-contact a:focus-visible { outline-color: #1f6feb; }
+}
+
+/* Global enforcement — Fira Code with monospace fallback across body, headings, general text */
+html, body, h1, h2, h3, h4, h5, h6, p, li, ul, ol, a, span, div, button, input, textarea, select, label, code, pre, blockquote {
+  font-family: 'Fira Code', monospace;
+}
+
+/* Article display — matches about page base (body 1.05rem at 120% root ≈ 1.26rem effective) */
+.article-shell {
+  max-width: 850px;
+}
+.article-body {
+  max-width: 700px;
+  font-size: 1.05rem;
+}
+.article-body h2 {
+  font-size: 1.8rem;
+}
+.article-body p,
+.article-body li {
+  font-size: 1.05rem;
+}
+.article-body blockquote {
+  font-size: 1.05rem;
+}
+
+/* 50% article titles — halve font-size site-wide for all article/blog post titles */
+.article-header h1 {
+  font-size: clamp(1.25rem, 2.5vw, 2.125rem) !important; /* 50% of clamp(2.5rem, 5vw, 4.25rem) */
+}
+.post-card h2 {
+  font-size: 1.55rem !important; /* 100% — 2x 0.775rem for summary/list titles */
+}
+.post-card h2 a {
+  font-size: inherit;
+}
+
+/* Selection readability — WCAG AA (white on blue ≥4.5:1) */
+::selection { background: #1f6feb; color: #ffffff; }
+::-moz-selection { background: #1f6feb; color: #ffffff; }
+
+/* Ensure brand link "Kamlesh Patel" remains readable when highlighted/selected */
+.navbar-brand::selection,
+.navbar-brand ::selection,
+.navbar-brand .brand-mark::selection,
+.navbar-brand .brand-mark ::selection {
+  background: #1f6feb;
+  color: #ffffff;
+}
+
+/* Brand link interactive states — maintain contrast + visible focus */
+.navbar-brand:active,
+.navbar-brand:focus { color: #f0f6fc; }
+.navbar-brand:focus-visible { outline: 2px solid #58a6ff; outline-offset: 2px; border-radius: 4px; }
+.navbar-brand:active .brand-mark { background: #f0f6fc; color: #0d1117; }
+
+@media (prefers-color-scheme: light) {
+  ::selection { background: #0969da; color: #ffffff; }
+  ::-moz-selection { background: #0969da; color: #ffffff; }
+  .navbar-brand::selection,
+  .navbar-brand ::selection,
+  .navbar-brand .brand-mark::selection,
+  .navbar-brand .brand-mark ::selection { background: #0969da; color: #ffffff; }
+  .navbar-brand:active,
+  .navbar-brand:focus { color: #20211f; }
+  .navbar-brand:focus-visible { outline-color: #1f6feb; }
+}
+
+/* Brand avatar for header */
+.brand-avatar {
+  width: 29px;
+  height: 29px;
+  border-radius: 50%;
+  margin-right: 7px;
+  object-fit: cover;
+}
+
+/* Skills card — from about.vue (resume) scoped styles */
+.skills-card {
+  max-width: 100%;
+  overflow: hidden;
+  border-radius: 8px;
+}
+.skills-table {
+  --bs-table-bg: transparent;
+  width: 100%;
+  max-width: 100%;
+  color: var(--ink);
+  border-color: var(--line);
+  table-layout: fixed;
+  overflow-wrap: break-word;
+  word-break: break-word;
+}
+.skills-table thead th {
+  background-color: rgba(167, 243, 208, 0.09);
+  color: var(--ink);
+  border-bottom-width: 2px;
+  border-color: var(--line);
+  font: 600 0.75rem 'DM Mono', monospace;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  white-space: normal;
+  overflow-wrap: break-word;
+  word-break: break-word;
+  vertical-align: top;
+}
+.skills-table thead th:first-child,
+.skills-table tbody th {
+  width: 32%;
+}
+.skills-table thead th:last-child,
+.skills-table tbody td {
+  width: 68%;
+}
+.skills-table tbody th {
+  color: var(--ink);
+  font-weight: 600;
+  font-size: 0.92rem;
+  white-space: normal;
+  overflow-wrap: break-word;
+  word-break: break-word;
+  vertical-align: top;
+  background: transparent;
+  border-color: var(--line);
+}
+.skills-table tbody td {
+  color: var(--ink);
+  background: transparent;
+  border-color: var(--line);
+  font-size: 0.92rem;
+  vertical-align: top;
+  line-height: 1.6;
+  white-space: normal;
+  overflow-wrap: break-word;
+  word-break: break-word;
+}
+.skills-table tbody td .tag {
+  vertical-align: middle;
+  white-space: normal;
+  overflow-wrap: break-word;
+  word-break: break-word;
+  display: inline-block;
+}
+.skills-table .tag {
+  background: #14261e;
+  border: 1px solid rgba(167, 243, 208, 0.28);
+  color: #a7f3d0;
+  font: 500 0.96rem 'Fira Code', monospace;
+}
+.skills-table .tag.top-skill {
+  background: #1e3d2e;
+  border: 1px solid rgba(167, 243, 208, 0.38);
+  color: #d1fae5;
+  font-weight: 600;
+  box-shadow: none;
+}
+.skills-table .tag.top-skill:hover {
+  background: #244d36;
+  border-color: rgba(167, 243, 208, 0.5);
+}
+.skills-table .tag.tag-large {
+  font-size: 0.96rem;
+}
+.badge {
+  font-size: 0.96rem !important;
+  background: #14261e !important;
+  border: 1px solid rgba(167, 243, 208, 0.28) !important;
+  color: #a7f3d0 !important;
+  font-weight: 500;
+}
+.skills-table caption {
+  color: var(--muted);
+}
+.skills-table tbody tr:last-child th,
+.skills-table tbody tr:last-child td {
+  border-bottom: 0;
+}
+@media (max-width: 991px) {
+  .skills-table thead th,
+  .skills-table tbody th,
+  .skills-table tbody td {
+    font-size: 0.88rem;
+  }
+}
+@media (prefers-color-scheme: light) {
+  .skills-table thead th {
+    background-color: #e6f4ea;
+    color: #0f3a2a;
+  }
+  .skills-table tbody th,
+  .skills-table tbody td {
+    color: #20211f;
+  }
+  .skills-table .tag {
+    background: #e6f4ea;
+    border-color: #b6dfc5;
+    color: #0f3a2a;
+  }
+  .skills-table .tag.top-skill {
+    background: #d1fae5;
+    border-color: #a7d8b9;
+    color: #065f46;
+    box-shadow: none;
+  }
+  .skills-table .tag.top-skill:hover {
+    background: #bfe9ce;
+  }
+  .badge {
+    background: #e6f4ea !important;
+    border-color: #b6dfc5 !important;
+    color: #0f3a2a !important;
+  }
+}
+
+/* Employer link — from about.vue (resume) scoped styles */
+.employer-link {
+  color: #58a6ff;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  text-decoration-thickness: 1.5px;
+  text-decoration-color: currentColor;
+  font-weight: 700;
+  transition: color 0.2s;
+}
+.employer-link:hover {
+  color: #79c0ff;
+  text-decoration-thickness: 2px;
+}
+.employer-link:focus-visible {
+  outline: 2px solid #58a6ff;
+  outline-offset: 2px;
+  border-radius: 2px;
+}
+@media (prefers-color-scheme: light) {
+  .employer-link {
+    color: #0b57d0;
+  }
+  .employer-link:hover {
+    color: #083da0;
+  }
+  .employer-link:focus-visible {
+    outline-color: #1f6feb;
+  }
+}
+

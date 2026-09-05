@@ -1,0 +1,7 @@
+node_modules/
+.nuxt/
+/.opencode
+.output/
+.data/
+dist/
+/.idea/
