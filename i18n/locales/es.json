@@ -1,0 +1,9 @@
+{
+  "nav": {
+    "writing": "Escritura",
+    "about": "Acerca de"
+  },
+  "footer": {
+    "copyright": "© {year} Kamlesh Patel."
+  }
+}

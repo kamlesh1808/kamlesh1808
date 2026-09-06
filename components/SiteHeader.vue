@@ -1,9 +1,11 @@
 <script setup lang="ts">
 const route = useRoute()
+const { t } = useI18n()
 const open = ref(false)
-const links = [
-  { label: 'Writing', to: '/' },
-  { label: 'About', to: '/about' },]
+const links = computed(() => [
+  { label: t('nav.writing'), to: '/' },
+  { label: t('nav.about'), to: '/about' },
+])
 </script>
 
 <template>

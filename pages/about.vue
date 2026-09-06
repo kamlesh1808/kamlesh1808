@@ -7,8 +7,8 @@
 
         <div class="mb-4">
                 <div class="profile-card">
-                  <p class="mb-1 fw-semibold" style="font-size: 1.5rem;">Kamlesh Patel</p>
-                  <p class="mb-3" style="color: var(--ink);">Software Engineering</p>
+                  <p class="mb-1 fw-semibold profile-name">Kamlesh Patel</p>
+                  <p class="mb-3 profile-subtitle">Software Engineering</p>
                             <p class="resume-contact mb-0"><a href="https://maps.google.com/?q=Greater+Toronto+Area,+Canada" target="_blank" rel="noreferrer">Greater Toronto Area, Canada</a> <span aria-hidden="true">·</span> <a href="mailto:kamlesh.patel18@gmail.com" aria-label="Email"><i class="fa-solid fa-envelope" aria-hidden="true"></i></a> <span aria-hidden="true">·</span> <a href="https://www.linkedin.com/in/kamlesh18/" target="_blank" rel="noreferrer" aria-label="LinkedIn"><i class="fa-brands fa-linkedin" aria-hidden="true"></i></a> <span aria-hidden="true">·</span> <a href="https://github.com/kamlesh1808" target="_blank" rel="noreferrer" aria-label="GitHub"><i class="fa-brands fa-github" aria-hidden="true"></i></a></p>
 
                 </div>
@@ -130,9 +130,9 @@
                 <tr>
                   <th scope="row">Languages</th>
                   <td>
-                    <span class="tag tag-large me-1 mb-1" title="Core skill — primary language in Salesforce (SMTS) & Priceline" style="font-size: 0.96rem;">Java</span>
-                    <span class="tag tag-large me-1 mb-1" title="Core skill — Kotlin / Spring Boot 3 microservices (Gamification, Hotel Similarity)" style="font-size: 0.96rem;">Kotlin</span>
-                    <span class="tag tag-large me-1 mb-1" style="font-size: 0.96rem;">SQL</span>
+                    <span class="tag tag-large me-1 mb-1" title="Core skill — primary language in Salesforce (SMTS) & Priceline">Java</span>
+                    <span class="tag tag-large me-1 mb-1" title="Core skill — Kotlin / Spring Boot 3 microservices (Gamification, Hotel Similarity)">Kotlin</span>
+                    <span class="tag tag-large me-1 mb-1">SQL</span>
                   </td>
                 </tr>
                 <tr>
@@ -148,17 +148,17 @@
                 <tr>
                   <th scope="row">Frameworks</th>
                   <td>
-                    <span class="tag tag-large me-1 mb-1" title="Core skill — Spring Boot microservices (GKE, Hotel Similarity, Gamification)" style="font-size: 0.96rem;">Spring Boot</span>
+                    <span class="tag tag-large me-1 mb-1" title="Core skill — Spring Boot microservices (GKE, Hotel Similarity, Gamification)">Spring Boot</span>
                     <span class="tag me-1 mb-1">Spring Framework</span>
                     <span class="tag me-1 mb-1">Spring AI</span>
-                    <span class="tag tag-large me-1 mb-1" style="font-size: 0.96rem;">Jakarta EE</span>
-                    <span class="tag tag-large me-1 mb-1" title="Core skill — Microservices architecture (Gamification, Hotel Similarity)" style="font-size: 0.96rem;">Microservices</span>
+                    <span class="tag tag-large me-1 mb-1">Jakarta EE</span>
+                    <span class="tag tag-large me-1 mb-1" title="Core skill — Microservices architecture (Gamification, Hotel Similarity)">Microservices</span>
                   </td>
                 </tr>
                 <tr>
                   <th scope="row">Cloud Platforms</th>
                   <td>
-                    <span class="tag tag-large me-1 mb-1" title="Core skill — GCP AlloyDB, GKE, DataStore at Priceline & Salesforce" style="font-size: 0.96rem;">Google Cloud Platform</span>
+                    <span class="tag tag-large me-1 mb-1" title="Core skill — GCP AlloyDB, GKE, DataStore at Priceline & Salesforce">Google Cloud Platform</span>
                     <span class="tag me-1 mb-1" title="Core skill — Kafka for persistent logging microservice & eventing">Kafka</span>
                     <span class="tag me-1 mb-1">Digital Ocean</span>
                   </td>

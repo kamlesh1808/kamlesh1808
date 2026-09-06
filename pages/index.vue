@@ -7,8 +7,8 @@ const { data: posts } = await useFetch('/api/posts')
   <section class="hero">
     <div class="container">
       <p class="eyebrow">HELLO, I’M KAMLESH</p>
-      <h1 style="font-size: clamp(1.35rem, 3.1vw, 2.65rem);">Building; one commit at a time</h1>
-      <p class="hero-copy" style="white-space: nowrap;"><img src="https://github.com/kamlesh1808.png" alt="Kamlesh Patel" style="width: 23%; height: 23%; object-fit: cover; border-radius: 50%;"></p>
+      <h1 class="hero-title">Building; one commit at a time</h1>
+      <p class="hero-copy"><img src="https://github.com/kamlesh1808.png" alt="Kamlesh Patel" class="hero-avatar"></p>
       <a class="btn btn-dark rounded-pill px-4 py-2" href="#posts">Explore the writing <i class="fa-solid fa-arrow-down ms-2" /></a>
     </div>
   </section>

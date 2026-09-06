@@ -8,6 +8,8 @@
     "preview": "nuxt preview"
   },
   "dependencies": {
+    "@nuxtjs/i18n": "^10.6.0",
+    "bootstrap": "^5.3.3",
     "markdown-it": "^14.1.0",
     "nuxt": "^3.13.2"
   }
