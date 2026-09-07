@@ -5,12 +5,19 @@
     "dev": "nuxt dev",
     "build": "nuxt build",
     "generate": "nuxt generate",
-    "preview": "nuxt preview"
+    "preview": "nuxt preview",
+    "postinstall": "nuxt prepare",
+    "typecheck": "nuxt typecheck"
   },
   "dependencies": {
     "@nuxtjs/i18n": "^10.6.0",
-    "bootstrap": "^5.3.3",
-    "markdown-it": "^14.1.0",
-    "nuxt": "^3.13.2"
+    "bootstrap": "^5.3.8",
+    "markdown-it": "^15.0.1",
+    "nuxt": "^4.5.2"
+  },
+  "devDependencies": {
+    "@types/node": "^26.4.1",
+    "typescript": "^6.0.3",
+    "vue-tsc": "^3.3.11"
   }
 }
