@@ -1,6 +1,6 @@
 # Developer Blog
 
-A responsive Nuxt 3 developer portfolio and blog. It includes markdown-powered posts, Home and About pages (About doubles as Resume), and works cleanly across desktop, tablet, and mobile layouts.
+A responsive Nuxt 4 developer portfolio and blog. It includes markdown-powered posts, Home and About pages (About doubles as Resume), and works cleanly across desktop, tablet, and mobile layouts.
 
 ## Run it locally
 
@@ -77,12 +77,14 @@ There is no `pages/resume.vue`, no contact page, and no `public/` directory — 
 ## Project structure
 
 ```text
+app/                  Application source (Nuxt 4 convention)
+  app.vue             Root application component
+  components/         SiteHeader.vue, SiteFooter.vue, PostCard.vue
+  pages/              index.vue, about.vue (doubles as Resume), blog/[slug].vue
+  assets/css/main.css Site design system
 content/              Markdown blog posts (only `blog*` published)
-components/           SiteHeader.vue, SiteFooter.vue, PostCard.vue
-pages/                index.vue, about.vue (doubles as Resume), blog/[slug].vue
 server/api/posts/     index.get.ts, [slug].get.ts — APIs that read posts
 server/utils/posts.ts Markdown parsing and post metadata
-assets/css/main.css   Site design system
 i18n/locales/         en.json, es.json
 nuxt.config.ts        Base URL, Nitro preset, head links, i18n config
 .github/workflows/    deploy.yml — static deploy to GitHub Pages
@@ -90,10 +92,10 @@ nuxt.config.ts        Base URL, Nitro preset, head links, i18n config
 
 ## Styling and dependencies
 
-- Nuxt 3 (`nuxt ^3.13.2`), Bootstrap 5.3.3 bundled via npm and loaded with `@import` as the first line of `assets/css/main.css` (must stay first so Bootstrap loads before custom rules).
-- Font Awesome 6.6.0 and Google Fonts (Fira Code) load via `<link>` in `nuxt.config.ts`.
+- Nuxt 4 (`nuxt ^4.5.2`), Bootstrap 5.3.8 bundled via npm and loaded with `@import` as the first line of `assets/css/main.css` (must stay first so Bootstrap loads before custom rules).
+- Font Awesome 6.7.2 and Google Fonts (Fira Code) load via `<link>` in `nuxt.config.ts`.
 - `assets/css/main.css` (~1300 lines) defines the theme tokens, layout, and responsive rules with WCAG AA contrast targets.
 
 ## Deployment
 
-Pushes to `main` (plus manual dispatch) trigger `.github/workflows/deploy.yml`: Node 20, `npm ci`, `npm run generate`, then upload `.output/public` and `deploy-pages`. The live site is `https://kamlesh1808.github.io/kamlesh1808/`.
+Pushes to `main` (plus manual dispatch) trigger `.github/workflows/deploy.yml`: Node 22, `npm ci`, `npm run typecheck`, `npm run generate`, then upload `.output/public` and `deploy-pages`. The live site is `https://kamlesh1808.github.io/kamlesh1808/`.
