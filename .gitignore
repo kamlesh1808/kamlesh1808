@@ -2,6 +2,7 @@ node_modules/
 .nuxt/
 /.opencode
 .data/
+dist
 dist/
 .output/
 /.idea/
