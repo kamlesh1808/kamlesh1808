@@ -561,12 +561,25 @@ a:hover {
 }
 
 .navbar-toggler {
-  border: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  color: var(--ink);
   font-size: 1.25rem;
+  line-height: 1;
 }
 
 .navbar-toggler:focus {
   box-shadow: none;
+}
+
+.navbar-toggler:focus-visible {
+  outline: 2px solid var(--accent-blue-focus);
+  outline-offset: 2px;
 }
 
 /* Footer */
@@ -1246,12 +1259,21 @@ a:visited {
     padding-top: .8rem;
   }
 
+  .navbar-collapse.show {
+    padding-bottom: .5rem;
+  }
+
   .navbar-nav {
     align-items: stretch !important;
     gap: .5rem;
   }
 
   .nav-link {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    min-height: 44px;
     padding: .375rem 1.5rem !important;
     text-align: center;
   }
@@ -1268,6 +1290,14 @@ a:visited {
 }
 
 @media (max-width: 575px) {
+  .navbar-nav {
+    gap: .75rem;
+  }
+
+  .navbar-collapse.show {
+    padding-bottom: .25rem;
+  }
+
   .hero {
     padding-top: 4.5rem;
   }
