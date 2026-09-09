@@ -9,7 +9,7 @@
                 <div class="profile-card">
                   <p class="mb-1 fw-semibold profile-name">Kamlesh Patel</p>
                   <p class="mb-3 profile-subtitle">Software Engineering</p>
-                            <p class="resume-contact mb-0"><a href="https://maps.google.com/?q=Greater+Toronto+Area,+Canada" target="_blank" rel="noreferrer">Greater Toronto Area, Canada</a> <span aria-hidden="true">·</span> <a href="mailto:kamlesh.patel18@gmail.com" aria-label="Email"><i class="fa-solid fa-envelope" aria-hidden="true"></i></a> <span aria-hidden="true">·</span> <a href="https://www.linkedin.com/in/kamlesh18/" target="_blank" rel="noreferrer" aria-label="LinkedIn"><i class="fa-brands fa-linkedin" aria-hidden="true"></i></a> <span aria-hidden="true">·</span> <a href="https://github.com/kamlesh1808" target="_blank" rel="noreferrer" aria-label="GitHub"><i class="fa-brands fa-github" aria-hidden="true"></i></a></p>
+                            <p class="resume-contact mb-0"><a href="https://maps.app.goo.gl/7Ljs1QJ5Kuqw4zFdA" target="_blank" rel="noreferrer">Mississauga</a>, Ontario, Canada <span aria-hidden="true">·</span> <a href="mailto:kamlesh.patel18@gmail.com" aria-label="Email"><i class="fa-solid fa-envelope" aria-hidden="true"></i></a> <span aria-hidden="true">·</span> <a href="https://www.linkedin.com/in/kamlesh18/" target="_blank" rel="noreferrer" aria-label="LinkedIn"><i class="fa-brands fa-linkedin" aria-hidden="true"></i></a> <span aria-hidden="true">·</span> <a href="https://github.com/kamlesh1808" target="_blank" rel="noreferrer" aria-label="GitHub"><i class="fa-brands fa-github" aria-hidden="true"></i></a></p>
 
                 </div>
               </div>
@@ -107,7 +107,7 @@
         <section class="mt-5">
           <h2>Education</h2>
           <div class="timeline-item">
-            <p>Software Engineering Diploma, 3 years — Toronto, ON, Canada</p>
+            <p>Software Engineering - <a href="https://www.senecapolytechnic.ca/programs/fulltime/CPA.html" target="_blank" rel="noreferrer" class="employer-link">CPA Diploma</a>, 3 years | Seneca Polytechnic | Toronto, ON, Canada</p>
           </div>
         </section>
 
