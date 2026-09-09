@@ -1,7 +1,9 @@
 {
   "nav": {
     "writing": "Escritura",
-    "about": "Acerca de"
+    "about": "Acerca de",
+    "toggle": "Abrir navegación",
+    "close": "Cerrar navegación"
   },
   "footer": {
     "copyright": "© {year} Kamlesh Patel."
