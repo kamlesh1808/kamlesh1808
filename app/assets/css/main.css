@@ -827,6 +827,13 @@ h3 {
   font-size: clamp(1.25rem, 2.5vw, 2.125rem) !important;
 }
 
+.article-body h1 {
+  font-size: clamp(1.25rem, 2.5vw, 2.125rem);
+  line-height: 1.15;
+  letter-spacing: -.02em;
+  margin: 0 0 1rem;
+}
+
 .article-lede {
   max-width: 650px;
   margin-top: 1.4rem;
