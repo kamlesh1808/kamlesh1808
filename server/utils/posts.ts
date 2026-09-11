@@ -10,6 +10,7 @@ export interface Post {
   tags: string[]
   readingTime: string
   html: string
+  disabled: boolean
 }
 
 const contentDir = join(process.cwd(), 'content')
@@ -24,6 +25,9 @@ function parsePost(filename: string, source: string): Post {
     return index > -1 ? [line.slice(0, index).trim(), line.slice(index + 1).trim().replace(/^['"]|['"]$/g, '')] : ['', '']
   }))
   const words = body.trim().split(/\s+/).filter(Boolean).length
+  const disabledKey = Object.keys(fields).find(key => key.toLowerCase() === 'disabled')
+  const disabledValue = (disabledKey ? (fields[disabledKey] ?? '') : '').trim().toLowerCase()
+  const disabled = disabledValue === 'true' || disabledValue === '1' || disabledValue === 'yes'
   return {
     slug: filename.replace(/\.md$/, ''),
     title: fields.title || filename.replace(/\.md$/, ''),
@@ -31,7 +35,8 @@ function parsePost(filename: string, source: string): Post {
     excerpt: fields.excerpt || '',
     tags: (fields.tags || '').replace(/[\[\]]/g, '').split(',').map(tag => tag.trim()).filter(Boolean),
     readingTime: fields.readingTime || `${Math.max(1, Math.ceil(words / 200))} min read`,
-    html: markdown.render(body)
+    html: markdown.render(body),
+    disabled
   }
 }
 
@@ -40,7 +45,7 @@ export async function getPosts() {
     const files = await fs.readdir(contentDir)
     const markdownFiles = files.filter(file => /^blog.*\.md$/i.test(file))
     const posts = await Promise.all(markdownFiles.map(async (file) => parsePost(file, await fs.readFile(join(contentDir, file), 'utf8'))))
-    return posts.sort((a, b) => b.date.localeCompare(a.date))
+    return posts.filter(post => !post.disabled).sort((a, b) => b.date.localeCompare(a.date))
   } catch (error: any) {
     if (error.code === 'ENOENT') return []
     throw error

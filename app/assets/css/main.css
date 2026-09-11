@@ -70,7 +70,7 @@
     --accent-blue-hover: #79c0ff;
     --accent-blue-focus: #58a6ff;
     --selection-bg: #1f6feb;
-    --nav-fg: #0d1117;
+    --nav-fg: #f0f6fc;
     --nav-active: #ffbe8a;
     --card: #161b22;
     --pre-bg: #010409;
@@ -159,28 +159,34 @@
     color: var(--on-dark);
   }
 
-  .nav-link {
+  .site-header .navbar-nav .nav-link {
     color: var(--nav-fg);
-    background: var(--orange);
-    border-color: var(--orange);
+    background: transparent;
+    border-color: transparent;
   }
 
-  .nav-link.active {
-    color: var(--nav-fg);
-    background: var(--nav-active);
-    border-color: var(--nav-active);
+  .site-header .navbar-nav .nav-link.active,
+  .site-header .navbar-nav .nav-link.router-link-active,
+  .site-header .navbar-nav .nav-link.router-link-exact-active {
+    color: var(--ink);
+    font-weight: 700;
+    background: transparent;
+    border-color: transparent;
+    text-decoration: underline;
+    text-underline-offset: 4px;
+    text-decoration-thickness: 2px;
   }
 
-  .nav-link:hover {
-    color: var(--paper);
-    background: var(--ink);
-    border-color: var(--ink);
+  .site-header .navbar-nav .nav-link:hover {
+    color: var(--link-hover);
+    background: transparent;
+    border-color: transparent;
   }
 
-  .nav-link:focus-visible {
-    color: var(--paper);
-    background: var(--ink);
-    border-color: var(--ink);
+  .site-header .navbar-nav .nav-link:focus-visible {
+    color: var(--accent-blue);
+    background: transparent;
+    border-color: transparent;
     outline: 2px solid var(--accent-blue-focus);
     outline-offset: 2px;
   }
@@ -324,13 +330,23 @@
     color: var(--on-dark);
   }
 
-  /* Brand link interactive states — maintain contrast + visible focus */
-  .navbar-brand:active,
-  .navbar-brand:focus {
+  /* Brand link interactive states — maintain contrast + visible focus.
+     `.site-header .navbar-brand:hover` (0,3,0) beats Bootstrap
+     `.navbar-brand:hover` (0,2,0) whose var stays light-mode black in dark mode. */
+  .site-header .navbar-brand:hover,
+  .site-header .navbar-brand:active,
+  .site-header .navbar-brand:focus,
+  .site-header .navbar-brand:visited {
     color: var(--ink);
   }
 
-  .navbar-brand:focus-visible {
+  .site-header .navbar-brand:hover {
+    text-decoration: underline;
+    text-underline-offset: 4px;
+  }
+
+  .site-header .navbar-brand:focus-visible {
+    color: var(--ink);
     outline: 2px solid var(--accent-blue-focus);
     outline-offset: 2px;
     border-radius: 4px;
@@ -414,13 +430,24 @@
     color: var(--on-dark);
   }
 
-  .navbar-brand:active,
-  .navbar-brand:focus {
+  /* Brand link interactive states (light) — same specificity fix as dark mode. */
+  .site-header .navbar-brand:hover,
+  .site-header .navbar-brand:active,
+  .site-header .navbar-brand:focus,
+  .site-header .navbar-brand:visited {
     color: var(--ink);
   }
 
-  .navbar-brand:focus-visible {
-    outline-color: var(--accent-blue-focus);
+  .site-header .navbar-brand:hover {
+    text-decoration: underline;
+    text-underline-offset: 4px;
+  }
+
+  .site-header .navbar-brand:focus-visible {
+    color: var(--ink);
+    outline: 2px solid var(--accent-blue-focus);
+    outline-offset: 2px;
+    border-radius: 4px;
   }
 }
 
@@ -506,6 +533,29 @@ a:hover {
   letter-spacing: -.02em;
 }
 
+/* Brand link stays visible in all states — `.site-header .navbar-brand:hover`
+   (0,3,0) beats Bootstrap `.navbar-brand:hover` (0,2,0) which would otherwise
+   resolve to light-mode emphasis color. Plain look: var(--ink) in both modes. */
+.site-header .navbar-brand,
+.site-header .navbar-brand:visited {
+  color: var(--ink);
+}
+
+.site-header .navbar-brand:hover,
+.site-header .navbar-brand:active,
+.site-header .navbar-brand:focus {
+  color: var(--ink);
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}
+
+.site-header .navbar-brand:focus-visible {
+  color: var(--ink);
+  outline: 2px solid var(--accent-blue-focus);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
 .brand-mark {
   display: inline-grid;
   place-items: center;
@@ -527,37 +577,65 @@ a:hover {
   object-fit: cover;
 }
 
-.nav-link {
+/* Header nav — specificity beats Bootstrap `.navbar-nav .nav-link.active` (0,3,0).
+   `.site-header .navbar-nav .nav-link[.active]` is (0,3,0)/(0,4,0), so no !important needed.
+   Bootstrap var overrides keep fallback colors correct even if vars leak through. */
+.site-header {
+  --bs-navbar-color: var(--nav-fg);
+  --bs-navbar-hover-color: var(--link-hover);
+  --bs-navbar-active-color: var(--ink);
+  --bs-nav-link-color: var(--nav-fg);
+  --bs-nav-link-hover-color: var(--link-hover);
+}
+
+.site-header .navbar-nav .nav-link {
   color: var(--nav-fg);
   font-weight: 600;
-  padding: .375rem 1.5rem !important;
-  background: var(--orange);
-  border: 1px solid var(--orange);
-  border-radius: 50rem;
-  transition: color .2s, background .2s, border-color .2s;
+  padding: .5rem .25rem !important;
+  background: transparent;
+  border: none;
+  border-radius: 0;
+  text-decoration: none;
+  transition: color .2s;
 }
 
-.nav-link.active {
-  color: var(--nav-fg);
+.site-header .navbar-nav .nav-link.active,
+.site-header .navbar-nav .nav-link.router-link-active,
+.site-header .navbar-nav .nav-link.router-link-exact-active {
+  color: var(--ink);
   font-weight: 700;
-  background: var(--nav-active);
-  border-color: var(--nav-active);
-  border-radius: 50rem;
+  background: transparent;
+  border: none;
+  border-radius: 0;
+  text-decoration: underline;
+  text-underline-offset: 4px;
+  text-decoration-thickness: 2px;
 }
 
-.nav-link:hover {
-  color: var(--paper);
-  background: var(--ink);
-  border-color: var(--ink);
-  border-radius: 50rem;
+.site-header .navbar-nav .nav-link:hover {
+  color: var(--link-hover);
+  background: transparent;
+  border: none;
+  border-radius: 0;
+  text-decoration: underline;
+  text-underline-offset: 4px;
 }
 
-.nav-link:focus-visible {
-  color: var(--paper);
-  background: var(--ink);
-  border-color: var(--ink);
+.site-header .navbar-nav .nav-link:focus-visible {
+  color: var(--accent-blue);
+  background: transparent;
+  border: none;
   outline: 2px solid var(--accent-blue-focus);
   outline-offset: 2px;
+}
+
+.site-header .navbar-collapse {
+  justify-content: center;
+}
+
+.site-header .navbar-nav {
+  justify-content: center;
+  text-align: center;
 }
 
 .navbar-toggler {
@@ -825,6 +903,13 @@ h3 {
 
 .article-header h1 {
   font-size: clamp(1.25rem, 2.5vw, 2.125rem) !important;
+}
+
+.article-body h1 {
+  font-size: clamp(1.25rem, 2.5vw, 2.125rem);
+  line-height: 1.15;
+  letter-spacing: -.02em;
+  margin: 0 0 1rem;
 }
 
 .article-lede {
@@ -1255,26 +1340,27 @@ a:visited {
 
 /* All @media (max-width) queries grouped together */
 @media (max-width: 991px) {
-  .navbar-collapse {
+  .site-header .navbar-collapse {
     padding-top: .8rem;
   }
 
-  .navbar-collapse.show {
+  .site-header .navbar-collapse.show {
     padding-bottom: .5rem;
   }
 
-  .navbar-nav {
-    align-items: stretch !important;
+  .site-header .navbar-nav {
+    align-items: center !important;
     gap: .5rem;
+    text-align: center;
   }
 
-  .nav-link {
-    display: flex;
+  .site-header .navbar-nav .nav-link {
+    display: inline-flex;
     justify-content: center;
     align-items: center;
-    width: 100%;
-    min-height: 44px;
-    padding: .375rem 1.5rem !important;
+    width: auto;
+    min-height: 0;
+    padding: .5rem .25rem !important;
     text-align: center;
   }
 
@@ -1290,11 +1376,11 @@ a:visited {
 }
 
 @media (max-width: 575px) {
-  .navbar-nav {
+  .site-header .navbar-nav {
     gap: .75rem;
   }
 
-  .navbar-collapse.show {
+  .site-header .navbar-collapse.show {
     padding-bottom: .25rem;
   }
 
