@@ -3,6 +3,7 @@ title: "How I Write Simple Teaching Blogs"
 date: 2026-09-10
 excerpt: My blog-writer.md system for simple teaching posts with code and gratitude
 tags: [Writing, Blogging, OpenCode]
+disabled: true
 ---
 
 **Good tech writing** takes three things: simple words, working code, and a thankful close. I keep all three in a file called `blog-writer.md`.

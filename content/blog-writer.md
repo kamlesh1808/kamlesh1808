@@ -1,3 +1,7 @@
+---
+disabled: true
+---
+
 # Blog Writer Guide — kamlesh1808
 
 How to write every post on this blog. Follow this. No exceptions.
