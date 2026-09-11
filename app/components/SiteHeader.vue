@@ -38,9 +38,9 @@ onBeforeUnmount(() => window.removeEventListener('keydown', onKeydown))
         <i :class="open ? 'fa-solid fa-xmark' : 'fa-solid fa-bars'" aria-hidden="true" />
       </button>
       <div id="main-nav-collapse" class="collapse navbar-collapse" :class="{ show: open }">
-        <ul class="navbar-nav ms-auto align-items-lg-center gap-lg-2">
+        <ul class="navbar-nav mx-auto align-items-lg-center gap-lg-2">
           <li v-for="link in links" :key="link.to" class="nav-item">
-            <NuxtLink class="nav-link" :class="{ active: route.path === link.to }" :to="link.to" @click="closeMenu">{{ link.label }}</NuxtLink>
+            <NuxtLink class="nav-link" active-class="active" exact-active-class="active" :to="link.to" @click="closeMenu">{{ link.label }}</NuxtLink>
           </li>
         </ul>
       </div>
