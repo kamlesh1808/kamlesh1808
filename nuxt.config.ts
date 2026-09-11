@@ -17,8 +17,8 @@ export default defineNuxtConfig({
         { rel: 'stylesheet', href: 'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css' }
       ]
     },
-    // Replace with your exact GitHub repository name, keeping the slashes
-    baseURL: '/kamlesh1808/'
+    // Serve from the site root
+    baseURL: '/'
   },
   nitro: {
     preset: 'github-pages'

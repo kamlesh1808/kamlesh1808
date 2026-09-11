@@ -11,7 +11,7 @@ npm install
 npm run dev
 ```
 
-Open `http://localhost:3000/kamlesh1808/` — the app serves from the `/kamlesh1808/` base path (`app.baseURL` in `nuxt.config.ts`).
+Open `http://localhost:3000/` — the app serves from the site root (`app.baseURL` in `nuxt.config.ts`).
 
 ### View it on a phone or iPad
 
@@ -21,7 +21,7 @@ To make the development server available to other devices on your local network,
 npm run dev -- --host 0.0.0.0
 ```
 
-Nuxt will print a **Network** URL. Append `/kamlesh1808/` to it and open that URL on your phone or iPad while it is connected to the same Wi-Fi network. If it does not load, check that your computer firewall permits local-network connections to the port Nuxt displays.
+Nuxt will print a **Network** URL. Open that URL on your phone or iPad while it is connected to the same Wi-Fi network — the app is served at root, no suffix needed. If it does not load, check that your computer firewall permits local-network connections to the port Nuxt displays.
 
 ## Production and static build
 
@@ -37,7 +37,7 @@ This writes the static site to `.output/public` (git-ignored). Preview the built
 npm run preview
 ```
 
-`nuxt.config.ts` sets the `github-pages` Nitro preset and the `/kamlesh1808/` base URL, so `npm run build` alone is not the deploy path — always use `generate` for production output.
+`nuxt.config.ts` sets the `github-pages` Nitro preset and the `/` base URL, so `npm run build` alone is not the deploy path — always use `generate` for production output.
 
 ## Write a blog post
 
@@ -98,4 +98,4 @@ nuxt.config.ts        Base URL, Nitro preset, head links, i18n config
 
 ## Deployment
 
-Pushes to `main` (plus manual dispatch) trigger `.github/workflows/deploy.yml`: Node 22, `npm ci`, `npm run typecheck`, `npm run generate`, then upload `.output/public` and `deploy-pages`. The live site is `https://kamlesh1808.github.io/kamlesh1808/`.
+Pushes to `main` (plus manual dispatch) trigger `.github/workflows/deploy.yml`: Node 22, `npm ci`, `npm run typecheck`, `npm run generate`, then upload `.output/public` and `deploy-pages`. The live site is `https://kamlesh1808.github.io/`.
