@@ -1,3 +1,5 @@
+const baseURL = process.env.NUXT_APP_BASE_URL ?? (process.dev ? '/' : '/kamlesh1808/')
+
 export default defineNuxtConfig({
   compatibilityDate: '2026-09-07',
   devtools: { enabled: true },
@@ -17,8 +19,7 @@ export default defineNuxtConfig({
         { rel: 'stylesheet', href: 'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css' }
       ]
     },
-    // Replace with your exact GitHub repository name, keeping the slashes
-    baseURL: '/kamlesh1808/'
+    baseURL,
   },
   nitro: {
     preset: 'github-pages'

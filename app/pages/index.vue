@@ -4,11 +4,13 @@ const { data: posts } = await useFetch('/api/posts')
 </script>
 
 <template>
-  <section class="hero">
+  <section class="hero home-hero">
     <div class="container">
       <p class="eyebrow">HELLO, I’M KAMLESH</p>
-      <h1 class="hero-title">Building; one commit at a time</h1>
-      <p class="hero-copy"><img src="https://github.com/kamlesh1808.png" alt="Kamlesh Patel" class="hero-avatar"></p>
+      <div class="hero-identity">
+        <img src="https://github.com/kamlesh1808.png" alt="Kamlesh Patel" class="hero-avatar">
+        <h1 class="hero-title">Building; one commit at a time</h1>
+      </div>
       <a class="btn btn-dark rounded-pill px-4 py-2" href="#posts">Explore the writing <i class="fa-solid fa-arrow-down ms-2" /></a>
     </div>
   </section>

@@ -2,7 +2,7 @@
 title: "Using Claude Code, OpenCode, and Codex — Why They Stick"
 date: 2026-09-04
 excerpt: How Claude Code, OpenCode, and Codex accelerate software engineering workflows
-tags: [AI, Tooling, Productivity]
+tags: [AI, Tooling]
 ---
 
 Shipping high-quality software at speed demands tooling that preserves momentum and stays in context. Using AI agents as true pair programmers is the why: engineering intent stays focused on architecture and product outcomes while tedious diffs, repetitive refactors, and boilerplate are delegated to agents that understand the codebase, maintain context across files, and execute changes reliably.

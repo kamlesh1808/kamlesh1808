@@ -2,7 +2,7 @@
 title: "How I Write Simple Teaching Blogs"
 date: 2026-09-10
 excerpt: My blog-writer.md system for simple teaching posts with code and gratitude
-tags: [Writing, Blogging, OpenCode]
+tags: [Writing, OpenCode]
 disabled: true
 ---
 

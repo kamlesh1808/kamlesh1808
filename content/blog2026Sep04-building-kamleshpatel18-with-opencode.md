@@ -2,7 +2,7 @@
 title: Building kamlesh18dev with OpenCode
 date: 2026-09-04
 excerpt: Building a portfolio with Nuxt and OpenCode
-tags: [Nuxt, OpenCode, Portfolio, Design]
+tags: [Nuxt, OpenCode]
 ---
 
 **kamlesh18dev** is a portfolio that feels like a termina.  Built with [OpenCode](https://opencode.ai) as a pair programmer, iteration was faster and more focused than a solo build.

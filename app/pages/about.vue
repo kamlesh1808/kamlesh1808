@@ -1,6 +1,41 @@
-<script setup lang="ts">useHead({ title: 'About' })</script>
+<script setup lang="ts">
+import skillsToml from '~/data/skill-links.toml?raw'
+
+useHead({ title: 'About' })
+
+function parseSkillLinks(toml: string): Record<string, string> {
+  const links: Record<string, string> = {}
+  for (const line of toml.split(/\r?\n/)) {
+    const trimmed = line.trim()
+    if (!trimmed || trimmed.startsWith('#') || trimmed.startsWith('[')) {
+      continue
+    }
+    const eq = trimmed.indexOf('=')
+    if (eq < 0) {
+      continue
+    }
+    const rawKey = trimmed.slice(0, eq).trim()
+    const rawValue = trimmed.slice(eq + 1).trim()
+    if (!rawKey.startsWith('"') || !rawKey.endsWith('"') || !rawValue.startsWith('"') || !rawValue.endsWith('"')) {
+      continue
+    }
+    const skill = rawKey.slice(1, -1).trim()
+    const url = rawValue.slice(1, -1).trim()
+    if (skill && url) {
+      links[skill] = url
+    }
+  }
+  return links
+}
+
+const skillLinks: Record<string, string> = parseSkillLinks(skillsToml)
+
+function skillUrl(name: string): string | null {
+  return skillLinks[name] ?? null
+}
+</script>
 <template>
-  <section class="container page-shell resume">
+  <section class="container page-shell resume about-shell">
 
     <div class="row g-5">
       <div class="col-12">
@@ -26,12 +61,12 @@
 
         <div class="mb-4">
           <p class="fw-semibold mb-2">Top Skills</p>
-          <span class="badge bg-secondary text-wrap me-1 mb-1">Java</span>
-          <span class="badge bg-secondary text-wrap me-1 mb-1">Kotlin</span>
-          <span class="badge bg-secondary text-wrap me-1 mb-1">Microservices</span>
-          <span class="badge bg-secondary text-wrap me-1 mb-1">Spring Boot</span>
-          <span class="badge bg-secondary text-wrap me-1 mb-1">Jakarta EE</span>
-          <span class="badge bg-secondary text-wrap me-1 mb-1">Google Cloud Platform</span>
+          <a :href="skillUrl('Java')!" target="_blank" rel="noopener noreferrer"><span class="badge bg-secondary text-wrap me-1 mb-1">Java</span></a>
+          <a :href="skillUrl('Kotlin')!" target="_blank" rel="noopener noreferrer"><span class="badge bg-secondary text-wrap me-1 mb-1">Kotlin</span></a>
+          <a :href="skillUrl('Microservices')!" target="_blank" rel="noopener noreferrer"><span class="badge bg-secondary text-wrap me-1 mb-1">Microservices</span></a>
+          <a :href="skillUrl('Spring Boot')!" target="_blank" rel="noopener noreferrer"><span class="badge bg-secondary text-wrap me-1 mb-1">Spring Boot</span></a>
+          <a :href="skillUrl('Jakarta EE')!" target="_blank" rel="noopener noreferrer"><span class="badge bg-secondary text-wrap me-1 mb-1">Jakarta EE</span></a>
+          <a :href="skillUrl('Google Cloud Platform')!" target="_blank" rel="noopener noreferrer"><span class="badge bg-secondary text-wrap me-1 mb-1">Google Cloud Platform</span></a>
           <span class="badge bg-secondary text-wrap me-1 mb-1">SQL</span>
         </div>
 
@@ -49,7 +84,7 @@
           <div class="timeline-item">
             <p class="timeline-date">Mar 2026 – Present</p>
             <h3><a href="https://www.salesforce.com" target="_blank" rel="noreferrer" class="employer-link">Salesforce</a></h3>
-            <p>Software Engineering SMTS — Greater Toronto Area, Canada</p>
+            <p>Software Engineering SMTS — Mississauga, ON, Canada</p>
             <ul>
               <li>Building Informatica Cloud Application Integration for 1000+ enterprise customers</li>
               <li>Java, Spring Boot, Microservices, Gradle, AI, Codex, Open Code, Claude Code</li>
@@ -59,7 +94,7 @@
           <div class="timeline-item">
             <p class="timeline-date">Dec 2021 – Mar 2026</p>
             <h3><a href="https://www.priceline.com" target="_blank" rel="noreferrer" class="employer-link">Priceline</a></h3>
-            <p>Senior Software Developer — Greater Toronto Area, Canada</p>
+            <p>Senior Software Developer — Mississauga, ON, Canada</p>
             <ul>
               <li>Priceline is a global online travel agency offering hotel, flight, and car booking with over $1.5 billion ARR.</li>
               <li>Hotels Engineering | 90+ Engineers | I plan, design, build, test, document, support</li>
@@ -79,7 +114,7 @@
           <div class="timeline-item">
             <p class="timeline-date">Nov 2020 – Dec 2021</p>
             <h3><a href="https://www.omers.com" target="_blank" rel="noreferrer" class="employer-link">OMERS</a></h3>
-            <p>Senior Software Engineer — Greater Toronto Area, Canada (Remote)</p>
+            <p>Senior Software Engineer — Mississauga, ON, Canada (Remote)</p>
             <ul>
               <li>OMERS manages over $100 billion in assets, offering a defined-benefit pension Retirement Plan</li>
               <li>Design, code, and document the new Ontario Municipal Employee Pension Retirement System</li>
@@ -130,8 +165,8 @@
                 <tr>
                   <th scope="row">Languages</th>
                   <td>
-                    <span class="tag tag-large me-1 mb-1" title="Core skill — primary language in Salesforce (SMTS) & Priceline">Java</span>
-                    <span class="tag tag-large me-1 mb-1" title="Core skill — Kotlin / Spring Boot 3 microservices (Gamification, Hotel Similarity)">Kotlin</span>
+                    <a :href="skillUrl('Java')!" target="_blank" rel="noopener noreferrer"><span class="tag tag-large me-1 mb-1" title="Core skill — primary language in Salesforce (SMTS) & Priceline">Java</span></a>
+                    <a :href="skillUrl('Kotlin')!" target="_blank" rel="noopener noreferrer"><span class="tag tag-large me-1 mb-1" title="Core skill — Kotlin / Spring Boot 3 microservices (Gamification, Hotel Similarity)">Kotlin</span></a>
                     <span class="tag tag-large me-1 mb-1">SQL</span>
                   </td>
                 </tr>
@@ -139,60 +174,68 @@
                   <th scope="row">AI / ML</th>
                   <td>
 
-<span class="tag  me-1 mb-1">Codex</span>
-<span class="tag  me-1 mb-1">Open Code</span>
-                    <span class="tag  me-1 mb-1">Claude Code</span>
+                    <a :href="skillUrl('Codex')!" target="_blank" rel="noopener noreferrer"><span class="tag  me-1 mb-1">Codex</span></a>
+                    <a :href="skillUrl('Open Code')!" target="_blank" rel="noopener noreferrer"><span class="tag  me-1 mb-1">Open Code</span></a>
+                    <a :href="skillUrl('Claude Code')!" target="_blank" rel="noopener noreferrer"><span class="tag  me-1 mb-1">Claude Code</span></a>
 
                   </td>
                 </tr>
                 <tr>
                   <th scope="row">Frameworks</th>
                   <td>
-                    <span class="tag tag-large me-1 mb-1" title="Core skill — Spring Boot microservices (GKE, Hotel Similarity, Gamification)">Spring Boot</span>
-                    <span class="tag me-1 mb-1">Spring Framework</span>
-                    <span class="tag me-1 mb-1">Spring AI</span>
-                    <span class="tag tag-large me-1 mb-1">Jakarta EE</span>
-                    <span class="tag tag-large me-1 mb-1" title="Core skill — Microservices architecture (Gamification, Hotel Similarity)">Microservices</span>
+                    <a :href="skillUrl('Spring Boot')!" target="_blank" rel="noopener noreferrer"><span class="tag tag-large me-1 mb-1" title="Core skill — Spring Boot microservices (GKE, Hotel Similarity, Gamification)">Spring Boot</span></a>
+                    <a :href="skillUrl('Spring Framework')!" target="_blank" rel="noopener noreferrer"><span class="tag me-1 mb-1">Spring Framework</span></a>
+                    <a :href="skillUrl('Spring AI')!" target="_blank" rel="noopener noreferrer"><span class="tag me-1 mb-1">Spring AI</span></a>
+                    <a :href="skillUrl('Jakarta EE')!" target="_blank" rel="noopener noreferrer"><span class="tag tag-large me-1 mb-1">Jakarta EE</span></a>
+                    <a :href="skillUrl('Microservices')!" target="_blank" rel="noopener noreferrer"><span class="tag tag-large me-1 mb-1" title="Core skill — Microservices architecture (Gamification, Hotel Similarity)">Microservices</span></a>
                   </td>
                 </tr>
                 <tr>
                   <th scope="row">Cloud Platforms</th>
                   <td>
-                    <span class="tag tag-large me-1 mb-1" title="Core skill — GCP AlloyDB, GKE, DataStore at Priceline & Salesforce">Google Cloud Platform</span>
-                    <span class="tag me-1 mb-1" title="Core skill — Kafka for persistent logging microservice & eventing">Kafka</span>
-                    <span class="tag me-1 mb-1">Digital Ocean</span>
+                    <a :href="skillUrl('Google Cloud Platform')!" target="_blank" rel="noopener noreferrer"><span class="tag tag-large me-1 mb-1" title="Core skill — GCP AlloyDB, GKE, DataStore at Priceline & Salesforce">Google Cloud Platform</span></a>
+                    <a :href="skillUrl('Kafka')!" target="_blank" rel="noopener noreferrer"><span class="tag me-1 mb-1" title="Core skill — Kafka for persistent logging microservice & eventing">Kafka</span></a>
+                    <a :href="skillUrl('Digital Ocean')!" target="_blank" rel="noopener noreferrer"><span class="tag me-1 mb-1">Digital Ocean</span></a>
+                  </td>
+                </tr>
+                <tr>
+                  <th scope="row">Databases</th>
+                  <td>
+                    <a :href="skillUrl('PostgreSQL')!" target="_blank" rel="noopener noreferrer"><span class="tag me-1 mb-1">PostgreSQL</span></a>
+                    <a :href="skillUrl('AlloyDB')!" target="_blank" rel="noopener noreferrer"><span class="tag me-1 mb-1">AlloyDB</span></a>
+                    <a :href="skillUrl('CloudSQL')!" target="_blank" rel="noopener noreferrer"><span class="tag me-1 mb-1">CloudSQL</span></a>
                   </td>
                 </tr>
                 <tr>
                   <th scope="row">DevOps</th>
                   <td>
-                    <span class="tag me-1 mb-1">Git</span>
-                    <span class="tag me-1 mb-1" title="Core skill — GitHub at Salesforce & Priceline">GitHub</span>
-                    <span class="tag me-1 mb-1">GitLab</span>
-                    <span class="tag me-1 mb-1">Maven</span>
-                    <span class="tag me-1 mb-1" title="Core skill — Gradle build (Salesforce, Gamification service)">Gradle</span>
-                    <span class="tag me-1 mb-1" title="Core skill — Docker & container workflows">Docker</span>
-                    <span class="tag me-1 mb-1" title="Core skill — Kubernetes / GKE (AlloyDB Auth Proxy sidecar)">Kubernetes</span>
-                    <span class="tag me-1 mb-1" title="Core skill — Splunk dashboards & alerts (Priceline)">Splunk</span>
-                    <span class="tag me-1 mb-1" title="Core skill — New Relic dashboards (Priceline)">New Relic</span>
+                    <a :href="skillUrl('Git')!" target="_blank" rel="noopener noreferrer"><span class="tag me-1 mb-1">Git</span></a>
+                    <a :href="skillUrl('GitHub')!" target="_blank" rel="noopener noreferrer"><span class="tag me-1 mb-1" title="Core skill — GitHub at Salesforce & Priceline">GitHub</span></a>
+                    <a :href="skillUrl('GitLab')!" target="_blank" rel="noopener noreferrer"><span class="tag me-1 mb-1">GitLab</span></a>
+                    <a :href="skillUrl('Maven')!" target="_blank" rel="noopener noreferrer"><span class="tag me-1 mb-1">Maven</span></a>
+                    <a :href="skillUrl('Gradle')!" target="_blank" rel="noopener noreferrer"><span class="tag me-1 mb-1" title="Core skill — Gradle build (Salesforce, Gamification service)">Gradle</span></a>
+                    <a :href="skillUrl('Docker')!" target="_blank" rel="noopener noreferrer"><span class="tag me-1 mb-1" title="Core skill — Docker & container workflows">Docker</span></a>
+                    <a :href="skillUrl('Kubernetes')!" target="_blank" rel="noopener noreferrer"><span class="tag me-1 mb-1" title="Core skill — Kubernetes / GKE (AlloyDB Auth Proxy sidecar)">Kubernetes</span></a>
+                    <a :href="skillUrl('Splunk')!" target="_blank" rel="noopener noreferrer"><span class="tag me-1 mb-1" title="Core skill — Splunk dashboards & alerts (Priceline)">Splunk</span></a>
+                    <a :href="skillUrl('New Relic')!" target="_blank" rel="noopener noreferrer"><span class="tag me-1 mb-1" title="Core skill — New Relic dashboards (Priceline)">New Relic</span></a>
                   </td>
                 </tr>
                 <tr>
                   <th scope="row">Front-End Tech</th>
                   <td>
-                    <span class="tag me-1 mb-1">HTML</span>
-                    <span class="tag me-1 mb-1">CSS</span>
-                    <span class="tag me-1 mb-1">Bootstrap</span>
-                    <span class="tag me-1 mb-1">Thymeleaf</span>
+                    <a :href="skillUrl('HTML')!" target="_blank" rel="noopener noreferrer"><span class="tag me-1 mb-1">HTML</span></a>
+                    <a :href="skillUrl('CSS')!" target="_blank" rel="noopener noreferrer"><span class="tag me-1 mb-1">CSS</span></a>
+                    <a :href="skillUrl('Bootstrap')!" target="_blank" rel="noopener noreferrer"><span class="tag me-1 mb-1">Bootstrap</span></a>
+                    <a :href="skillUrl('Thymeleaf')!" target="_blank" rel="noopener noreferrer"><span class="tag me-1 mb-1">Thymeleaf</span></a>
                   </td>
                 </tr>
                 <tr>
                   <th scope="row">Operating Systems</th>
                   <td>
-                    <span class="tag me-1 mb-1">Mac OS</span>
-                    <span class="tag me-1 mb-1">Ubuntu Linux</span>
-                    <span class="tag me-1 mb-1">Linux Mint</span>
-                    <span class="tag me-1 mb-1">Windows 11</span>
+                    <a :href="skillUrl('Mac OS')!" target="_blank" rel="noopener noreferrer"><span class="tag me-1 mb-1">Mac OS</span></a>
+                    <a :href="skillUrl('Ubuntu Linux')!" target="_blank" rel="noopener noreferrer"><span class="tag me-1 mb-1">Ubuntu Linux</span></a>
+                    <a :href="skillUrl('Linux Mint')!" target="_blank" rel="noopener noreferrer"><span class="tag me-1 mb-1">Linux Mint</span></a>
+                    <a :href="skillUrl('Windows 11')!" target="_blank" rel="noopener noreferrer"><span class="tag me-1 mb-1">Windows 11</span></a>
                   </td>
                 </tr>
               </tbody>
