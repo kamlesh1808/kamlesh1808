@@ -1,0 +1,26 @@
+[profile]
+name = "Kamlesh Patel"
+subtitle = "Software Engineering"
+
+[contact]
+location = "Mississauga"
+location_url = "https://maps.app.goo.gl/7Ljs1QJ5Kuqw4zFdA"
+region = "Ontario, Canada"
+
+[[contact.links]]
+url = "mailto:kamlesh.patel18@gmail.com"
+aria_label = "Email"
+icon_class = "fa-solid fa-envelope"
+external = false
+
+[[contact.links]]
+url = "https://www.linkedin.com/in/kamlesh18/"
+aria_label = "LinkedIn"
+icon_class = "fa-brands fa-linkedin"
+external = true
+
+[[contact.links]]
+url = "https://github.com/kamlesh1808"
+aria_label = "GitHub"
+icon_class = "fa-brands fa-github"
+external = true

@@ -6,11 +6,11 @@
     "build": "nuxt build",
     "generate": "nuxt generate",
     "preview": "nuxt preview",
+    "test": "node --test --experimental-strip-types \"tests/**/*.test.ts\"",
     "postinstall": "nuxt prepare",
     "typecheck": "nuxt typecheck"
   },
   "dependencies": {
-    "@nuxtjs/i18n": "^10.6.0",
     "bootstrap": "^5.3.8",
     "markdown-it": "^15.0.1",
     "nuxt": "^4.5.2"

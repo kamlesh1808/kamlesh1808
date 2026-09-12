@@ -1,0 +1,56 @@
+[[experience]]
+date = "Mar 2026 – Present"
+employer = "Salesforce"
+employer_url = "https://www.salesforce.com"
+role = "Software Engineering SMTS — Mississauga, ON, Canada"
+bullets = [
+  "Building Informatica Cloud Application Integration for 1000+ enterprise customers",
+  "Java, Spring Boot, Microservices, Gradle, AI, Codex, Open Code, Claude Code"
+]
+
+[[experience]]
+date = "Dec 2021 – Mar 2026"
+employer = "Priceline"
+employer_url = "https://www.priceline.com"
+role = "Senior Software Developer — Mississauga, ON, Canada"
+bullets = [
+  "Priceline is a global online travel agency offering hotel, flight, and car booking with over $1.5 billion ARR.",
+  "Hotels Engineering | 90+ Engineers | I plan, design, build, test, document, support",
+  "Lead Engineer of prod-2-qa Hotel Reference Data Sync project, impact Hotels team",
+  "Led Product Backlog Refinements with a Business stakeholder, FE and BE Developers",
+  "Built GCP AlloyDB Auth Proxy sidecar & pipeline integration for all developers building Spring Boot GKE Apps",
+  "Advocated for change through persuasive communication and documentation, leading to the implementation of a cost-effective and architecturally simpler UI",
+  "Increased business self-sufficiency - Built Backend business processes and REST APIs for the Self-service Hotel Similarity App, working with the front-end developer",
+  "Augmented Client support by creating Splunk and New Relic Dashboard, Slack alerts",
+  "Participated and provided feedback to early adopters of Codeium AI and CodeFresh GitOps deployment that resulted in successful implementation",
+  "Automated auto-inserts and auto-links process 100+ BOOKING and AGODA hotels every day",
+  "Simplification of Architecture - Reverse-engineered Occupancy Rates mapping from two microservices to a new single microservice for the Hotel Cache team",
+  "Built Room Rates Percentage Distributor algorithm in collaboration with the business team"
+]
+
+[[experience]]
+date = "Nov 2020 – Dec 2021"
+employer = "OMERS"
+employer_url = "https://www.omers.com"
+role = "Senior Software Engineer — Mississauga, ON, Canada (Remote)"
+bullets = [
+  "OMERS manages over $100 billion in assets, offering a defined-benefit pension Retirement Plan",
+  "Design, code, and document the new Ontario Municipal Employee Pension Retirement System",
+  "A key contributor to the Pension Calculation team with Spring Boot microservices development of both business and technical stories, software engineering processes, and best practices",
+  "Pension Calculations using Strategy (policy) design pattern",
+  "REST API Request and Response logging to Persistent Logging microservice using AspectJ, Kafka, and GCP DataStore to replay Pension calculations",
+  "Improved the product by identifying technical debt stories for the upcoming Sprints",
+  "Led PROD release management for a Sprint, creating git tags, deployments, QA fixes, and coordinating with other scrum teams",
+  "Design and code PII — personal identifiable information logs masking solution — Separation Go Live",
+  "Tech: Java 11, Spring Boot 2, Google Cloud Platform, Microservices, Kubernetes, Scrum, Docker, Gradle, GitLab, Postman, PostgreSQL, Oracle, IntelliJ, JIRA, Confluence, Mac OS"
+]
+
+[[experience]]
+date = "Mar 2015 – Jul 2021"
+employer = "myStory — Personal Project"
+role = "Founder & Principal Software Engineer"
+project_prefix = "mystory.work | myStory Blog Application |"
+project_url = "https://github.com/kamlesh1808/mystory"
+bullets = [
+  "An online platform to enable like-minded people to share and discuss stories to support each other."
+]

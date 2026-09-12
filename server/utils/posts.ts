@@ -1,6 +1,7 @@
 import { promises as fs } from 'node:fs'
 import { join } from 'node:path'
 import MarkdownIt from 'markdown-it'
+import { frontmatterBoolean, frontmatterString, frontmatterStringArray, parseFrontmatter } from './frontmatter'
 
 export interface Post {
   slug: string
@@ -13,41 +14,45 @@ export interface Post {
   disabled: boolean
 }
 
+export type PostSummary = Omit<Post, 'html'>
+
 const contentDir = join(process.cwd(), 'content')
 const markdown = new MarkdownIt({ html: false, linkify: true, typographer: true })
+let productionPostsCache: Post[] | undefined
 
 function parsePost(filename: string, source: string): Post {
-  const match = source.match(/^---\s*\n([\s\S]*?)\n---\s*\n?([\s\S]*)$/)
-  const frontmatter = match?.[1] || ''
-  const body = match?.[2] || source
-  const fields = Object.fromEntries(frontmatter.split('\n').map((line) => {
-    const index = line.indexOf(':')
-    return index > -1 ? [line.slice(0, index).trim(), line.slice(index + 1).trim().replace(/^['"]|['"]$/g, '')] : ['', '']
-  }))
+  const { fields, body } = parseFrontmatter(source)
   const words = body.trim().split(/\s+/).filter(Boolean).length
-  const disabledKey = Object.keys(fields).find(key => key.toLowerCase() === 'disabled')
-  const disabledValue = (disabledKey ? (fields[disabledKey] ?? '') : '').trim().toLowerCase()
-  const disabled = disabledValue === 'true' || disabledValue === '1' || disabledValue === 'yes'
+  const title = frontmatterString(fields, 'title')
+  const date = frontmatterString(fields, 'date')
+  const excerpt = frontmatterString(fields, 'excerpt')
+  const readingTime = frontmatterString(fields, 'readingTime')
   return {
     slug: filename.replace(/\.md$/, ''),
-    title: fields.title || filename.replace(/\.md$/, ''),
-    date: fields.date || '2026-01-01',
-    excerpt: fields.excerpt || '',
-    tags: (fields.tags || '').replace(/[\[\]]/g, '').split(',').map(tag => tag.trim()).filter(Boolean),
-    readingTime: fields.readingTime || `${Math.max(1, Math.ceil(words / 200))} min read`,
+    title: title || filename.replace(/\.md$/, ''),
+    date: date || '2026-01-01',
+    excerpt: excerpt || '',
+    tags: frontmatterStringArray(fields, 'tags'),
+    readingTime: readingTime || `${Math.max(1, Math.ceil(words / 200))} min read`,
     html: markdown.render(body),
-    disabled
+    disabled: frontmatterBoolean(fields, 'disabled'),
   }
 }
 
-export async function getPosts() {
+export async function getPosts(): Promise<Post[]> {
+  if (process.env.NODE_ENV === 'production' && productionPostsCache) return productionPostsCache
+
+  let files: string[]
   try {
-    const files = await fs.readdir(contentDir)
-    const markdownFiles = files.filter(file => /^blog.*\.md$/i.test(file))
-    const posts = await Promise.all(markdownFiles.map(async (file) => parsePost(file, await fs.readFile(join(contentDir, file), 'utf8'))))
-    return posts.filter(post => !post.disabled).sort((a, b) => b.date.localeCompare(a.date))
-  } catch (error: any) {
-    if (error.code === 'ENOENT') return []
+    files = await fs.readdir(contentDir)
+  } catch (error: unknown) {
+    if (error instanceof Error && 'code' in error && error.code === 'ENOENT') return []
     throw error
   }
+
+  const markdownFiles = files.filter(file => /^blog.*\.md$/i.test(file))
+  const posts = await Promise.all(markdownFiles.map(async (file) => parsePost(file, await fs.readFile(join(contentDir, file), 'utf8'))))
+  const visiblePosts = posts.filter(post => !post.disabled).sort((a, b) => b.date.localeCompare(a.date))
+  if (process.env.NODE_ENV === 'production') productionPostsCache = visiblePosts
+  return visiblePosts
 }

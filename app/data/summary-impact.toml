@@ -1,0 +1,13 @@
+[summary]
+items = [
+  "10+ years of Software Engineering,  designing and coding in the online travel and financial industry, ranging from 100 to 2000 employees, with over $1.5 billion in annual revenue",
+  "I am a designer and builder of business and technical solutions that increase product revenue.",
+  "I plan, am a self-starter and have worked with Business stakeholders at several organizations.",
+  "Initiative to improve the product, continuous learning, write documentation to help the team"
+]
+
+[impact]
+items = [
+  "Increased booking revenue. I designed and coded the Gamification microservice using Kotlin, Spring Boot 3, Gradle. Used by iOS and Android Apps, driving the gamification coupons feature.",
+  "Reduced users' time and effort by 8 hours per day. I led the build of the Hotel Similarity microservice with Java 21, Spring Boot, GCP, services, REST API, and designed the Similarity UI. Applied a 50% performance improvement of the Hotel Similarity calculation with parallelism."
+]

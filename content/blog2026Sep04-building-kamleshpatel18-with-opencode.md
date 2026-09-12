@@ -1,5 +1,5 @@
 ---
-title: Building kamlesh18dev with OpenCode
+title: Building kamlesh18.dev with OpenCode
 date: 2026-09-04
 excerpt: Building a portfolio with Nuxt and OpenCode
 tags: [Nuxt, OpenCode]

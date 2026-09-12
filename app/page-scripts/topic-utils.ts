@@ -27,12 +27,8 @@ export function groupTopics(posts: TopicPost[]): TopicGroup[] {
       const slug = slugifyTopic(name)
       if (!slug) continue
       const existing = groups.get(slug)
-      if (existing) {
-        existing.count += 1
-      }
-      else {
-        groups.set(slug, { name, slug, count: 1 })
-      }
+      if (existing) existing.count += 1
+      else groups.set(slug, { name, slug, count: 1 })
     }
   }
   return [...groups.values()].sort((a, b) => a.name.localeCompare(b.name))

@@ -1,0 +1,172 @@
+top_skills = ["Java", "Kotlin", "Microservices", "Spring Boot", "Jakarta EE", "Google Cloud Platform", "SQL"]
+
+[[categories]]
+name = "Languages"
+[[categories.items]]
+name = "Java"
+link_key = "Java"
+class_name = "tag tag-large me-1 mb-1"
+title = "Core skill — primary language in Salesforce (SMTS) & Priceline"
+[[categories.items]]
+name = "Kotlin"
+link_key = "Kotlin"
+class_name = "tag tag-large me-1 mb-1"
+title = "Core skill — Kotlin / Spring Boot 3 microservices (Gamification, Hotel Similarity)"
+[[categories.items]]
+name = "SQL"
+class_name = "tag tag-large me-1 mb-1"
+
+[[categories]]
+name = "AI / ML"
+[[categories.items]]
+name = "Codex"
+link_key = "Codex"
+class_name = "tag me-1 mb-1"
+[[categories.items]]
+name = "Open Code"
+link_key = "Open Code"
+class_name = "tag me-1 mb-1"
+[[categories.items]]
+name = "Claude Code"
+link_key = "Claude Code"
+class_name = "tag me-1 mb-1"
+
+[[categories]]
+name = "Frameworks"
+[[categories.items]]
+name = "Spring Boot"
+link_key = "Spring Boot"
+class_name = "tag tag-large me-1 mb-1"
+title = "Core skill — Spring Boot microservices (GKE, Hotel Similarity, Gamification)"
+[[categories.items]]
+name = "Spring Framework"
+link_key = "Spring Framework"
+class_name = "tag me-1 mb-1"
+[[categories.items]]
+name = "Spring AI"
+link_key = "Spring AI"
+class_name = "tag me-1 mb-1"
+[[categories.items]]
+name = "Jakarta EE"
+link_key = "Jakarta EE"
+class_name = "tag tag-large me-1 mb-1"
+[[categories.items]]
+name = "Microservices"
+link_key = "Microservices"
+class_name = "tag tag-large me-1 mb-1"
+title = "Core skill — Microservices architecture (Gamification, Hotel Similarity)"
+
+[[categories]]
+name = "Cloud Platforms"
+[[categories.items]]
+name = "Google Cloud Platform"
+link_key = "Google Cloud Platform"
+class_name = "tag tag-large me-1 mb-1"
+title = "Core skill — GCP AlloyDB, GKE, DataStore at Priceline & Salesforce"
+[[categories.items]]
+name = "Kafka"
+link_key = "Kafka"
+class_name = "tag me-1 mb-1"
+title = "Core skill — Kafka for persistent logging microservice & eventing"
+[[categories.items]]
+name = "Digital Ocean"
+link_key = "Digital Ocean"
+class_name = "tag me-1 mb-1"
+
+[[categories]]
+name = "Databases"
+[[categories.items]]
+name = "PostgreSQL"
+link_key = "PostgreSQL"
+class_name = "tag me-1 mb-1"
+[[categories.items]]
+name = "AlloyDB"
+link_key = "AlloyDB"
+class_name = "tag me-1 mb-1"
+[[categories.items]]
+name = "CloudSQL"
+link_key = "CloudSQL"
+class_name = "tag me-1 mb-1"
+
+[[categories]]
+name = "DevOps"
+[[categories.items]]
+name = "Git"
+link_key = "Git"
+class_name = "tag me-1 mb-1"
+[[categories.items]]
+name = "GitHub"
+link_key = "GitHub"
+class_name = "tag me-1 mb-1"
+title = "Core skill — GitHub at Salesforce & Priceline"
+[[categories.items]]
+name = "GitLab"
+link_key = "GitLab"
+class_name = "tag me-1 mb-1"
+[[categories.items]]
+name = "Maven"
+link_key = "Maven"
+class_name = "tag me-1 mb-1"
+[[categories.items]]
+name = "Gradle"
+link_key = "Gradle"
+class_name = "tag me-1 mb-1"
+title = "Core skill — Gradle build (Salesforce, Gamification service)"
+[[categories.items]]
+name = "Docker"
+link_key = "Docker"
+class_name = "tag me-1 mb-1"
+title = "Core skill — Docker & container workflows"
+[[categories.items]]
+name = "Kubernetes"
+link_key = "Kubernetes"
+class_name = "tag me-1 mb-1"
+title = "Core skill — Kubernetes / GKE (AlloyDB Auth Proxy sidecar)"
+[[categories.items]]
+name = "Splunk"
+link_key = "Splunk"
+class_name = "tag me-1 mb-1"
+title = "Core skill — Splunk dashboards & alerts (Priceline)"
+[[categories.items]]
+name = "New Relic"
+link_key = "New Relic"
+class_name = "tag me-1 mb-1"
+title = "Core skill — New Relic dashboards (Priceline)"
+
+[[categories]]
+name = "Front-End Tech"
+[[categories.items]]
+name = "HTML"
+link_key = "HTML"
+class_name = "tag me-1 mb-1"
+[[categories.items]]
+name = "CSS"
+link_key = "CSS"
+class_name = "tag me-1 mb-1"
+[[categories.items]]
+name = "Bootstrap"
+link_key = "Bootstrap"
+class_name = "tag me-1 mb-1"
+[[categories.items]]
+name = "Thymeleaf"
+link_key = "Thymeleaf"
+class_name = "tag me-1 mb-1"
+
+[[categories]]
+name = "Operating Systems"
+[[categories.items]]
+name = "Mac OS"
+link_key = "Mac OS"
+class_name = "tag me-1 mb-1"
+[[categories.items]]
+name = "Ubuntu Linux"
+link_key = "Ubuntu Linux"
+class_name = "tag me-1 mb-1"
+[[categories.items]]
+name = "Linux Mint"
+link_key = "Linux Mint"
+class_name = "tag me-1 mb-1"
+[[categories.items]]
+name = "Windows 11"
+link_key = "Windows 11"
+class_name = "tag me-1 mb-1"

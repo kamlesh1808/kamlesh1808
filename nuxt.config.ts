@@ -26,13 +26,4 @@ export default defineNuxtConfig({
   },
 
   typescript: { strict: true },
-  modules: ['@nuxtjs/i18n'],
-  i18n: {
-    locales: [
-      { code: 'en', name: 'English', file: 'en.json' },
-      { code: 'es', name: 'Español', file: 'es.json' },
-    ],
-    defaultLocale: 'en',
-    strategy: 'prefix_except_default',
-  }
 })
