@@ -1,11 +1,19 @@
 {
   "nav": {
     "writing": "Escritura",
+    "topics": "Temas",
     "about": "Acerca de",
     "toggle": "Abrir navegación",
     "close": "Cerrar navegación"
   },
   "footer": {
     "copyright": "© {year} Kamlesh Patel."
+  },
+  "topics": {
+    "title": "Temas",
+    "subtitle": "Explora las publicaciones por tema.",
+    "posts_count": "{count} publicaciones",
+    "empty": "Aún no hay temas.",
+    "not_found": "Tema no encontrado."
   }
 }

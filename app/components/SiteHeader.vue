@@ -5,6 +5,7 @@ const open = ref(false)
 const togglerRef = ref<HTMLButtonElement | null>(null)
 const links = computed(() => [
   { label: t('nav.writing'), to: '/' },
+  { label: t('nav.topics'), to: '/topics' },
   { label: t('nav.about'), to: '/about' },
 ])
 
