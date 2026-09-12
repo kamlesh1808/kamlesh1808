@@ -1,8 +1,8 @@
 <script setup lang="ts">
-const route = useRoute()
-const { data: post, error } = await useFetch(() => `/api/posts/${route.params.slug}`)
-if (error.value) throw createError({ statusCode: 404, statusMessage: 'Post not found' })
-useHead(() => ({ title: post.value?.title || 'Post', meta: [{ name: 'description', content: post.value?.excerpt || '' }] }))
+import { setupBlogPage } from '~/page-scripts/blog'
+import { slugifyTopic } from '~/page-scripts/topic-utils'
+
+const { post } = await setupBlogPage()
 </script>
 
 <template>

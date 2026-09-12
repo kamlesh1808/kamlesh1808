@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import { slugifyTopic } from '~/page-scripts/topic-utils'
+
 defineProps<{ post: { slug: string; title: string; date: string; excerpt?: string; tags?: string[]; readingTime?: string } }>()
 </script>
 

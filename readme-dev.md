@@ -39,6 +39,53 @@ npm run preview
 
 `nuxt.config.ts` sets the `github-pages` Nitro preset and the `/kamlesh1808/` base URL, so `npm run build` alone is not the deploy path — always use `generate` for production output.
 
+## Code organization
+
+This is a Nuxt 4 application using Vue and TypeScript. Nuxt's file-based routing maps files in `app/pages/` to site routes.
+
+### Application shell
+
+- `app/app.vue` is the root application component.
+- `SiteHeader` provides navigation, the search icon, mobile menu, and theme toggle.
+- `<NuxtPage />` renders the active route.
+- `SiteFooter` renders the shared footer.
+- `app/composables/useTheme.ts` manages the persistent dark/light theme selection. Dark is the default and the selection is stored in `localStorage`.
+
+### Pages and routes
+
+| File | Route | Purpose |
+| --- | --- | --- |
+| `app/pages/index.vue` | `/` | Home page and latest posts |
+| `app/pages/about.vue` | `/about` | Profile, experience, education, and skills |
+| `app/pages/search.vue` | `/search` | Client-side post search |
+| `app/pages/blog/[slug].vue` | `/blog/:slug` | Individual blog post |
+| `app/pages/topics/index.vue` | `/topics` | Topic listing |
+| `app/pages/topics/[topic].vue` | `/topics/:topic` | Posts filtered by topic |
+
+### Shared UI and utilities
+
+- `app/components/PostCard.vue` renders reusable post previews.
+- `app/components/SiteHeader.vue` and `app/components/SiteFooter.vue` are shared across all pages.
+- `app/page-scripts/` contains route-specific setup functions and client-side topic helpers.
+- `app/data/*.toml` stores About page content; `app/data/about.ts` validates and maps it into typed data.
+- `app/utils/toml.ts` contains the strict dependency-free TOML parser used by About data.
+- `app/assets/css/main.css` contains the global reset, theme tokens, component styles, page layouts, and responsive rules.
+
+### Content and server API
+
+Markdown posts live in `content/`. Files matching `blog*.md` are loaded by `server/utils/posts.ts`, which parses front matter, calculates reading time, converts Markdown to HTML, filters disabled posts, and sorts posts by date.
+
+`content/LinkedInPosts/` is an archive of source documents and is intentionally not published. Only Markdown files whose names begin with `blog` are treated as blog posts.
+
+- `server/api/posts/index.get.ts` exposes the post collection at `/api/posts`.
+- `server/api/posts/[slug].get.ts` exposes an individual post at `/api/posts/:slug`.
+
+### Configuration and deployment
+
+- `nuxt.config.ts` configures the base URL, GitHub Pages Nitro preset, global CSS, and strict TypeScript.
+- `app/components/GoogleTranslate.vue` loads the Google Website Translator widget on the client only.
+- `.github/workflows/deploy.yml` builds and deploys the static site to GitHub Pages.
+
 ## Write a blog post
 
 Create a markdown file in `content/` named `blogYYYYMonDD*.md`, for example `content/blog2026Sep04-using-claude-code-opencode-codex.md`. Only files beginning with `blog` are published.
@@ -66,35 +113,40 @@ The app calculates reading time automatically. You can optionally set `readingTi
 
 ## Customize it
 
-- Update the name, role, email, location, and social links in `components/SiteHeader.vue` and `components/SiteFooter.vue` (nav and footer labels use `useI18n`).
-- Replace the example work history and skills in `pages/about.vue`.
-- Adjust the landing content in `pages/index.vue` and the post card in `components/PostCard.vue`.
-- Adjust colors, type, spacing, and responsive styling in `assets/css/main.css`.
-- Edit English/Spanish copy in `i18n/locales/en.json` and `i18n/locales/es.json` (`@nuxtjs/i18n`, default locale `en`, `prefix_except_default` strategy).
+- Update About profile, experience, education, and skills in `app/data/*.toml`.
+- Update navigation and footer labels in `app/components/SiteHeader.vue` and `app/components/SiteFooter.vue`.
+- Adjust the landing content in `app/pages/index.vue` and the post card in `app/components/PostCard.vue`.
+- Adjust colors, type, spacing, and responsive styling in `app/assets/css/main.css`.
+- Google Website Translator is loaded dynamically in the footer and requires network access to `translate.google.com`; the site remains usable if the external widget is unavailable.
 
 There is no `pages/resume.vue`, no contact page, and no `public/` directory — do not reference `public/resume.pdf`.
 
 ## Project structure
 
 ```text
-app/                  Application source (Nuxt 4 convention)
-  app.vue             Root application component
-  components/         SiteHeader.vue, SiteFooter.vue, PostCard.vue
-  pages/              index.vue, about.vue (doubles as Resume), blog/[slug].vue
-  assets/css/main.css Site design system
-content/              Markdown blog posts (only `blog*` published)
-server/api/posts/     index.get.ts, [slug].get.ts — APIs that read posts
-server/utils/posts.ts Markdown parsing and post metadata
-i18n/locales/         en.json, es.json
-nuxt.config.ts        Base URL, Nitro preset, head links, i18n config
-.github/workflows/    deploy.yml — static deploy to GitHub Pages
+app/                         Application source (Nuxt 4 convention)
+  app.vue                    Root application component
+  assets/css/main.css        Global design system and theme styles
+  components/                Shared header, footer, and post card components
+  composables/useTheme.ts    Persistent dark/light theme state
+  data/                     Validated About-page TOML content
+  pages/                     File-based routes
+  page-scripts/             Route setup and client-side topic helpers
+  utils/toml.ts              Strict TOML parser
+content/                     Markdown blog posts (only `blog*` published)
+  LinkedInPosts/             Unpublished source archive
+server/api/posts/            Post collection and single-post APIs
+server/utils/posts.ts        Markdown parsing and post metadata
+server/utils/frontmatter.ts Frontmatter parsing and typed field access
+nuxt.config.ts               Base URL, Nitro preset, and head links
+.github/workflows/           Static deployment to GitHub Pages
 ```
 
 ## Styling and dependencies
 
 - Nuxt 4 (`nuxt ^4.5.2`), Bootstrap 5.3.8 bundled via npm and loaded with `@import` as the first line of `assets/css/main.css` (must stay first so Bootstrap loads before custom rules).
 - Font Awesome 6.7.2 and Google Fonts (Fira Code) load via `<link>` in `nuxt.config.ts`.
-- `assets/css/main.css` (~1300 lines) defines the theme tokens, layout, and responsive rules with WCAG AA contrast targets.
+- `app/assets/css/main.css` defines the light/dark theme tokens, layout, and responsive rules with WCAG AA contrast targets.
 
 ## Deployment
 
