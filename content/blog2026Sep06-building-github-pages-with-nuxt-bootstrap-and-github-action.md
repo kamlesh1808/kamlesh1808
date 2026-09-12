@@ -3,6 +3,7 @@ title: Building GitHub Pages with Nuxt, Bootstrap and GitHub Action
 date: 2026-09-06
 excerpt: How to ship a Nuxt 4 site to GitHub Pages with the right baseURL, the app/ directory, bundled Bootstrap, and a clean deploy workflow
 tags: [Nuxt, GitHub Pages]
+disabled: false
 ---
 
 **Shipping Nuxt to GitHub Pages** takes three things: the right `baseURL`, Bootstrap bundled in the correct order, and a small deploy workflow. Get any one wrong and the site looks fine locally but breaks live.
