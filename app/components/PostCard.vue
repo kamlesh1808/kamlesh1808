@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { slugifyTopic } from '~/page-scripts/topic-utils'
 
-defineProps<{ post: { slug: string; title: string; date: string; excerpt?: string; tags?: string[]; readingTime?: string } }>()
+defineProps<{ post: { slug: string; title: string; date: string; excerpt?: string; tags?: string[]; source?: string; readingTime?: string } }>()
 </script>
 
 <template>
@@ -12,6 +12,7 @@ defineProps<{ post: { slug: string; title: string; date: string; excerpt?: strin
     </div>
     <h2 class="post-card-title"><NuxtLink :to="`/blog/${post.slug}`">{{ post.title }}</NuxtLink></h2>
     <div class="d-flex flex-wrap gap-2 mb-3"><NuxtLink v-for="tag in post.tags" :key="tag" class="tag" :to="`/topics/${slugifyTopic(tag)}`">{{ tag }}</NuxtLink></div>
+    <p v-if="post.source" class="post-source">Source: {{ post.source }}</p>
     <p class="post-excerpt">{{ post.excerpt }}</p>
     <div class="d-flex justify-content-end align-items-center">
       <NuxtLink class="read-link text-nowrap" :to="`/blog/${post.slug}`">Read <i class="fa-solid fa-arrow-right" /></NuxtLink>

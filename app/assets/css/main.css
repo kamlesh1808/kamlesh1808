@@ -238,9 +238,23 @@ a:hover {
 
 /* Header & navigation */
 .site-header {
+  position: relative;
   background: transparent;
   border-bottom: none;
   backdrop-filter: blur(12px);
+}
+
+.site-header::after {
+  content: '';
+  position: absolute;
+  bottom: -0.5rem;
+  left: 20%;
+  right: 20%;
+  height: 0.5rem;
+  background: linear-gradient(90deg, transparent, var(--accent-blue), var(--green), transparent);
+  filter: blur(8px);
+  opacity: .3;
+  pointer-events: none;
 }
 
 .navbar-brand {
@@ -442,8 +456,22 @@ a:hover {
 
 /* Footer */
 .site-footer {
+  position: relative;
   color: var(--muted);
   font-size: .85rem;
+}
+
+.site-footer::before {
+  content: '';
+  position: absolute;
+  top: -0.5rem;
+  left: 20%;
+  right: 20%;
+  height: 0.5rem;
+  background: linear-gradient(90deg, transparent, var(--accent-blue), var(--green), transparent);
+  filter: blur(8px);
+  opacity: .3;
+  pointer-events: none;
 }
 
 .site-footer a {
@@ -591,6 +619,12 @@ a:hover {
   line-height: 1.5;
 }
 
+.post-source,
+.article-source {
+  color: var(--muted);
+  font-size: .8rem;
+}
+
 .read-link {
   font-size: .9rem;
   font-weight: 600;
@@ -681,24 +715,17 @@ a:hover {
   text-overflow: ellipsis;
 }
 
-/* Home hero: compact top spacing, no divider line (scoped — blog/about untouched) */
-.hero.home-hero {
-  padding-top: clamp(2rem, 5vw, 3.5rem);
+/* Primary page heroes share compact spacing and no divider line. */
+.hero.home-hero,
+.hero.search-hero,
+.hero.about-hero {
+  padding-top: clamp(1rem, 2.5vw, 1.5rem);
   padding-bottom: clamp(1.5rem, 4vw, 2.5rem);
   border-bottom: none;
 }
 
-.hero.search-hero {
-  padding-top: clamp(2rem, 5vw, 3.5rem);
-  padding-bottom: clamp(1.5rem, 4vw, 2.5rem);
-  border-bottom: none;
-}
-
+.hero.home-hero + .content-section,
 .hero.search-hero + .content-section {
-  padding-top: 0;
-}
-
-.hero.home-hero + .content-section {
   padding-top: 0;
 }
 
@@ -760,6 +787,20 @@ h3 {
 
 .article-header h1 {
   font-size: clamp(1.25rem, 2.5vw, 2.125rem) !important;
+}
+
+.article-ai-assisted {
+  display: inline-block;
+  margin-left: .65rem;
+  padding: .25rem .45rem;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  color: var(--muted);
+  font-size: .42em;
+  font-weight: 600;
+  letter-spacing: .03em;
+  vertical-align: middle;
+  white-space: nowrap;
 }
 
 .article-body h1 {
@@ -1193,25 +1234,31 @@ a:visited {
   }
 }
 
-/* Topics pages compaction (scoped — home/blog/about/footer untouched).
-   Every selector below is prefixed with .topics-hero / .topics-shell /
-   .topics-missing, so shared rules (.hero, .content-section, .post-card,
-   .empty-state, .section-title, .article-shell, …) are never modified. */
+/* Topics and Search page compaction (scoped — home/blog/about/footer untouched).
+   Shared selectors keep both discovery pages visually consistent while their
+   page-specific content remains independent. */
 .hero.topics-hero {
   padding-top: clamp(1rem, 2.5vw, 1.5rem);
   padding-bottom: clamp(0.5rem, 1.5vw, 0.9rem);
   border-bottom: none;
 }
 
+.hero.search-hero {
+  padding-bottom: clamp(0.5rem, 1.5vw, 0.9rem);
+}
+
+.hero.search-hero .eyebrow,
 .hero.topics-hero .eyebrow {
   margin-bottom: 0.3rem;
 }
 
+.hero.search-hero .hero-title,
 .hero.topics-hero .hero-title {
   font-size: clamp(1.15rem, 2.4vw, 1.75rem);
   margin: 0 0 0.35rem;
 }
 
+.hero.search-hero .hero-copy,
 .hero.topics-hero .hero-copy {
   margin-top: 0.35rem;
   margin-bottom: 0;
@@ -1220,6 +1267,7 @@ a:visited {
   color: var(--green);
 }
 
+.hero.search-hero + .content-section,
 .hero.topics-hero + .content-section {
   padding-top: clamp(0.6rem, 1.8vw, 1rem);
   padding-bottom: 1rem;
@@ -1229,29 +1277,38 @@ a:visited {
   margin-bottom: 0.6rem;
 }
 
+.hero.search-hero + .content-section .row,
 .hero.topics-hero + .content-section .row {
   --bs-gutter-x: 0.65rem;
   --bs-gutter-y: 0.65rem;
 }
 
+.hero.search-hero + .content-section .post-card,
 .hero.topics-hero + .content-section .post-card {
   padding: 0.75rem 0.8rem;
 }
 
+.hero.search-hero + .content-section .post-card h2,
 .hero.topics-hero + .content-section .post-card h2 {
   font-size: 1.05rem !important;
   margin-bottom: 0.2rem;
   line-height: 1.2;
 }
 
+.hero.search-hero + .content-section .post-excerpt,
 .hero.topics-hero + .content-section .post-excerpt {
   font-size: 0.82rem;
   margin-bottom: 0;
 }
 
+.hero.search-hero + .content-section .empty-state,
 .hero.topics-hero + .content-section .empty-state {
   padding: 1.25rem 1rem;
   font-size: 0.95rem;
+}
+
+.search-page .search-form {
+  margin-bottom: 0.6rem;
 }
 
 .article-shell.topics-shell {
@@ -1329,10 +1386,22 @@ a:visited {
   margin-top: 0;
 }
 
-/* About top trim (scoped — home/topics/blog/footer untouched).
-   Base .page-shell adds clamp(3.5rem, 8vw, 6rem) top padding; the sticky
-   header is in-flow (Bootstrap sticky-top) so only visual clearance is
-   needed. Every selector below is .about-shell-prefixed. */
+.hero.home-hero .hero-identity .hero-title {
+  font-size: clamp(1.35rem, 3.1vw, 2.65rem);
+}
+
+.hero.home-hero + .content-section .writing-explore {
+  font-size: clamp(1rem, 2vw, 1.5rem);
+}
+
+.hero.about-hero .profile-card {
+  margin-top: 1.25rem;
+  padding: 0;
+  border: none;
+  border-radius: 0;
+  background: transparent;
+}
+
 .page-shell.about-shell {
   padding-top: clamp(1.25rem, 3vw, 2rem);
 }
@@ -1360,8 +1429,7 @@ a:visited {
     padding: 0.7rem 0 0.65rem;
   }
 
-  .hero.home-hero,
-  .hero.search-hero {
+  .hero.home-hero {
     padding-bottom: 1.25rem;
   }
 
