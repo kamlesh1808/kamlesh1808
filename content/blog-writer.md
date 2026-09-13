@@ -1,5 +1,7 @@
 ---
 disabled: true
+aiAssisted: false
+source: kamlesh1808.dev
 ---
 
 # Blog Writer Guide — kamlesh1808
@@ -118,7 +120,7 @@ Frontmatter example:
 title: Building GitHub Pages with Nuxt, Bootstrap and GitHub Action
 date: 2026-09-06
 excerpt: How to ship a Nuxt 4 site to GitHub Pages
-tags: [Nuxt, GitHub Pages, Bootstrap]
+tags: [Nuxt, GitHub Pages]
 ---
 ```
 

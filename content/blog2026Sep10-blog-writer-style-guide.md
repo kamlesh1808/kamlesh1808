@@ -3,7 +3,9 @@ title: "How I Write Simple Teaching Blogs"
 date: 2026-09-10
 excerpt: My blog-writer.md system for simple teaching posts with code and gratitude
 tags: [Writing, OpenCode]
+source: kamlesh1808.dev
 disabled: true
+aiAssisted: false
 ---
 
 **Good tech writing** takes three things: simple words, working code, and a thankful close. I keep all three in a file called `blog-writer.md`.
@@ -53,7 +55,7 @@ Frontmatter is the first snippet in every post:
 title: "How I Write Simple Teaching Blogs"
 date: 2026-09-10
 excerpt: My blog-writer.md system for simple teaching posts with code and gratitude
-tags: [Writing, Blogging, OpenCode]
+tags: [Writing, OpenCode]
 ---
 ```
 

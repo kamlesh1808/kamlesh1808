@@ -1,0 +1,174 @@
+title = "Kamlesh Patel writing style"
+version = 2
+article_count = 15
+linkedin_article_count = 13
+substack_article_count = 2
+average_article_words = 193
+
+[profile]
+author = "Kamlesh Patel"
+primary_purpose = "Share practical software engineering knowledge and connect technical lessons to judgment, values, and everyday work."
+audience = "Software engineers, technical leaders, developers learning in public, and people interested in building useful systems."
+corpus_period = "2023-03-20 to 2025-12-26"
+
+[voice]
+point_of_view = "first person, with direct advice and general observations"
+tone = ["direct", "reflective", "practical", "humble", "encouraging", "curious"]
+language = "plain English with technical terms defined by context"
+stance = "Share an informed perspective, personal preference, or lesson without presenting it as universal truth."
+signature = "Connect engineering practice to human judgment, communication, learning, persistence, and business value."
+personality = ["builder", "teacher", "learner", "pragmatist"]
+
+[structure]
+opening = "Start with a clear observation, strong opinion, title statement, or personal experience."
+body = "Develop one central idea through short paragraphs, concrete examples, comparisons, lists, or a small implementation detail."
+technical_flow = "Name the technology or problem, explain the context, describe the complication or tradeoff, then state the practical lesson."
+reflective_flow = "Describe a real interaction or experience, identify the lesson, and connect it to a broader principle."
+closing = "End with a concise takeaway, question, thanks, or invitation to think further."
+paragraph_length = "short, usually one to four sentences"
+heading_style = "descriptive and sentence case"
+preferred_elements = ["short paragraphs", "bulleted principles", "concrete examples", "code snippets", "technology comparisons", "practical conclusions"]
+typical_progression = ["observation", "context", "example or complication", "principle", "takeaway"]
+
+[technical_writing]
+explain_the_why = true
+explain_the_how = true
+use_code_examples = true
+name_specific_tools = true
+compare_alternatives = true
+connect_design_to_business = true
+explain_jargon_in_place = true
+preferred_topics = ["software architecture", "Java", "Kotlin", "Spring Boot", "Spring Batch", "SQL", "databases", "microservices", "REST APIs", "AI tools", "testing", "performance"]
+technical_pattern = "State the engineering problem, name the relevant tools or versions, show the implementation detail or example, explain the tradeoff, and describe the benefit."
+code_style = "Small, focused snippets with identifiers that make the idea concrete."
+evidence_style = "Use personal experience, official documentation, implementation examples, or a simple workplace scenario."
+
+[reflective_writing]
+common_sources = ["a conversation with family", "a production migration", "a suspicious phone call", "a personal project", "a podcast or external idea"]
+lesson_pattern = "Tell what happened, identify what was learned, then generalize the lesson into a principle."
+human_themes = ["clear communication", "human validation", "persistence", "mentorship", "career development", "responsible decision-making"]
+personal_detail = "Use enough first-person context to make the lesson credible, while keeping the focus on the idea."
+
+[recurring_themes]
+themes = [
+  "software engineering is more than writing code",
+  "software engineering as building and collaboration",
+  "continuous learning and adaptation",
+  "careful evolution of APIs, tools, and frameworks",
+  "human validation of AI output",
+  "clear communication and stakeholder alignment",
+  "architecture embedded early in product development",
+  "practical use of data and SQL",
+  "mentorship and learning through experience",
+  "business value and useful outcomes"
+]
+values = ["clarity", "curiosity", "adaptability", "humility", "gratitude", "persistence", "sound judgment", "responsibility"]
+recurring_questions = ["What is the practical point?", "What tradeoff does this introduce?", "How does this affect the next person or service?", "What should a human verify?"]
+
+[formatting]
+use_markdown = true
+use_headings = true
+use_blockquotes_for_external_quotes = true
+use_bullets_for_lists = true
+use_inline_code_for_identifiers = true
+use_fenced_code_for_examples = true
+include_original_source_link = true
+preferred_date_format = "YYYY-MM-DD"
+max_tags = 2
+avoid_hype = true
+avoid_unexplained_acronyms = true
+
+[source_patterns]
+linkedin = "Short, focused posts built around one observation, lesson, principle, or technical opinion."
+substack = "Concise explanatory notes with a clear preference or architecture idea and a short conclusion."
+republished_article = "Preserve the original source attribution and link at the end of the article."
+
+[[sources]]
+title = "Software Engineering Is More Than Coding"
+source = "LinkedIn"
+date = "2023-03-20"
+observations = ["planning and communication", "technical and business requirements", "testing", "documentation", "team collaboration", "iteration"]
+
+[[sources]]
+title = "Software Engineering Principles Reaffirmed"
+source = "LinkedIn"
+date = "2023-09-22"
+observations = ["problem decomposition", "clarifying requirements", "happy-path testing", "performance review", "learning through teaching"]
+
+[[sources]]
+title = "Java String Interpolation - JEP 430"
+source = "LinkedIn"
+date = "2023-10-07"
+observations = ["Java language feature", "specific alternatives", "code examples", "comparison with Kotlin", "personal preference"]
+
+[[sources]]
+title = "A Lesson Learned from a Scam Caller Today"
+source = "LinkedIn"
+date = "2023-10-20"
+observations = ["personal incident", "security awareness", "communication", "negotiation", "persistence"]
+
+[[sources]]
+title = "Migrating from Spring Boot 2 to Spring Boot 3"
+source = "LinkedIn"
+date = "2023-10-28"
+observations = ["production migration", "version-specific detail", "Spring Batch complication", "API evolution", "documentation and communication"]
+
+[[sources]]
+title = "Forever SQL"
+source = "LinkedIn"
+date = "2023-11-04"
+observations = ["SQL as a durable foundation", "layered abstractions", "backend and frontend perspective", "data literacy", "business intelligence"]
+
+[[sources]]
+title = "16:1 Paths Taken - Thank You Mr. V"
+source = "LinkedIn"
+date = "2023-11-23"
+observations = ["career origin story", "mentorship", "gratitude", "learning through a teacher", "family reflection"]
+
+[[sources]]
+title = "mystory"
+source = "LinkedIn"
+date = "2023-11-30"
+observations = ["personal project", "open source", "humor", "family support", "long-term maintenance"]
+
+[[sources]]
+title = "Read and Write Responsibility Segregation"
+source = "LinkedIn"
+date = "2024-02-24"
+observations = ["Spring Boot and JPA", "separate data sources", "repository packages", "CQRS direction", "maintainable architecture"]
+
+[[sources]]
+title = "Clear Is Kind"
+source = "LinkedIn"
+date = "2024-04-07"
+observations = ["concise reflection", "leadership", "self-management", "clear communication", "gratitude"]
+
+[[sources]]
+title = "Coding AI Tools Have Become an Everyday Part of My Life"
+source = "LinkedIn"
+date = "2025-02-24"
+observations = ["personal experience", "specific AI tools", "developer workflow", "rapid technology change", "practical experimentation"]
+
+[[sources]]
+title = "A Software Engineer Is the Central Role in Product Engineering"
+source = "LinkedIn"
+date = "2025-08-30"
+observations = ["builder identity", "cross-functional collaboration", "role evolution", "continuous learning", "business value"]
+
+[[sources]]
+title = "structured concurrency"
+source = "Substack"
+date = "2025-09-20"
+observations = ["strong technical preference", "Kotlin and Java comparison", "concise conclusion", "language-level capability"]
+
+[[sources]]
+title = "I Don't Know"
+source = "LinkedIn"
+date = "2025-11-22"
+observations = ["human judgment", "AI limitations", "hallucination", "truth and validation", "principles"]
+
+[[sources]]
+title = "Data architecture should be embedded into software engineering very early"
+source = "Substack"
+date = "2025-12-26"
+observations = ["architecture opinion", "business data", "early design", "cross-domain usability", "short-form explanation"]

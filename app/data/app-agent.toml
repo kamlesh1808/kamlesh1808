@@ -1,0 +1,68 @@
+title = "App Agents"
+version = 1
+purpose = "Operational instructions for agents creating, importing, revising, and publishing blog content in this app."
+
+[writing_style]
+source_of_truth = "app/data/mywritingstyle.toml"
+applies_to = ["new articles", "revised articles"]
+requirements = [
+  "Follow the source of truth for voice.",
+  "Follow the source of truth for structure.",
+  "Follow the source of truth for technical explanations.",
+  "Follow the source of truth for reflective writing.",
+  "Follow the source of truth for formatting.",
+  "Follow the source of truth for source attribution.",
+  "Follow the source of truth for topic selection."
+]
+
+[topic_tags]
+maximum = 2
+selection = "Choose the two tags that best represent the article's primary subject."
+prefer_specific_topics = true
+apply_to = [
+  "new articles",
+  "imported articles",
+  "revised articles",
+  "frontmatter examples"
+]
+avoid_extra_tags_for = ["tools", "formats", "audiences", "supporting ideas"]
+
+[publishing]
+after_new_blog = [
+  "Update the topic counts after publishing a new blog.",
+  "Verify that the new article appears under each of its topic pages with the correct count."
+]
+
+[metadata]
+required_fields = ["title", "date", "excerpt", "tags", "source", "disabled", "aiAssisted"]
+validation = "Validate all required frontmatter fields before publishing."
+
+[imports]
+deduplicate_by = "canonical source URL"
+preserve_source_fidelity = true
+requirements = [
+  "Compare canonical source URLs before importing an article.",
+  "Import the complete article body when it is available.",
+  "Do not invent missing source content.",
+  "Record the original publication date and canonical source URL."
+]
+
+[validation]
+after_content_changes = [
+  "Run the existing test suite.",
+  "Validate article frontmatter.",
+  "Verify that no article has more than two topic tags.",
+  "Verify topic counts after publishing."
+]
+
+[consistency]
+requirements = [
+  "Keep generated article listings sorted by publication date.",
+  "Imported articles are visible unless explicitly marked disabled."
+]
+
+[safety]
+requirements = [
+  "Do not overwrite existing article content unless the source URL or user explicitly identifies the article to update.",
+  "Do not make destructive edits to unrelated content."
+]

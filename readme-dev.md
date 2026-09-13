@@ -110,6 +110,7 @@ Your post content starts here.
 ```
 
 The app calculates reading time automatically. You can optionally set `readingTime: 5 min read` in the front matter to override it.
+Use `aiAssisted: false` in blog front matter to record whether AI assistance was used; posts default to `false` when the field is omitted.
 
 ## Customize it
 

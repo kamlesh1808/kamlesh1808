@@ -9,6 +9,8 @@ export interface Post {
   date: string
   excerpt: string
   tags: string[]
+  source?: string
+  aiAssisted: boolean
   readingTime: string
   html: string
   disabled: boolean
@@ -20,12 +22,14 @@ const contentDir = join(process.cwd(), 'content')
 const markdown = new MarkdownIt({ html: false, linkify: true, typographer: true })
 let productionPostsCache: Post[] | undefined
 
-function parsePost(filename: string, source: string): Post {
-  const { fields, body } = parseFrontmatter(source)
+function parsePost(filename: string, rawSource: string): Post {
+  const { fields, body } = parseFrontmatter(rawSource)
   const words = body.trim().split(/\s+/).filter(Boolean).length
   const title = frontmatterString(fields, 'title')
   const date = frontmatterString(fields, 'date')
   const excerpt = frontmatterString(fields, 'excerpt')
+  const source = frontmatterString(fields, 'source')
+  const aiAssisted = frontmatterBoolean(fields, 'aiAssisted')
   const readingTime = frontmatterString(fields, 'readingTime')
   return {
     slug: filename.replace(/\.md$/, ''),
@@ -33,6 +37,8 @@ function parsePost(filename: string, source: string): Post {
     date: date || '2026-01-01',
     excerpt: excerpt || '',
     tags: frontmatterStringArray(fields, 'tags'),
+    source,
+    aiAssisted,
     readingTime: readingTime || `${Math.max(1, Math.ceil(words / 200))} min read`,
     html: markdown.render(body),
     disabled: frontmatterBoolean(fields, 'disabled'),

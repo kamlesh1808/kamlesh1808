@@ -4,9 +4,9 @@ const { theme, setTheme } = useTheme()
 const open = ref(false)
 const togglerRef = ref<HTMLButtonElement | null>(null)
 const links = computed(() => [
+  { label: 'About', to: '/about' },
   { label: 'Writing', to: '/' },
   { label: 'Topics', to: '/topics' },
-  { label: 'About', to: '/about' },
 ])
 
 function closeMenu() {

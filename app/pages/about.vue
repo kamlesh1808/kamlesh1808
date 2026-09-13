@@ -14,30 +14,32 @@ const {
 } = setupAboutPage()
 </script>
 <template>
+  <section class="hero about-hero">
+    <div class="container">
+      <p class="eyebrow">ABOUT</p>
+      <div class="profile-card">
+        <p class="mb-1 fw-semibold profile-name">{{ profile.name }}</p>
+        <p class="mb-3 profile-subtitle">{{ profile.subtitle }}</p>
+        <p class="resume-contact mb-0">
+          <a :href="contact.locationUrl" target="_blank" rel="noreferrer">{{ contact.location }}</a>, {{ contact.region }}
+          <span class="contact-links">
+            <a
+              v-for="link in contact.links"
+              :key="link.ariaLabel"
+              :href="link.url"
+              :target="link.external ? '_blank' : undefined"
+              :rel="link.external ? 'noreferrer' : undefined"
+              :aria-label="link.ariaLabel"
+            ><i :class="link.iconClass" aria-hidden="true"></i></a>
+          </span>
+        </p>
+      </div>
+    </div>
+  </section>
   <section class="container page-shell resume about-shell">
 
     <div class="row g-5">
       <div class="col-12">
-
-        <div class="mb-4">
-          <div class="profile-card">
-            <p class="mb-1 fw-semibold profile-name">{{ profile.name }}</p>
-            <p class="mb-3 profile-subtitle">{{ profile.subtitle }}</p>
-            <p class="resume-contact mb-0">
-              <a :href="contact.locationUrl" target="_blank" rel="noreferrer">{{ contact.location }}</a>, {{ contact.region }}
-              <span class="contact-links">
-                <a
-                  v-for="link in contact.links"
-                  :key="link.ariaLabel"
-                  :href="link.url"
-                  :target="link.external ? '_blank' : undefined"
-                  :rel="link.external ? 'noreferrer' : undefined"
-                  :aria-label="link.ariaLabel"
-                ><i :class="link.iconClass" aria-hidden="true"></i></a>
-              </span>
-            </p>
-          </div>
-        </div>
 
         <section class="summary-section mb-4">
           <h2>Summary</h2>
@@ -81,7 +83,7 @@ const {
         <section class="mt-5">
           <h2>Education</h2>
           <div v-for="item in education" :key="item.date" class="timeline-item">
-            <p class="timeline-date">{{ item.date }}</p>
+            <p v-if="item.date" class="timeline-date">{{ item.date }}</p>
             <p>
               {{ item.program }} — <a :href="item.credentialUrl" target="_blank" rel="noreferrer" class="employer-link">{{ item.credentialLabel }}</a> - {{ item.duration }}<br>
               {{ item.institution }}

@@ -13,6 +13,7 @@ title: "A post: with a colon"
 date: 2026-09-12
 tags: [Nuxt, "TypeScript"]
 disabled: false
+aiAssisted: true
 ---
 
 Post body.
@@ -22,6 +23,7 @@ Post body.
   assert.equal(frontmatterString(result.fields, 'date'), '2026-09-12')
   assert.deepEqual(frontmatterStringArray(result.fields, 'tags'), ['Nuxt', 'TypeScript'])
   assert.equal(frontmatterBoolean(result.fields, 'disabled'), false)
+  assert.equal(frontmatterBoolean(result.fields, 'aiAssisted'), true)
   assert.equal(result.body.trim(), 'Post body.')
 })
 

@@ -9,6 +9,7 @@ const { query, results } = await setupSearchPage()
     <div class="container">
       <p class="eyebrow">SEARCH</p>
       <h1 class="hero-title">Search the site</h1>
+      <p class="hero-copy">Find posts by keyword.</p>
     </div>
   </section>
   <section class="container content-section search-page">
