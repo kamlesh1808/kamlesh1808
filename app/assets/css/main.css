@@ -9,8 +9,8 @@
 :root {
   --ink: #20211f;
   --muted: #4d5250;
-  --paper: #d5d4ce;
-  --line: #8f938c;
+  --paper: #ffffff;
+  --line: #d6d8d0;
   --orange: #ffcc99;
   --green: #1b5e20;
   /* Accent-blue roles (light): --accent-blue = link/rest, --accent-blue-hover = link/heading hover, --accent-blue-focus = keyboard focus rings. */
@@ -19,16 +19,16 @@
   --accent-blue-focus: #1f6feb;
   --selection-bg: #0969da;
   --nav-fg: #1a1a1a;
-  --card: #ecebe6;
+  --card: #f5f4f0;
   --pre-bg: #292b27;
   --pre-fg: #f5f4ec;
   /* Base alias: hover color always tracks the accent-blue hover token. */
   --link-hover: var(--accent-blue-hover);
   --code-fg: #9b3d1c;
-  --blockquote-bg: #fff3eb;
+  --blockquote-bg: #fff4ec;
   /* Tint triad: single source for tag/table-head/alert tinted surfaces. */
   --tint-bg: #e6f4ea;
-  --tint-border: #b6dfc5;
+  --tint-border: #9fd0b3;
   --tint-fg: #0f3a2a;
   --tag-bg: var(--tint-bg);
   --tag-border: var(--tint-border);
@@ -57,12 +57,12 @@
   --success: var(--green);
   --danger: #b42326;
   --warning: #7d5600;
-  --shadow-lg: 0 12px 35px rgba(35, 35, 30, 0.16);
-  --shadow-sm: 0 2px 8px rgba(35, 35, 30, 0.08);
+  --shadow-lg: 0 12px 35px rgba(28, 30, 26, 0.10);
+  --shadow-sm: 0 2px 8px rgba(28, 30, 26, 0.06);
   --focus-ring: 0 0 0 0.2rem rgba(8, 75, 181, 0.35);
   /* Intentional transparent list surfaces (resume/compaction) vs default card. */
   --card-compact: transparent;
-  --code-bg: #cbc9c2;
+  --code-bg: #eceee8;
 }
 
 /* Dark theme tokens */
