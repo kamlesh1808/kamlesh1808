@@ -51,8 +51,8 @@ const {
         <div class="mb-4">
           <p class="fw-semibold mb-2">Top Skills</p>
           <template v-for="skill in topSkills" :key="skill">
-            <a v-if="skillUrl(skill)" :href="skillUrl(skill)!" target="_blank" rel="noopener noreferrer"><span class="badge bg-secondary text-wrap me-1 mb-1">{{ skill }}</span></a>
-            <span v-else class="badge bg-secondary text-wrap me-1 mb-1">{{ skill }}</span>
+            <a v-if="skillUrl(skill)" :href="skillUrl(skill)!" target="_blank" rel="noopener noreferrer"><span class="tag text-wrap me-1 mb-1">{{ skill }}</span></a>
+            <span v-else class="tag text-wrap me-1 mb-1">{{ skill }}</span>
           </template>
         </div>
 

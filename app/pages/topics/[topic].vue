@@ -8,17 +8,16 @@ const { topic, filtered } = await setupTopicPage()
   <article v-if="topic" class="container article-shell topics-shell">
     <NuxtLink class="back-link" to="/topics"><i class="fa-solid fa-arrow-left" /> Topics</NuxtLink>
     <header class="article-header">
-      <h1>{{ topic.name }}</h1>
-      <p class="article-lede">{{ topic.count }} posts</p>
+      <h1>{{ topic.name }} <span class="article-lede">{{ topic.count }} posts</span></h1>
     </header>
     <div class="row g-4">
       <div v-for="post in filtered" :key="post.slug" class="col-md-6">
-        <div class="post-card">
+        <NuxtLink class="post-card d-block" :to="`/blog/${post.slug}`">
           <div class="d-flex justify-content-between align-items-center small text-muted mb-3">
             <time :datetime="post.date">{{ new Date(`${post.date}T12:00:00`).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' }) }}</time>
           </div>
-          <h2 class="post-card-title"><NuxtLink :to="`/blog/${post.slug}`">{{ post.title }}</NuxtLink></h2>
-        </div>
+          <h2 class="post-card-title">{{ post.title }}</h2>
+        </NuxtLink>
       </div>
     </div>
   </article>
