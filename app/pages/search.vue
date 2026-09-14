@@ -9,7 +9,6 @@ const { query, results } = await setupSearchPage()
     <div class="container">
       <p class="eyebrow">SEARCH</p>
       <h1 class="hero-title">Search the site</h1>
-      <p class="hero-copy">Find posts by keyword.</p>
     </div>
   </section>
   <section class="container content-section search-page">
@@ -27,7 +26,12 @@ const { query, results } = await setupSearchPage()
 
     <div v-if="query && results.length" class="row g-4">
       <div v-for="post in results" :key="post.slug" class="col-md-6">
-        <PostCard :post="post" />
+        <NuxtLink class="post-card d-block" :to="`/blog/${post.slug}`">
+          <div class="d-flex justify-content-between align-items-center small text-muted mb-3">
+            <time :datetime="post.date">{{ new Date(`${post.date}T12:00:00`).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' }) }}</time>
+          </div>
+          <h2 class="post-card-title">{{ post.title }}</h2>
+        </NuxtLink>
       </div>
     </div>
     <p v-else-if="query" class="empty-state">No posts matched “{{ query }}”.</p>
