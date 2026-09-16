@@ -976,6 +976,9 @@ h3 {
   position: relative;
   padding: 0 0 2rem 1.45rem;
   border-left: 1px solid var(--line);
+  min-width: 0;
+  overflow-wrap: anywhere;
+  word-break: break-word;
 }
 
 .timeline-item:before {
@@ -1308,6 +1311,16 @@ a:visited:not(.article-body a):not(.read-link) {
 
   .hero-copy {
     font-size: clamp(0.82rem, 3.8vw, 1.08rem);
+  }
+
+  /* About page mobile: remove horizontal gutter and col-12 padding */
+  .about-shell .row {
+    --bs-gutter-x: 0;
+  }
+
+  .about-shell .col-12 {
+    padding-left: 0;
+    padding-right: 0;
   }
 }
 
