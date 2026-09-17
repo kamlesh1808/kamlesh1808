@@ -57,6 +57,31 @@ If `NUXT_PRIVATE_PASSCODE_HASH` is empty, the gate fails closed: `PrivateLock` s
 
 > Static-hosting caveat: on GitHub Pages this is an obscurity gate, not real access control — `/api/posts/drafts` JSON and prerendered payloads remain fetchable by URL to anyone who knows or guesses the path. Do not store truly sensitive data behind it.
 
+### Enabling on GitHub Pages (manual path)
+
+Why manual: automation tokens without the `workflow` OAuth scope cannot push `.github/workflows/*` changes (remote rejects with "refusing to allow an OAuth App ... without 'workflow' scope"), so this one edit goes through the GitHub web UI.
+
+1. In the GitHub web UI, edit `.github/workflows/deploy.yml` — change
+   ```yaml
+         - name: Generate static site
+           run: npm run generate
+   ```
+   to
+   ```yaml
+         - name: Generate static site
+           run: npm run generate
+           env:
+             NUXT_PRIVATE_PASSCODE_HASH: ${{ secrets.NUXT_PRIVATE_PASSCODE_HASH }}
+   ```
+   and commit to `main` (this triggers the deploy workflow).
+2. Add repository secret `NUXT_PRIVATE_PASSCODE_HASH` (Settings → Secrets and Variables → Actions) containing the 64-char SHA-256 hex of the production passcode; generate via:
+   ```bash
+   echo -n 'your-prod-passcode' | sha256sum | cut -d' ' -f1
+   ```
+3. Re-run / confirm the Deploy workflow; verify `/admin` and `/posts-drafts` prompt for passcode and unlock with it.
+
+Note: without the secret the build fails closed ("Passcode not configured", unlock denied); use a prod passcode distinct from the dev one.
+
 ## Code organization
 
 This is a Nuxt 4 application using Vue and TypeScript. Nuxt's file-based routing maps files in `app/pages/` to site routes.
