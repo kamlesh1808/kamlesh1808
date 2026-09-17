@@ -836,7 +836,7 @@ h3 {
   font-weight: 700;
 }
 
-/* Article / blog post */
+/* Article / post */
 .article-shell {
   padding-top: 3.5rem;
 }
@@ -857,7 +857,7 @@ h3 {
   border-bottom: 1px solid var(--line);
 }
 
-/* Topics detail: no divider line (scoped — blog article-header untouched) */
+/* Topics detail: no divider line (scoped — post article-header untouched) */
 .article-shell.topics-shell .article-header {
   border-bottom: none;
 }

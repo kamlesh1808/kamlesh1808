@@ -21,6 +21,7 @@ export type PostSummary = Omit<Post, 'html'>
 const contentDir = join(process.cwd(), 'content')
 const markdown = new MarkdownIt({ html: false, linkify: true, typographer: true })
 let productionPostsCache: Post[] | undefined
+let productionDraftPostsCache: Post[] | undefined
 
 function parsePost(filename: string, rawSource: string): Post {
   const { fields, body } = parseFrontmatter(rawSource)
@@ -56,9 +57,27 @@ export async function getPosts(): Promise<Post[]> {
     throw error
   }
 
-  const markdownFiles = files.filter(file => /^blog.*\.md$/i.test(file))
+  const markdownFiles = files.filter(file => /^post.*\.md$/i.test(file))
   const posts = await Promise.all(markdownFiles.map(async (file) => parsePost(file, await fs.readFile(join(contentDir, file), 'utf8'))))
   const visiblePosts = posts.filter(post => !post.disabled).sort((a, b) => b.date.localeCompare(a.date))
   if (process.env.NODE_ENV === 'production') productionPostsCache = visiblePosts
   return visiblePosts
+}
+
+export async function getDraftPosts(): Promise<Post[]> {
+  if (process.env.NODE_ENV === 'production' && productionDraftPostsCache) return productionDraftPostsCache
+
+  let files: string[]
+  try {
+    files = await fs.readdir(contentDir)
+  } catch (error: unknown) {
+    if (error instanceof Error && 'code' in error && error.code === 'ENOENT') return []
+    throw error
+  }
+
+  const markdownFiles = files.filter(file => /^post.*\.md$/i.test(file))
+  const posts = await Promise.all(markdownFiles.map(async (file) => parsePost(file, await fs.readFile(join(contentDir, file), 'utf8'))))
+  const draftPosts = posts.filter(post => post.disabled && post.aiAssisted).sort((a, b) => b.date.localeCompare(a.date))
+  if (process.env.NODE_ENV === 'production') productionDraftPostsCache = draftPosts
+  return draftPosts
 }

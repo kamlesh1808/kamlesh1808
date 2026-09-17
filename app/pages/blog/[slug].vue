@@ -1,20 +1,13 @@
 <script setup lang="ts">
-import { setupBlogPage } from '~/page-scripts/blog'
-import { slugifyTopic } from '~/page-scripts/topic-utils'
-
-const { post } = await setupBlogPage()
+// Legacy redirect: /blog/:slug → /post/:slug.
+// Content slugs were mechanically renamed (leading "blog" → "post"),
+// so map the old slug the same way. 301 on the server so static
+// hosting and search engines pick up the permanent move.
+const slug = String(useRoute().params.slug ?? '')
+const newSlug = slug.replace(/^blog/i, 'post')
+await navigateTo(`/post/${newSlug}`, { redirectCode: 301, replace: true })
 </script>
 
 <template>
-  <article v-if="post" class="container article-shell">
-    <NuxtLink class="back-link" to="/"><i class="fa-solid fa-arrow-left" /> All writing</NuxtLink>
-    <header class="article-header">
-      <h1>{{ post.title }}<span v-if="post.aiAssisted" class="article-ai-assisted">AI-assisted</span></h1>
-      <div class="d-flex flex-wrap gap-2 mb-4"><NuxtLink v-for="tag in post.tags" :key="tag" class="tag" :to="`/topics/${slugifyTopic(tag)}`">{{ tag }}</NuxtLink></div>
-      <p v-if="post.source" class="article-source">Source: {{ post.source }}</p>
-      <p class="article-lede">{{ post.excerpt }}</p>
-      <div class="article-meta"><time :datetime="post.date">{{ new Date(`${post.date}T12:00:00`).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' }) }}</time><span>·</span><span>{{ post.readingTime }}</span></div>
-    </header>
-    <div class="article-body" v-html="post.html" />
-  </article>
+  <p>Redirecting…</p>
 </template>

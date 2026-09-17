@@ -14,6 +14,6 @@ const { posts } = await setupIndexPage()
     <div class="row g-4">
       <div v-for="post in posts" :key="post.slug" class="col-md-6"><PostCard :post="post" /></div>
     </div>
-    <div v-if="!posts?.length" class="empty-state">No posts yet. Add a blogYYYYMonDD.md file to the content folder.</div>
+    <div v-if="!posts?.length" class="empty-state">No posts yet. Add a postYYYYMonDD.md file to the content folder.</div>
   </section>
 </template>
