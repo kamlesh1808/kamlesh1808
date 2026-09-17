@@ -24,6 +24,11 @@ export default defineNuxtConfig({
   nitro: {
     preset: 'github-pages'
   },
+  runtimeConfig: {
+    public: {
+      privatePasscodeHash: process.env.NUXT_PRIVATE_PASSCODE_HASH ?? '',
+    },
+  },
 
   typescript: { strict: true },
 })

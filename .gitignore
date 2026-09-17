@@ -6,3 +6,6 @@ dist
 dist/
 .output/
 /.idea/
+.env
+.env.*
+!.env.example

@@ -1,5 +1,7 @@
 # Developer Blog
 
+
+
 A responsive Nuxt 4 developer portfolio and blog. It includes markdown-powered posts, Home and About pages (About doubles as Resume), and works cleanly across desktop, tablet, and mobile layouts.
 
 ## Run it locally
@@ -38,6 +40,22 @@ npm run preview
 ```
 
 `nuxt.config.ts` sets the `github-pages` Nitro preset and the `/kamlesh1808/` base URL, so `npm run build` alone is not the deploy path — always use `generate` for production output.
+
+## Private pages passcode
+
+`/admin`, `/posts-drafts`, and disabled draft posts are hidden behind a client-side passcode gate (`app/composables/usePrivateAuth.ts`, `app/components/PrivateLock.vue`). The unlocked flag lives in `sessionStorage` (`private-unlocked`); the SHA-256 comparison runs in the browser against `runtimeConfig.public.privatePasscodeHash`, which is inlined at build time from `NUXT_PRIVATE_PASSCODE_HASH`.
+
+Generate the hash and set it at build/dev time:
+
+```bash
+echo -n 'your-passcode' | sha256sum | cut -d' ' -f1
+NUXT_PRIVATE_PASSCODE_HASH=<hex-digest> npm run dev
+NUXT_PRIVATE_PASSCODE_HASH=<hex-digest> npm run generate
+```
+
+If `NUXT_PRIVATE_PASSCODE_HASH` is empty, the gate fails closed: `PrivateLock` shows "Passcode not configured — set NUXT_PRIVATE_PASSCODE_HASH" and denies unlock. `/admin` is unlisted (no nav link) but the route still exists; `/posts-drafts` was already unlinked.
+
+> Static-hosting caveat: on GitHub Pages this is an obscurity gate, not real access control — `/api/posts/drafts` JSON and prerendered payloads remain fetchable by URL to anyone who knows or guesses the path. Do not store truly sensitive data behind it.
 
 ## Code organization
 

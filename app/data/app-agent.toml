@@ -1,6 +1,6 @@
 title = "App Agents"
 version = 1
-purpose = "Operational instructions for agents creating, importing, revising, and publishing blog content in this app."
+purpose = "Operational instructions for agents creating, importing, revising, and publishing post content in this app."
 
 [writing_style]
 source_of_truth = "app/data/mywritingstyle.toml"
@@ -28,8 +28,8 @@ apply_to = [
 avoid_extra_tags_for = ["tools", "formats", "audiences", "supporting ideas"]
 
 [publishing]
-after_new_blog = [
-  "Update the topic counts after publishing a new blog.",
+after_new_post = [
+  "Update the topic counts after publishing a new post.",
   "Verify that the new article appears under each of its topic pages with the correct count."
 ]
 

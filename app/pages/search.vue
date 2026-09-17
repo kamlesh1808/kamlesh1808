@@ -26,7 +26,7 @@ const { query, results } = await setupSearchPage()
 
     <div v-if="query && results.length" class="row g-4">
       <div v-for="post in results" :key="post.slug" class="col-md-6">
-        <NuxtLink class="post-card d-block" :to="`/blog/${post.slug}`">
+        <NuxtLink class="post-card d-block" :to="`/post/${post.slug}`">
           <div class="d-flex justify-content-between align-items-center small text-muted mb-3">
             <time :datetime="post.date">{{ new Date(`${post.date}T12:00:00`).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' }) }}</time>
           </div>
