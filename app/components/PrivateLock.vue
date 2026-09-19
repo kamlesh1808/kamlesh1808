@@ -4,14 +4,13 @@
 <script setup lang="ts">
 const emit = defineEmits<{ unlocked: [] }>()
 
-const { isConfigured, verifyPasscode } = usePrivateAuth()
+const { verifyPasscode } = usePrivateAuth()
 const passcode = ref('')
 const error = ref('')
 const checking = ref(false)
 
 async function onSubmit(): Promise<void> {
   error.value = ''
-  if (!isConfigured.value) return
   if (!passcode.value) {
     error.value = 'Enter the passcode.'
     return
@@ -36,10 +35,8 @@ async function onSubmit(): Promise<void> {
     <p class="eyebrow">PRIVATE</p>
     <h1>Passcode required</h1>
     <p>This area is passcode-gated. Enter the passcode to continue.</p>
-    <div v-if="!isConfigured" class="alert alert-warning" role="status">
-      Passcode not configured — set NUXT_PRIVATE_PASSCODE_HASH at build/dev time.
-    </div>
-    <form v-else novalidate @submit.prevent="onSubmit">
+    <p class="small text-body-secondary">Hint: kamlesh1808 + current UTC hour (yyyymmddHH).</p>
+    <form novalidate @submit.prevent="onSubmit">
       <div class="col-md-6">
         <label class="form-label" for="private-passcode">Passcode</label>
         <input

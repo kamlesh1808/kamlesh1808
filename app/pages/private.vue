@@ -1,8 +1,8 @@
 <script setup lang="ts">
-// Legacy redirect: /private → /posts-drafts.
-// Drafts page moved to /posts-drafts; 301 on the server so static
+// Legacy redirect: /private → /tools/drafts.
+// Drafts page moved under /tools; 301 on the server so static
 // hosting and search engines pick up the permanent move.
-await navigateTo('/posts-drafts', { redirectCode: 301, replace: true })
+await navigateTo('/tools/drafts', { redirectCode: 301, replace: true })
 </script>
 
 <template>

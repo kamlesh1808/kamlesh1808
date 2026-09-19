@@ -22,9 +22,11 @@ export function parseFrontmatter(source: string): { fields: Frontmatter; body: s
   const fields: Frontmatter = {}
   const frontmatter = match[1] ?? ''
   const body = match[2] ?? ''
-  for (const [index, line] of frontmatter.split(/\r?\n/).entries()) {
+  for (const [index, rawLine] of frontmatter.split(/\r?\n/).entries()) {
+    const line = rawLine.trim()
+    if (!line || line.startsWith('#')) continue
     const separator = line.indexOf(':')
-    if (separator < 1) throw new Error(`Invalid frontmatter on line ${index + 1}: ${line}`)
+    if (separator < 1) throw new Error(`Invalid frontmatter on line ${index + 1}: ${rawLine}`)
     const key = line.slice(0, separator).trim()
     if (!/^[A-Za-z][A-Za-z0-9_-]*$/.test(key)) throw new Error(`Invalid frontmatter key: ${key}`)
     if (fields[key] !== undefined) throw new Error(`Duplicate frontmatter key: ${key}`)

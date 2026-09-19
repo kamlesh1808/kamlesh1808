@@ -1,8 +1,8 @@
 <script setup lang="ts">
-// Legacy redirect: /write → /admin.
-// Composer page moved to /admin; 301 on the server so static
+// Legacy redirect: /write → /tools/write.
+// Composer page moved to /tools/write; 301 on the server so static
 // hosting and search engines pick up the permanent move.
-await navigateTo('/admin', { redirectCode: 301, replace: true })
+await navigateTo('/tools/write', { redirectCode: 301, replace: true })
 </script>
 
 <template>
