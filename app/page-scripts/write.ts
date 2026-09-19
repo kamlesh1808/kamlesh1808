@@ -21,9 +21,10 @@ export interface ComposerResult {
 }
 
 const MAX_SLUG_LENGTH = 60
-const MAX_TITLE_LENGTH = 120
-const MAX_EXCERPT_LENGTH = 300
-const MAX_BODY_LENGTH = 50000
+export const MAX_TITLE_WORDS = 16
+export const MAX_SUMMARY_WORDS = 32
+export const MAX_EXCERPT_WORDS = MAX_SUMMARY_WORDS
+export const MAX_BODY_WORDS = 1800
 const MAX_TAGS = 8
 const MAX_TAG_LENGTH = 30
 
@@ -68,6 +69,12 @@ export function singleLine(value: string): string {
   return value.replace(/[\r\n]+/g, ' ').replace(/\s+/g, ' ').trim()
 }
 
+export function countWords(value: string): number {
+  const normalized = singleLine(value)
+  if (!normalized) return 0
+  return normalized.split(/\s+/).filter(Boolean).length
+}
+
 function escapeQuoted(value: string): string {
   return value.replace(/"/g, "'")
 }
@@ -106,12 +113,12 @@ export function validateComposer(input: ComposerInput): ComposerResult {
   const body = input.body.trim()
 
   if (!title) errors.title = 'Title is required.'
-  else if (title.length > MAX_TITLE_LENGTH) errors.title = 'Title must be 120 characters or fewer.'
+  else if (countWords(title) > MAX_TITLE_WORDS) errors.title = 'Title must be 16 words or fewer.'
 
-  if (excerpt.length > MAX_EXCERPT_LENGTH) errors.excerpt = 'Excerpt must be 300 characters or fewer.'
+  if (countWords(excerpt) > MAX_SUMMARY_WORDS) errors.excerpt = 'Summary must be 32 words or fewer.'
 
   if (!body) errors.body = 'Body is required.'
-  else if (input.body.length > MAX_BODY_LENGTH) errors.body = 'Body must be 50000 characters or fewer.'
+  else if (countWords(body) > MAX_BODY_WORDS) errors.body = 'Body must be 1800 words or fewer.'
 
   const rawTags = rawTagList(input.tagsInput)
   if (rawTags.length > MAX_TAGS) errors.tags = 'Maximum 8 tags allowed.'

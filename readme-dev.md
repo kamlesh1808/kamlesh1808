@@ -43,44 +43,11 @@ npm run preview
 
 ## Private pages passcode
 
-`/admin`, `/posts-drafts`, and disabled draft posts are hidden behind a client-side passcode gate (`app/composables/usePrivateAuth.ts`, `app/components/PrivateLock.vue`). The unlocked flag lives in `sessionStorage` (`private-unlocked`); the SHA-256 comparison runs in the browser against `runtimeConfig.public.privatePasscodeHash`, which is inlined at build time from `NUXT_PRIVATE_PASSCODE_HASH`.
+`/tools`, `/posts-drafts`, and disabled draft posts are hidden behind a client-side passcode gate (`app/composables/usePrivateAuth.ts`, `app/components/PrivateLock.vue`, `app/utils/hourPasscode.ts`). The unlocked flag lives in `sessionStorage` (`private-unlocked`); the passcode is time-based — `kamlesh1808` plus the current UTC hour slot (`yyyymmddHH`, previous hour also accepted). No build-time secret or env var is needed.
 
-Generate the hash and set it at build/dev time:
-
-```bash
-echo -n 'your-passcode' | sha256sum | cut -d' ' -f1
-NUXT_PRIVATE_PASSCODE_HASH=<hex-digest> npm run dev
-NUXT_PRIVATE_PASSCODE_HASH=<hex-digest> npm run generate
-```
-
-If `NUXT_PRIVATE_PASSCODE_HASH` is empty, the gate fails closed: `PrivateLock` shows "Passcode not configured — set NUXT_PRIVATE_PASSCODE_HASH" and denies unlock. `/admin` is unlisted (no nav link) but the route still exists; `/posts-drafts` was already unlinked.
+`/tools` is unlisted (no nav link) but the route still exists; `/posts-drafts` was already unlinked.
 
 > Static-hosting caveat: on GitHub Pages this is an obscurity gate, not real access control — `/api/posts/drafts` JSON and prerendered payloads remain fetchable by URL to anyone who knows or guesses the path. Do not store truly sensitive data behind it.
-
-### Enabling on GitHub Pages (manual path)
-
-Why manual: automation tokens without the `workflow` OAuth scope cannot push `.github/workflows/*` changes (remote rejects with "refusing to allow an OAuth App ... without 'workflow' scope"), so this one edit goes through the GitHub web UI.
-
-1. In the GitHub web UI, edit `.github/workflows/deploy.yml` — change
-   ```yaml
-         - name: Generate static site
-           run: npm run generate
-   ```
-   to
-   ```yaml
-         - name: Generate static site
-           run: npm run generate
-           env:
-             NUXT_PRIVATE_PASSCODE_HASH: ${{ secrets.NUXT_PRIVATE_PASSCODE_HASH }}
-   ```
-   and commit to `main` (this triggers the deploy workflow).
-2. Add repository secret `NUXT_PRIVATE_PASSCODE_HASH` (Settings → Secrets and Variables → Actions) containing the 64-char SHA-256 hex of the production passcode; generate via:
-   ```bash
-   echo -n 'your-prod-passcode' | sha256sum | cut -d' ' -f1
-   ```
-3. Re-run / confirm the Deploy workflow; verify `/admin` and `/posts-drafts` prompt for passcode and unlock with it.
-
-Note: without the secret the build fails closed ("Passcode not configured", unlock denied); use a prod passcode distinct from the dev one.
 
 ## Code organization
 
