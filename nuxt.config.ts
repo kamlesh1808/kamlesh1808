@@ -7,7 +7,7 @@ export default defineNuxtConfig({
 
   app: {
     head: {
-      titleTemplate: '%s · Kamlesh Patel',
+      title: 'Kamlesh Patel',
       meta: [
         { name: 'viewport', content: 'width=device-width, initial-scale=1' },
         { name: 'description', content: 'Notes on software engineering, modernization, and building reliable systems.' }

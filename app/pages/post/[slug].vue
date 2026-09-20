@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { setupPostPage } from '~/page-scripts/post'
+import { siteLinks } from '~/data/site'
 
 const { post } = await setupPostPage()
 const { unlocked } = usePrivateAuth()
@@ -11,7 +12,7 @@ const isGated = computed((): boolean => post.value?.disabled === true && !unlock
   <!-- Uses PrivateLock (not PrivateGate): computed isGated + v-else-if="post" chain needs inline branching. -->
   <PrivateLock v-if="isGated" />
   <article v-else-if="post" class="container article-shell">
-    <BackLink to="/">All writing</BackLink>
+    <BackLink :to="siteLinks.routes.home">All writing</BackLink>
     <header class="article-header">
       <h1>{{ post.title }}<span v-if="post.aiAssisted" class="article-ai-assisted">AI-assisted</span></h1>
       <TagList :tags="post.tags" wrapper-class="d-flex flex-wrap gap-2 mb-4" />

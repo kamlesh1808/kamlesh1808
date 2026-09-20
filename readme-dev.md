@@ -129,7 +129,7 @@ Use `aiAssisted: false` in blog front matter to record whether AI assistance was
 - Adjust the landing content in `app/pages/index.vue` and the post card in `app/components/PostCard.vue`.
 - Adjust colors, type, spacing, and responsive styling in `app/assets/css/main.css`.
 - Google Website Translator is loaded dynamically in the footer and requires network access to `translate.google.com`; the site remains usable if the external widget is unavailable.
- - The footer shows an app version label (`vYY.MM.DD.N` build from `app/data/app-version.ts`); every dev/generate run auto-increments the build via the `predev` hook (`scripts/bump-version.mjs`).
+- The footer shows an app version label (`vYY.MM.DD.HHMM` UTC build from `app/data/app-version.ts`); every dev/generate run refreshes the build via the `predev` hook (`scripts/bump-version.mjs`).
 
 There is no `pages/resume.vue`, no contact page, and no `public/` directory — do not reference `public/resume.pdf`.
 

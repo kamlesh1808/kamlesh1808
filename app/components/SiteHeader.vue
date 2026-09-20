@@ -1,13 +1,11 @@
 <script setup lang="ts">
+import { siteLinks } from '~/data/site'
+
 const route = useRoute()
 const { theme, setTheme } = useTheme()
 const open = ref(false)
 const togglerRef = ref<HTMLButtonElement | null>(null)
-const links = computed(() => [
-  { label: 'About', to: '/about' },
-  { label: 'Writing', to: '/' },
-  { label: 'Topics', to: '/topics' },
-])
+const links = siteLinks.navigation
 
 function closeMenu() {
   open.value = false
@@ -31,8 +29,8 @@ onBeforeUnmount(() => window.removeEventListener('keydown', onKeydown))
 <template>
   <header class="site-header sticky-top">
     <nav class="navbar navbar-expand-lg container py-3" aria-label="Main navigation">
-      <NuxtLink class="navbar-brand d-flex align-items-center" to="/" @click="closeMenu">
-        <img class="brand-avatar" src="https://github.com/kamlesh1808.png" alt="Kamlesh Patel" />
+      <NuxtLink class="navbar-brand d-flex align-items-center" :to="siteLinks.routes.home" @click="closeMenu">
+        <img class="brand-avatar" :src="siteLinks.profile.avatarUrl" alt="Kamlesh Patel" />
         <span>Kamlesh Patel</span>
       </NuxtLink>
       <button ref="togglerRef" class="navbar-toggler" type="button" aria-controls="main-nav-collapse" :aria-expanded="open ? 'true' : 'false'" :aria-label="open ? 'Close navigation' : 'Toggle navigation'" @click="open = !open">
@@ -44,7 +42,7 @@ onBeforeUnmount(() => window.removeEventListener('keydown', onKeydown))
             <NuxtLink class="nav-link" active-class="active" exact-active-class="active" :to="link.to" @click="closeMenu">{{ link.label }}</NuxtLink>
           </li>
         </ul>
-        <NuxtLink class="header-icon-link" to="/search" aria-label="Search the site" title="Search the site" @click="closeMenu">
+        <NuxtLink class="header-icon-link" :to="siteLinks.routes.search" aria-label="Search the site" title="Search the site" @click="closeMenu">
           <i class="fa-solid fa-magnifying-glass" aria-hidden="true" />
         </NuxtLink>
         <div class="theme-switcher">

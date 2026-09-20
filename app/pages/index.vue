@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { setupIndexPage } from '~/page-scripts/index'
+import { siteLinks } from '~/data/site'
 
 const { posts } = await setupIndexPage()
 </script>
@@ -7,7 +8,7 @@ const { posts } = await setupIndexPage()
 <template>
   <section id="posts" class="container content-section">
     <div class="hero-identity">
-      <img src="https://github.com/kamlesh1808.png" alt="Kamlesh Patel" class="hero-avatar">
+      <img :src="siteLinks.profile.avatarUrl" alt="Kamlesh Patel" class="hero-avatar">
       <h1 class="hero-title">Building; one commit at a time</h1>
     </div>
     <SectionHeader :count="posts?.length || 0" eyebrow="THE LATEST" title="Explore the writing" title-class="writing-explore" />

@@ -4,8 +4,8 @@
 
 export function setupToolsIndexPage() {
   useHead({
-    title: 'Admin',
-    meta: [{ name: 'description', content: 'Private admin dashboard.' }],
+    title: 'Tools',
+    meta: [{ name: 'description', content: 'Private tools dashboard.' }],
   })
 }
 
