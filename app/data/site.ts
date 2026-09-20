@@ -1,9 +1,4 @@
-import profileContactToml from './profile-contact.toml?raw'
-import summaryImpactToml from './summary-impact.toml?raw'
-import experienceToml from './experience.toml?raw'
-import educationToml from './education.toml?raw'
-import skillsToml from './skills.toml?raw'
-import skillLinksToml from './skill-links.toml?raw'
+import siteToml from './site.toml?raw'
 import { parseToml, type TomlTable, type TomlValue } from '~/utils/toml'
 import type { Education, Experience, SkillCategory } from '~/types/about'
 
@@ -41,21 +36,48 @@ function stringArray(value: TomlValue | undefined, name: string): string[] {
   return value as string[]
 }
 
-const profileData = parseToml(profileContactToml)
-const profile = table(profileData.profile, 'profile')
-const contact = table(profileData.contact, 'contact')
+const siteData = parseToml(siteToml)
+const profile = table(siteData.profile, 'profile')
+const contact = table(siteData.contact, 'contact')
+const routes = table(siteData.routes, 'routes')
 const contactLinks = tableArray(contact.links, 'contact.links').map(link => ({
   url: stringValue(link.url, 'contact.links.url'),
-  ariaLabel: stringValue(link.aria_label, 'contact.links.aria_label'),
+  ariaLabel: stringValue(link.label, 'contact.links.label'),
   iconClass: stringValue(link.icon_class, 'contact.links.icon_class'),
   external: booleanValue(link.external, 'contact.links.external'),
+  showInFooter: booleanValue(link.show_in_footer, 'contact.links.show_in_footer'),
 }))
 
-const summaryImpactData = parseToml(summaryImpactToml)
-const summary = table(summaryImpactData.summary, 'summary')
-const impact = table(summaryImpactData.impact, 'impact')
+export const siteLinks = {
+  profile: {
+    name: stringValue(profile.name, 'profile.name'),
+    subtitle: stringValue(profile.subtitle, 'profile.subtitle'),
+    avatarUrl: stringValue(profile.avatar_url, 'profile.avatar_url'),
+  },
+  contact: {
+    location: stringValue(contact.location, 'contact.location'),
+    locationUrl: stringValue(contact.location_url, 'contact.location_url'),
+    region: stringValue(contact.region, 'contact.region'),
+    links: contactLinks,
+  },
+  routes: {
+    home: stringValue(routes.home, 'routes.home'),
+    search: stringValue(routes.search, 'routes.search'),
+    topics: stringValue(routes.topics, 'routes.topics'),
+    toolsWrite: stringValue(routes.tools_write, 'routes.tools_write'),
+    toolsDrafts: stringValue(routes.tools_drafts, 'routes.tools_drafts'),
+  },
+  navigation: tableArray(siteData.navigation, 'navigation').map(link => ({
+    label: stringValue(link.label, 'navigation.label'),
+    to: stringValue(link.to, 'navigation.to'),
+  })),
+  social: contactLinks.filter(link => link.showInFooter),
+}
 
-const experience = tableArray(parseToml(experienceToml).experience, 'experience').map(item => ({
+const summary = table(siteData.summary, 'summary')
+const impact = table(siteData.impact, 'impact')
+
+const experience = tableArray(siteData.experience, 'experience').map(item => ({
   date: stringValue(item.date, 'experience.date'),
   employer: stringValue(item.employer, 'experience.employer'),
   employerUrl: optionalString(item.employer_url, 'experience.employer_url'),
@@ -65,7 +87,7 @@ const experience = tableArray(parseToml(experienceToml).experience, 'experience'
   projectUrl: optionalString(item.project_url, 'experience.project_url'),
 }))
 
-const education = tableArray(parseToml(educationToml).education, 'education').map(item => ({
+const education = tableArray(siteData.education, 'education').map(item => ({
   date: stringValue(item.date, 'education.date'),
   program: stringValue(item.program, 'education.program'),
   credentialLabel: stringValue(item.credential_label, 'education.credential_label'),
@@ -74,34 +96,26 @@ const education = tableArray(parseToml(educationToml).education, 'education').ma
   institution: stringValue(item.institution, 'education.institution'),
 }))
 
-const skillsData = parseToml(skillsToml)
-const topSkills = stringArray(skillsData.top_skills, 'top_skills')
-const skillCategories = tableArray(skillsData.categories, 'categories').map(category => ({
-  name: stringValue(category.name, 'categories.name'),
-  items: tableArray(category.items, 'categories.items').map(item => ({
-    name: stringValue(item.name, 'categories.items.name'),
-    linkKey: optionalString(item.link_key, 'categories.items.link_key'),
-    className: stringValue(item.class_name, 'categories.items.class_name'),
-    title: optionalString(item.title, 'categories.items.title'),
+const skillsData = table(siteData.skills, 'skills')
+const topSkills = stringArray(skillsData.top, 'skills.top')
+const skillCategories = tableArray(siteData.skill_categories, 'skill_categories').map(category => ({
+  name: stringValue(category.name, 'skill_categories.name'),
+  items: tableArray(category.items, 'skill_categories.items').map(item => ({
+    name: stringValue(item.name, 'skill_categories.items.name'),
+    linkKey: optionalString(item.link_key, 'skill_categories.items.link_key'),
+    className: stringValue(item.class_name, 'skill_categories.items.class_name'),
+    title: optionalString(item.title, 'skill_categories.items.title'),
   })),
 }))
 
-const skillLinksTable = table(parseToml(skillLinksToml).skills, 'skills')
+const skillLinksTable = table(siteData.skill_links, 'skill_links')
 const skillLinks = Object.fromEntries(
-  Object.entries(skillLinksTable).map(([name, url]) => [name, stringValue(url, `skills.${name}`)]),
+  Object.entries(skillLinksTable).map(([name, url]) => [name, stringValue(url, `skill_links.${name}`)]),
 )
 
 export const aboutData = {
-  profile: {
-    name: stringValue(profile.name, 'profile.name'),
-    subtitle: stringValue(profile.subtitle, 'profile.subtitle'),
-  },
-  contact: {
-    location: stringValue(contact.location, 'contact.location'),
-    locationUrl: stringValue(contact.location_url, 'contact.location_url'),
-    region: stringValue(contact.region, 'contact.region'),
-    links: contactLinks,
-  },
+  profile: siteLinks.profile,
+  contact: siteLinks.contact,
   summaryItems: stringArray(summary.items, 'summary.items'),
   impactItems: stringArray(impact.items, 'impact.items'),
   topSkills,
