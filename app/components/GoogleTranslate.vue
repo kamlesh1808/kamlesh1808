@@ -1,7 +1,10 @@
 <script setup lang="ts">
+import { LANGUAGE_CODES } from '~/data/languages'
+
 interface GoogleTranslateElementOptions {
   pageLanguage: string
   autoDisplay: boolean
+  includedLanguages: string
 }
 
 interface GoogleTranslateApi {
@@ -22,7 +25,7 @@ const widgetId = 'google_translate_element'
 function initializeWidget() {
   const TranslateElement = window.google?.translate?.TranslateElement
   if (!TranslateElement) return
-  new TranslateElement({ pageLanguage: 'en', autoDisplay: false }, widgetId)
+  new TranslateElement({ pageLanguage: 'en', autoDisplay: false, includedLanguages: LANGUAGE_CODES.join(',') }, widgetId)
 }
 
 onMounted(() => {

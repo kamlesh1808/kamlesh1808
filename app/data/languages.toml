@@ -1,0 +1,550 @@
+# Translate-widget language allowlist (single source of truth).
+# Speaker figures are approximate 2025 Google-Search totals (L1 + L2, millions, one decimal).
+# Rows flagged `approx = true` are rough estimates. Entry order matches the widget
+# allowlist — do not reorder.
+
+[[language]]
+code = "en"
+name = "English"
+users_millions = 1493.0
+
+[[language]]
+code = "zh-CN"
+name = "Mandarin Chinese"
+users_millions = 1184.0
+
+[[language]]
+code = "hi"
+name = "Hindi"
+users_millions = 611.0
+
+[[language]]
+code = "es"
+name = "Spanish"
+users_millions = 561.0
+
+[[language]]
+code = "ar"
+name = "Arabic"
+users_millions = 422.0
+
+[[language]]
+code = "fr"
+name = "French"
+users_millions = 334.0
+
+[[language]]
+code = "bn"
+name = "Bengali"
+users_millions = 274.0
+
+[[language]]
+code = "pt"
+name = "Portuguese"
+users_millions = 269.0
+
+[[language]]
+code = "ru"
+name = "Russian"
+users_millions = 210.0
+
+[[language]]
+code = "id"
+name = "Indonesian"
+users_millions = 255.0
+
+[[language]]
+code = "ur"
+name = "Urdu"
+users_millions = 246.0
+
+[[language]]
+code = "de"
+name = "German"
+users_millions = 133.0
+
+[[language]]
+code = "ja"
+name = "Japanese"
+users_millions = 126.0
+
+[[language]]
+code = "ha"
+name = "Hausa"
+users_millions = 94.0
+
+[[language]]
+code = "mr"
+name = "Marathi"
+users_millions = 99.0
+
+[[language]]
+code = "te"
+name = "Telugu"
+users_millions = 96.0
+
+[[language]]
+code = "tr"
+name = "Turkish"
+users_millions = 94.0
+
+[[language]]
+code = "ta"
+name = "Tamil"
+users_millions = 86.0
+
+[[language]]
+code = "vi"
+name = "Vietnamese"
+users_millions = 97.0
+
+# Same language as zh-CN; separate widget entry for Traditional script.
+[[language]]
+code = "zh-TW"
+name = "Mandarin Chinese (Traditional)"
+users_millions = 1184.0
+
+[[language]]
+code = "ko"
+name = "Korean"
+users_millions = 82.0
+
+[[language]]
+code = "jv"
+name = "Javanese"
+users_millions = 69.0
+
+[[language]]
+code = "it"
+name = "Italian"
+users_millions = 66.0
+
+[[language]]
+code = "fa"
+name = "Persian"
+users_millions = 127.0
+
+[[language]]
+code = "gu"
+name = "Gujarati"
+users_millions = 62.0
+
+[[language]]
+code = "pa"
+name = "Eastern Punjabi"
+users_millions = 38.0
+
+[[language]]
+code = "th"
+name = "Thai"
+users_millions = 71.0
+
+[[language]]
+code = "am"
+name = "Amharic"
+users_millions = 78.0
+
+[[language]]
+code = "uk"
+name = "Ukrainian"
+users_millions = 33.0
+
+[[language]]
+code = "yo"
+name = "Yoruba"
+users_millions = 53.0
+
+[[language]]
+code = "kn"
+name = "Kannada"
+users_millions = 59.0
+
+[[language]]
+code = "ml"
+name = "Malayalam"
+users_millions = 38.0
+
+[[language]]
+code = "or"
+name = "Odia"
+users_millions = 37.6
+
+[[language]]
+code = "my"
+name = "Burmese"
+users_millions = 43.0
+
+[[language]]
+code = "sw"
+name = "Swahili"
+users_millions = 95.0
+
+[[language]]
+code = "ms"
+name = "Malay"
+users_millions = 30.0
+
+[[language]]
+code = "ro"
+name = "Romanian"
+users_millions = 28.0
+
+[[language]]
+code = "ne"
+name = "Nepali"
+users_millions = 30.0
+
+[[language]]
+code = "si"
+name = "Sinhala"
+users_millions = 19.0
+
+[[language]]
+code = "km"
+name = "Khmer"
+users_millions = 18.0
+
+[[language]]
+code = "nl"
+name = "Dutch"
+users_millions = 30.0
+
+[[language]]
+code = "el"
+name = "Greek"
+users_millions = 13.5
+
+[[language]]
+code = "hu"
+name = "Hungarian"
+users_millions = 13.0
+
+[[language]]
+code = "cs"
+name = "Czech"
+users_millions = 10.7
+
+[[language]]
+code = "sv"
+name = "Swedish"
+users_millions = 10.5
+
+[[language]]
+code = "pl"
+name = "Polish"
+users_millions = 43.0
+
+[[language]]
+code = "da"
+name = "Danish"
+users_millions = 6.0
+
+[[language]]
+code = "fi"
+name = "Finnish"
+users_millions = 5.8
+
+[[language]]
+code = "no"
+name = "Norwegian"
+users_millions = 5.5
+
+[[language]]
+code = "he"
+name = "Hebrew"
+users_millions = 9.0
+
+[[language]]
+code = "bg"
+name = "Bulgarian"
+users_millions = 8.0
+
+[[language]]
+code = "hr"
+name = "Croatian"
+users_millions = 6.5
+
+[[language]]
+code = "sk"
+name = "Slovak"
+users_millions = 5.3
+
+[[language]]
+code = "sl"
+name = "Slovenian"
+users_millions = 2.5
+
+[[language]]
+code = "sr"
+name = "Serbian"
+users_millions = 9.0
+
+[[language]]
+code = "et"
+name = "Estonian"
+users_millions = 1.2
+
+[[language]]
+code = "lv"
+name = "Latvian"
+users_millions = 1.8
+
+[[language]]
+code = "lt"
+name = "Lithuanian"
+users_millions = 3.0
+
+[[language]]
+code = "fil"
+name = "Filipino"
+users_millions = 87.0
+
+[[language]]
+code = "af"
+name = "Afrikaans"
+users_millions = 17.5
+
+[[language]]
+code = "zu"
+name = "Zulu"
+users_millions = 28.0
+
+[[language]]
+code = "xh"
+name = "Xhosa"
+users_millions = 19.2
+
+[[language]]
+code = "so"
+name = "Somali"
+users_millions = 21.7
+
+[[language]]
+code = "ig"
+name = "Igbo"
+users_millions = 31.0
+
+[[language]]
+code = "az"
+name = "Azerbaijani"
+users_millions = 26.0
+
+[[language]]
+code = "ka"
+name = "Georgian"
+users_millions = 3.7
+
+[[language]]
+code = "hy"
+name = "Armenian"
+users_millions = 7.0
+
+[[language]]
+code = "kk"
+name = "Kazakh"
+users_millions = 20.0
+
+[[language]]
+code = "ky"
+name = "Kyrgyz"
+users_millions = 5.3
+
+[[language]]
+code = "uz"
+name = "Uzbek"
+users_millions = 35.0
+
+[[language]]
+code = "tg"
+name = "Tajik"
+users_millions = 11.0
+
+[[language]]
+code = "tk"
+name = "Turkmen"
+users_millions = 7.9
+
+[[language]]
+code = "mn"
+name = "Mongolian"
+users_millions = 6.0
+
+[[language]]
+code = "ps"
+name = "Pashto"
+users_millions = 45.0
+approx = true
+
+[[language]]
+code = "ku"
+name = "Northern Kurdish"
+users_millions = 15.0
+approx = true
+
+[[language]]
+code = "ckb"
+name = "Central Kurdish"
+users_millions = 7.5
+approx = true
+
+[[language]]
+code = "sd"
+name = "Sindhi"
+users_millions = 35.0
+
+[[language]]
+code = "lo"
+name = "Lao"
+users_millions = 7.0
+
+[[language]]
+code = "eu"
+name = "Basque"
+users_millions = 0.8
+
+[[language]]
+code = "ca"
+name = "Catalan"
+users_millions = 9.2
+
+[[language]]
+code = "gl"
+name = "Galician"
+users_millions = 2.4
+
+[[language]]
+code = "cy"
+name = "Welsh"
+users_millions = 0.9
+
+[[language]]
+code = "ga"
+name = "Irish"
+users_millions = 1.7
+
+[[language]]
+code = "mt"
+name = "Maltese"
+users_millions = 0.5
+
+[[language]]
+code = "sq"
+name = "Albanian"
+users_millions = 7.5
+
+[[language]]
+code = "mk"
+name = "Macedonian"
+users_millions = 2.1
+
+[[language]]
+code = "be"
+name = "Belarusian"
+users_millions = 5.0
+approx = true
+
+[[language]]
+code = "bs"
+name = "Bosnian"
+users_millions = 3.5
+
+[[language]]
+code = "yi"
+name = "Yiddish"
+users_millions = 0.6
+
+[[language]]
+code = "ht"
+name = "Haitian Creole"
+users_millions = 12.0
+
+[[language]]
+code = "mg"
+name = "Malagasy"
+users_millions = 25.0
+
+[[language]]
+code = "ny"
+name = "Chichewa"
+users_millions = 16.0
+
+[[language]]
+code = "sn"
+name = "Shona"
+users_millions = 10.9
+
+[[language]]
+code = "st"
+name = "Sesotho"
+users_millions = 13.5
+
+[[language]]
+code = "su"
+name = "Sundanese"
+users_millions = 32.0
+
+[[language]]
+code = "om"
+name = "Oromo"
+users_millions = 37.0
+
+[[language]]
+code = "mai"
+name = "Maithili"
+users_millions = 34.0
+
+[[language]]
+code = "bho"
+name = "Bhojpuri"
+users_millions = 53.0
+
+[[language]]
+code = "ceb"
+name = "Cebuano"
+users_millions = 20.0
+
+[[language]]
+code = "rw"
+name = "Kinyarwanda"
+users_millions = 13.1
+
+[[language]]
+code = "ln"
+name = "Lingala"
+users_millions = 25.0
+approx = true
+
+[[language]]
+code = "bm"
+name = "Bambara"
+users_millions = 14.0
+
+[[language]]
+code = "ak"
+name = "Akan"
+users_millions = 11.0
+
+[[language]]
+code = "ee"
+name = "Ewe"
+users_millions = 5.0
+
+[[language]]
+code = "ti"
+name = "Tigrinya"
+users_millions = 10.0
+
+[[language]]
+code = "as"
+name = "Assamese"
+users_millions = 17.0
+
+[[language]]
+code = "dv"
+name = "Dhivehi"
+users_millions = 0.4
+
+[[language]]
+code = "mni-Mtei"
+name = "Manipuri (Meitei)"
+users_millions = 1.8
