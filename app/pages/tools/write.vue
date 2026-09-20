@@ -1,11 +1,9 @@
 <script setup lang="ts">
 import MarkdownIt from 'markdown-it'
 import { buildFilename, buildMarkdown, countWords, parseTags, suggestSlug, validateComposer } from '~/page-scripts/write'
+import { setupToolsWritePage } from '~/page-scripts/tools'
 
-useHead({
-  title: 'Write a post',
-  meta: [{ name: 'description', content: 'Draft a new post with live preview, then copy or download the markdown file.' }],
-})
+setupToolsWritePage()
 
 const { unlocked } = usePrivateAuth()
 
@@ -90,6 +88,18 @@ function prefixSelectedLines(prefix: string | ((index: number) => string)): void
   })
 }
 
+const toolbarActions: Array<{ action: string; icon: string; label: string; suffix?: string }> = [
+  { action: 'bold', icon: 'fa-solid fa-bold', label: 'Bold' },
+  { action: 'italic', icon: 'fa-solid fa-italic', label: 'Italic' },
+  { action: 'h2', icon: 'fa-solid fa-heading', label: 'Heading 2', suffix: '2' },
+  { action: 'h3', icon: 'fa-solid fa-heading', label: 'Heading 3', suffix: '3' },
+  { action: 'ul', icon: 'fa-solid fa-list-ul', label: 'Bullet list' },
+  { action: 'ol', icon: 'fa-solid fa-list-ol', label: 'Numbered list' },
+  { action: 'quote', icon: 'fa-solid fa-quote-left', label: 'Quote' },
+  { action: 'code', icon: 'fa-solid fa-code', label: 'Code' },
+  { action: 'link', icon: 'fa-solid fa-link', label: 'Link' },
+]
+
 function applyToolbar(action: string): void {
   switch (action) {
     case 'bold': surround('**', '**'); break
@@ -168,15 +178,10 @@ function downloadMarkdown(): void {
 
 <template>
   <!-- Obscurity gate: content hidden until unlocked, not real access control. -->
-  <PrivateLock v-if="!unlocked" />
-  <template v-else>
-  <section class="hero search-hero">
-    <div class="container">
-      <p class="eyebrow">WRITE</p>
-      <h1 class="hero-title">Write a post</h1>
-      <p class="hero-copy">Draft in markdown, preview instantly, then add the file to <code>content/</code> and push.</p>
-    </div>
-  </section>
+  <PrivateGate :unlocked="unlocked">
+  <PageHero variant="search-hero" eyebrow="WRITE" title="Write a post">
+    <template #copy>Draft in markdown, preview instantly, then add the file to <code>content/</code> and push.</template>
+  </PageHero>
   <section class="container content-section">
     <form novalidate @submit.prevent="onSubmit">
       <div class="row g-3 mb-4">
@@ -239,23 +244,13 @@ function downloadMarkdown(): void {
             placeholder="Nuxt, Writing"
           >
           <div v-if="submitted && errors.tags" class="invalid-feedback">{{ errors.tags }}</div>
-          <div v-else-if="tags.length" class="d-flex flex-wrap gap-2 mt-2">
-            <span v-for="tag in tags" :key="tag" class="tag">{{ tag }}</span>
-          </div>
+          <TagList v-else-if="tags.length" :tags="tags" variant="span" wrapper-class="d-flex flex-wrap gap-2 mt-2" />
         </div>
       </div>
 
       <ClientOnly>
         <div class="btn-toolbar gap-2 mb-2" role="toolbar" aria-label="Markdown formatting">
-          <button type="button" class="btn btn-sm btn-outline-dark" title="Bold" aria-label="Bold" @click="applyToolbar('bold')"><i class="fa-solid fa-bold" aria-hidden="true" /></button>
-          <button type="button" class="btn btn-sm btn-outline-dark" title="Italic" aria-label="Italic" @click="applyToolbar('italic')"><i class="fa-solid fa-italic" aria-hidden="true" /></button>
-          <button type="button" class="btn btn-sm btn-outline-dark" title="Heading 2" aria-label="Heading 2" @click="applyToolbar('h2')"><i class="fa-solid fa-heading" aria-hidden="true" />2</button>
-          <button type="button" class="btn btn-sm btn-outline-dark" title="Heading 3" aria-label="Heading 3" @click="applyToolbar('h3')"><i class="fa-solid fa-heading" aria-hidden="true" />3</button>
-          <button type="button" class="btn btn-sm btn-outline-dark" title="Bullet list" aria-label="Bullet list" @click="applyToolbar('ul')"><i class="fa-solid fa-list-ul" aria-hidden="true" /></button>
-          <button type="button" class="btn btn-sm btn-outline-dark" title="Numbered list" aria-label="Numbered list" @click="applyToolbar('ol')"><i class="fa-solid fa-list-ol" aria-hidden="true" /></button>
-          <button type="button" class="btn btn-sm btn-outline-dark" title="Quote" aria-label="Quote" @click="applyToolbar('quote')"><i class="fa-solid fa-quote-left" aria-hidden="true" /></button>
-          <button type="button" class="btn btn-sm btn-outline-dark" title="Code" aria-label="Code" @click="applyToolbar('code')"><i class="fa-solid fa-code" aria-hidden="true" /></button>
-          <button type="button" class="btn btn-sm btn-outline-dark" title="Link" aria-label="Link" @click="applyToolbar('link')"><i class="fa-solid fa-link" aria-hidden="true" /></button>
+          <button v-for="item in toolbarActions" :key="item.action" type="button" class="btn btn-sm btn-outline-dark" :title="item.label" :aria-label="item.label" @click="applyToolbar(item.action)"><i :class="item.icon" aria-hidden="true" />{{ item.suffix }}</button>
         </div>
         <label class="form-label" for="write-body">Body markdown (required, max 1800 words)</label>
         <textarea
@@ -273,7 +268,7 @@ function downloadMarkdown(): void {
         <h2 class="mt-4">Preview</h2>
         <PostCard :post="previewPost" />
         <div v-if="body.trim()" class="article-body" v-html="renderedHtml" />
-        <p v-else class="empty-state mt-3">Nothing to preview yet — start writing above.</p>
+        <EmptyState v-else as="p" extra-class="mt-3">Nothing to preview yet — start writing above.</EmptyState>
       </ClientOnly>
 
       <div class="d-flex gap-2 mt-4">
@@ -292,7 +287,7 @@ function downloadMarkdown(): void {
       <p v-if="copyStatus" class="mb-0 mt-2 small">{{ copyStatus }}</p>
     </div>
   </section>
-  </template>
+  </PrivateGate>
 </template>
 
 <style scoped>

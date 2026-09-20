@@ -43,9 +43,9 @@ npm run preview
 
 ## Private pages passcode
 
-`/tools`, `/posts-drafts`, and disabled draft posts are hidden behind a client-side passcode gate (`app/composables/usePrivateAuth.ts`, `app/components/PrivateLock.vue`, `app/utils/hourPasscode.ts`). The unlocked flag lives in `sessionStorage` (`private-unlocked`); the passcode is time-based — `kamlesh1808` plus the current UTC hour slot (`yyyymmddHH`, previous hour also accepted). No build-time secret or env var is needed.
+`/tools` and disabled draft posts are hidden behind a client-side passcode gate (`app/composables/usePrivateAuth.ts`, `app/components/PrivateLock.vue`, `app/utils/hourPasscode.ts`). The unlocked flag lives in `sessionStorage` (`private-unlocked`); the passcode is time-based — `kamlesh1808` plus the current UTC hour slot (`yyyymmddHH`, previous hour also accepted). No build-time secret or env var is needed.
 
-`/tools` is unlisted (no nav link) but the route still exists; `/posts-drafts` was already unlinked.
+`/tools` is unlisted (no nav link) but the route still exists.
 
 > Static-hosting caveat: on GitHub Pages this is an obscurity gate, not real access control — `/api/posts/drafts` JSON and prerendered payloads remain fetchable by URL to anyone who knows or guesses the path. Do not store truly sensitive data behind it.
 
@@ -68,7 +68,7 @@ This is a Nuxt 4 application using Vue and TypeScript. Nuxt's file-based routing
 | `app/pages/index.vue` | `/` | Home page and latest posts |
 | `app/pages/about.vue` | `/about` | Profile, experience, education, and skills |
 | `app/pages/search.vue` | `/search` | Client-side post search |
-| `app/pages/blog/[slug].vue` | `/blog/:slug` | Individual blog post |
+| `app/pages/post/[slug].vue` | `/post/:slug` | Individual blog post |
 | `app/pages/topics/index.vue` | `/topics` | Topic listing |
 | `app/pages/topics/[topic].vue` | `/topics/:topic` | Posts filtered by topic |
 
@@ -129,6 +129,7 @@ Use `aiAssisted: false` in blog front matter to record whether AI assistance was
 - Adjust the landing content in `app/pages/index.vue` and the post card in `app/components/PostCard.vue`.
 - Adjust colors, type, spacing, and responsive styling in `app/assets/css/main.css`.
 - Google Website Translator is loaded dynamically in the footer and requires network access to `translate.google.com`; the site remains usable if the external widget is unavailable.
+ - The footer shows an app version label (`vYY.MM.N` build from `app/data/app-version.ts`); every dev/generate run auto-increments the build via the `predev` hook (`scripts/bump-version.mjs`).
 
 There is no `pages/resume.vue`, no contact page, and no `public/` directory — do not reference `public/resume.pdf`.
 

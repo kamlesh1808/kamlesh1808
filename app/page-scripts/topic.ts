@@ -1,3 +1,4 @@
+import type { PostSummary } from '~/types/post'
 import { findTopicBySlug, groupTopics, slugifyTopic } from './topic-utils'
 
 export async function setupTopicPage() {
@@ -9,8 +10,8 @@ export async function setupTopicPage() {
   const topic = computed(() => findTopicBySlug(topics.value, topicSlug.value))
   const filtered = computed(() =>
     (posts.value ?? [])
-      .filter(post => (post.tags ?? []).some(tag => slugifyTopic(tag) === topicSlug.value))
-      .sort((a, b) => b.date.localeCompare(a.date)),
+      .filter((post: PostSummary) => (post.tags ?? []).some(tag => slugifyTopic(tag) === topicSlug.value))
+      .sort((a: PostSummary, b: PostSummary) => b.date.localeCompare(a.date)),
   )
   nuxtApp.runWithContext(() => useHead(() => ({
     title: topic.value?.name || 'Topic not found',

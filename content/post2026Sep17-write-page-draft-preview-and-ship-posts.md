@@ -1,15 +1,15 @@
 ---
 title: "Write Page: Draft, Preview, and Ship Posts"
 date: 2026-09-17
-excerpt: "How the /write composer drafts markdown, previews as PostCard plus article, and generates a content-ready file"
+excerpt: "How the /tools/write composer drafts markdown, previews as PostCard plus article, and generates a content-ready file"
 tags: [Nuxt, Writing, OpenCode]
 disabled: true
 aiAssisted: true
 ---
 
-**Drafting in the browser** takes three things: a friendly composer, an honest preview, and a file I can ship. I built `/write` for exactly that.
+**Drafting in the browser** takes three things: a friendly composer, an honest preview, and a file I can ship. I built `/tools/write` for exactly that.
 
-I run a static site on GitHub Pages. There is no server to POST to in production. I tried a draft flow that needed an API and it went nowhere live. That is why `/write` never saves to disk itself.
+I run a static site on GitHub Pages. There is no server to POST to in production. I tried a draft flow that needed an API and it went nowhere live. That is why `/tools/write` never saves to disk itself.
 
 It drafts markdown locally, previews it like the real blog, and hands me a content-ready file. I copy or download that file into `content/`. Then I push like any other post.
 
@@ -19,7 +19,7 @@ I write with Node 22 LTS, Nuxt 4, and Bootstrap 5.3.8. I preview with the same m
 
 ```bash
 node --version # v22.x — matches my blog repo
-npm run dev # open /write — composer lives here, no login needed
+npm run dev # open /tools/write — composer lives here, no login needed
 ```
 
 My repo is a project-site named `kamlesh1808`. Every post is one markdown file under `content/`. That is why the composer ends by generating a filename, not by saving.
@@ -79,15 +79,15 @@ Check: after submit, confirm the preview filename starts with `blog2026Sep17-` a
 
 ## Verify
 
-I verify every `/write` draft the same way. I check the file parses, tests pass, and the route still prerenders. I open the live URL in a fresh tab.
+I verify every `/tools/write` draft the same way. I check the file parses, tests pass, and the route still prerenders. I open the live URL in a fresh tab.
 
 ```bash
 npm test # page-script + frontmatter + posts suites must pass
 npx nuxi typecheck # no new type errors from the draft
 npm run generate # prerenders to .output/public
-ls .output/public/write # must exist — composer route rendered
+ls .output/public/tools/write # must exist — composer route rendered
 ```
 
 Stale preview after a green run is usually cache. I hard-refresh with `Ctrl+Shift+R` before assuming the deploy failed.
 
-Small composer, honest preview, shippable file. Thank you for reading — try `/write` for your next post, and thank OpenCode, Nuxt, Bootstrap, and open source for making simple tools like this possible.
+Small composer, honest preview, shippable file. Thank you for reading — try `/tools/write` for your next post, and thank OpenCode, Nuxt, Bootstrap, and open source for making simple tools like this possible.

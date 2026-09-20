@@ -14,13 +14,11 @@ const {
 } = setupAboutPage()
 </script>
 <template>
-  <section class="hero about-hero">
-    <div class="container">
-      <p class="eyebrow">ABOUT</p>
-      <div class="profile-card">
-        <p class="mb-1 fw-semibold profile-name">{{ profile.name }}</p>
-        <p class="mb-3 profile-subtitle">{{ profile.subtitle }}</p>
-        <p class="resume-contact mb-0">
+  <PageHero variant="about-hero" eyebrow="ABOUT">
+    <div class="profile-card">
+      <p class="mb-1 fw-semibold profile-name">{{ profile.name }}</p>
+      <p class="mb-3 profile-subtitle">{{ profile.subtitle }}</p>
+      <p class="resume-contact mb-0">
           <a :href="contact.locationUrl" target="_blank" rel="noreferrer">{{ contact.location }}</a>, {{ contact.region }}
           <span class="contact-links">
             <a
@@ -33,9 +31,8 @@ const {
             ><i :class="link.iconClass" aria-hidden="true"></i></a>
           </span>
         </p>
-      </div>
     </div>
-  </section>
+  </PageHero>
   <section class="container page-shell resume about-shell">
 
     <div class="row g-5">
@@ -43,24 +40,17 @@ const {
 
         <section class="summary-section mb-4">
           <h2>Summary</h2>
-          <ul class="list-unstyled">
-            <li v-for="item in summaryItems" :key="item" class="mb-2"><i class="fa-solid fa-check-circle me-2 text-success" />{{ item }}</li>
-          </ul>
+          <CheckList :items="summaryItems" />
         </section>
 
         <div class="mb-4">
           <p class="fw-semibold mb-2">Top Skills</p>
-          <template v-for="skill in topSkills" :key="skill">
-            <a v-if="skillUrl(skill)" :href="skillUrl(skill)!" target="_blank" rel="noopener noreferrer"><span class="tag text-wrap me-1 mb-1">{{ skill }}</span></a>
-            <span v-else class="tag text-wrap me-1 mb-1">{{ skill }}</span>
-          </template>
+          <SkillTag v-for="skill in topSkills" :key="skill" :name="skill" :href="skillUrl(skill)" class-name="tag text-wrap me-1 mb-1" />
         </div>
 
         <section class="mb-5">
           <h2>Top Impact Projects</h2>
-          <ul class="list-unstyled">
-            <li v-for="item in impactItems" :key="item" class="mb-2"><i class="fa-solid fa-check-circle me-2 text-success" />{{ item }}</li>
-          </ul>
+          <CheckList :items="impactItems" />
         </section>
 
         <section>
@@ -110,10 +100,7 @@ const {
               <tr v-for="category in skillCategories" :key="category.name">
                 <th scope="row">{{ category.name }}</th>
                 <td>
-                  <template v-for="skill in category.items" :key="skill.name">
-                    <a v-if="skill.linkKey" :href="skillUrl(skill.linkKey)!" target="_blank" rel="noopener noreferrer"><span :class="skill.className" :title="skill.title || undefined">{{ skill.name }}</span></a>
-                    <span v-else :class="skill.className" :title="skill.title || undefined">{{ skill.name }}</span>
-                  </template>
+                  <SkillTag v-for="skill in category.items" :key="skill.name" :name="skill.name" :href="skill.linkKey ? skillUrl(skill.linkKey) : null" :class-name="skill.className" :title="skill.title" />
                 </td>
               </tr>
             </tbody>

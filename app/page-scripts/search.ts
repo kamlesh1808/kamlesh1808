@@ -1,7 +1,12 @@
+import type { PostSummary } from '~/types/post'
+
 export async function setupSearchPage() {
+  useHead({
+    title: 'Search the site',
+    meta: [{ name: 'description', content: 'Search Kamlesh Patel’s software engineering notes and articles.' }],
+  })
   const route = useRoute()
   const router = useRouter()
-  const nuxtApp = useNuxtApp()
   const { data: posts } = await useFetch('/api/posts')
 
   const query = computed({
@@ -13,7 +18,7 @@ export async function setupSearchPage() {
     const term = query.value.trim().toLowerCase()
     if (!term) return []
 
-    return (posts.value ?? []).filter((post) => {
+    return (posts.value ?? []).filter((post: PostSummary) => {
       const searchableText = [post.title, post.excerpt, ...(post.tags ?? [])]
         .filter(Boolean)
         .join(' ')
@@ -22,9 +27,5 @@ export async function setupSearchPage() {
     })
   })
 
-  nuxtApp.runWithContext(() => useHead({
-    title: 'Search the site',
-    meta: [{ name: 'description', content: 'Search Kamlesh Patel’s software engineering notes and articles.' }],
-  }))
   return { query, results }
 }
