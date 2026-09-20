@@ -5,12 +5,7 @@ const { query, results } = await setupSearchPage()
 </script>
 
 <template>
-  <section class="hero search-hero">
-    <div class="container">
-      <p class="eyebrow">SEARCH</p>
-      <h1 class="hero-title">Search the site</h1>
-    </div>
-  </section>
+  <PageHero variant="search-hero" eyebrow="SEARCH" title="Search the site" />
   <section class="container content-section search-page">
     <form class="search-form" role="search" @submit.prevent>
       <label class="visually-hidden" for="site-search">Search posts</label>
@@ -24,17 +19,8 @@ const { query, results } = await setupSearchPage()
       >
     </form>
 
-    <div v-if="query && results.length" class="row g-4">
-      <div v-for="post in results" :key="post.slug" class="col-md-6">
-        <NuxtLink class="post-card d-block" :to="`/post/${post.slug}`">
-          <div class="d-flex justify-content-between align-items-center small text-muted mb-3">
-            <time :datetime="post.date">{{ new Date(`${post.date}T12:00:00`).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' }) }}</time>
-          </div>
-          <h2 class="post-card-title">{{ post.title }}</h2>
-        </NuxtLink>
-      </div>
-    </div>
-    <p v-else-if="query" class="empty-state">No posts matched “{{ query }}”.</p>
+    <PostGrid v-if="query && results.length" :posts="results" />
+    <EmptyState v-else-if="query" as="p">No posts matched “{{ query }}”.</EmptyState>
     <p v-else class="search-hint">Enter a word or phrase to search the posts.</p>
   </section>
 </template>

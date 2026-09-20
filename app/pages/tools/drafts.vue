@@ -7,17 +7,12 @@ const { unlocked } = usePrivateAuth()
 
 <template>
   <!-- Obscurity gate: drafts are fetched but not displayed until unlocked. -->
-  <PrivateLock v-if="!unlocked" />
-  <section v-else id="drafts" class="container content-section">
-    <div class="private-header">
-      <p class="eyebrow">PRIVATE</p>
-      <h1>Drafts</h1>
-      <p>Unlisted — hidden posts only</p>
-    </div>
-    <div class="section-title"><div><p class="eyebrow">UNLISTED DRAFTS</p><h2 class="writing-explore">Unlisted draft posts</h2></div><span>{{ posts?.length || 0 }} posts</span></div>
-    <div class="row g-4">
-      <div v-for="post in posts" :key="post.slug" class="col-md-6"><PostCard :post="post" /></div>
-    </div>
-    <div v-if="!posts?.length" class="empty-state">No drafts yet.</div>
-  </section>
+  <PrivateGate :unlocked="unlocked">
+    <section id="drafts" class="container content-section">
+      <PageHero variant="search-hero" eyebrow="PRIVATE" title="Drafts"><template #copy>Unlisted — hidden posts only</template></PageHero>
+      <SectionHeader :count="posts?.length || 0" eyebrow="UNLISTED DRAFTS" title="Unlisted draft posts" title-class="writing-explore" />
+      <PostGrid :posts="posts ?? []" />
+      <EmptyState v-if="!posts?.length">No drafts yet.</EmptyState>
+    </section>
+  </PrivateGate>
 </template>

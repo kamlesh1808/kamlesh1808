@@ -1,10 +1,3 @@
-export interface ContactLink {
-  url: string
-  ariaLabel: string
-  iconClass: string
-  external: boolean
-}
-
 export interface Experience {
   date: string
   employer: string

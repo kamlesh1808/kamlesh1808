@@ -2,8 +2,6 @@
      prerendered payloads remain fetchable by URL. This component hides content
      in the UI until the visitor enters the passcode; it is not access control. -->
 <script setup lang="ts">
-const emit = defineEmits<{ unlocked: [] }>()
-
 const { verifyPasscode } = usePrivateAuth()
 const passcode = ref('')
 const error = ref('')
@@ -20,7 +18,6 @@ async function onSubmit(): Promise<void> {
     const ok = await verifyPasscode(passcode.value)
     if (ok) {
       passcode.value = ''
-      emit('unlocked')
     } else {
       error.value = 'Wrong passcode — try again.'
     }
@@ -31,11 +28,10 @@ async function onSubmit(): Promise<void> {
 </script>
 
 <template>
+  <PageHero variant="search-hero" eyebrow="PRIVATE" title="Passcode required">
+    <template #copy>This area is passcode-gated. Enter the passcode to continue.</template>
+  </PageHero>
   <section class="container content-section">
-    <p class="eyebrow">PRIVATE</p>
-    <h1>Passcode required</h1>
-    <p>This area is passcode-gated. Enter the passcode to continue.</p>
-    <p class="small text-body-secondary">Hint: kamlesh1808 + current UTC hour (yyyymmddHH).</p>
     <form novalidate @submit.prevent="onSubmit">
       <div class="col-md-6">
         <label class="form-label" for="private-passcode">Passcode</label>
