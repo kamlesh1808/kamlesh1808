@@ -1,8 +1,8 @@
 <script setup lang="ts">
-import { setupIndexPage } from '~/page-scripts/index'
+import { setupAboutPage } from '~/page-scripts/about'
 import { siteLinks } from '~/data/site'
 
-const { posts } = await setupIndexPage()
+const about = setupAboutPage()
 </script>
 
 <template>
@@ -11,8 +11,6 @@ const { posts } = await setupIndexPage()
       <img :src="siteLinks.profile.avatarUrl" alt="Kamlesh Patel" class="hero-avatar">
       <h1 class="hero-title">Building; one commit at a time</h1>
     </div>
-    <SectionHeader :count="posts?.length || 0" eyebrow="THE LATEST" title="Explore the writing" title-class="writing-explore" />
-    <PostGrid :posts="posts ?? []" />
-    <EmptyState v-if="!posts?.length">No posts yet. Add a postYYYYMonDD.md file to the content folder.</EmptyState>
+    <AboutComp v-bind="about" />
   </section>
 </template>
