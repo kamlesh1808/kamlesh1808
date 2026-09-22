@@ -42,7 +42,7 @@ to = "/about"
 
 [[navigation]]
 label = "Writing"
-to = "/"
+to = "/writing"
 
 [[navigation]]
 label = "Topics"
