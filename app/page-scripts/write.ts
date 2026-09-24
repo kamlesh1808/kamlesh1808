@@ -47,7 +47,7 @@ export function buildFilename(slug: string, date: Date = new Date()): string {
   const rawMonth = date.toLocaleDateString('en-US', { month: 'short' })
   const month = rawMonth.charAt(0).toUpperCase() + rawMonth.slice(1)
   const day = String(date.getDate()).padStart(2, '0')
-  return `post${year}${month}${day}-${clean}.md`
+  return `${clean}-${year}${month}${day}.md`
 }
 
 export function parseTags(input: string): string[] {

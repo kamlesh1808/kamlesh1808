@@ -56,7 +56,7 @@ export async function getAllPosts(): Promise<Post[]> {
     throw error
   }
 
-  const markdownFiles = files.filter(file => /^post.*\.md$/i.test(file))
+  const markdownFiles = files.filter(file => /\.md$/i.test(file))
   const posts = await Promise.all(markdownFiles.map(async (file) => parsePost(file, await fs.readFile(join(contentDir, file), 'utf8'))))
   if (process.env.NODE_ENV === 'production') productionAllPostsCache = posts
   return posts
