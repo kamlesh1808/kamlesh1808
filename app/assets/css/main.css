@@ -611,6 +611,26 @@ a:hover {
   font-size: 0.96rem;
 }
 
+/* Linked tags (SkillTag `a > .tag`, TagList `a.tag`) share site link hover/focus treatment. Plain span.tag is unaffected. */
+a.tag,
+a > .tag {
+  transition: color 0.2s, border-color 0.2s;
+}
+
+a.tag:hover,
+a > .tag:hover {
+  color: var(--accent-blue-hover);
+  border-color: var(--accent-blue);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+a.tag:focus-visible,
+a:focus-visible > .tag {
+  outline: 2px solid var(--accent-blue-focus);
+  outline-offset: 2px;
+}
+
 .tag-large {
   font-size: 1.05rem;
 }

@@ -6,3 +6,12 @@ export async function setupIndexPage() {
   const { data: posts } = await useFetch('/api/posts')
   return { posts }
 }
+
+export async function setupWritingPage() {
+  useHead({
+    title: 'Writing',
+    meta: [{ name: 'description', content: 'Browse Kamlesh Patel’s software engineering notes and articles.' }],
+  })
+  const { data: posts } = await useFetch('/api/posts')
+  return { posts }
+}
