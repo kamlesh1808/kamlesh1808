@@ -83,9 +83,9 @@ This is a Nuxt 4 application using Vue and TypeScript. Nuxt's file-based routing
 
 ### Content and server API
 
-Markdown posts live in `content/`. Files matching `blog*.md` are loaded by `server/utils/posts.ts`, which parses front matter, calculates reading time, converts Markdown to HTML, filters disabled posts, and sorts posts by date.
+Markdown posts live in `content/`. Files matching `*.md` are loaded by `server/utils/posts.ts`, which parses front matter, calculates reading time, converts Markdown to HTML, filters disabled posts, and sorts posts by date.
 
-`content/LinkedInPosts/` is an archive of source documents and is intentionally not published. Only Markdown files whose names begin with `blog` are treated as blog posts.
+`content/LinkedInPosts/` is an archive of source documents and is intentionally not published. Only top-level Markdown files in `content/` are treated as blog posts.
 
 - `server/api/posts/index.get.ts` exposes the post collection at `/api/posts`.
 - `server/api/posts/[slug].get.ts` exposes an individual post at `/api/posts/:slug`.
@@ -98,7 +98,7 @@ Markdown posts live in `content/`. Files matching `blog*.md` are loaded by `serv
 
 ## Write a blog post
 
-Create a markdown file in `content/` named `blogYYYYMonDD*.md`, for example `content/blog2026Sep04-using-claude-code-opencode-codex.md`. Only files beginning with `blog` are published.
+Create a markdown file in `content/` named `<slug>-YYYYMonDD.md`, for example `content/using-claude-code-opencode-codex-2026Sep04.md`. All top-level `.md` files are published.
 
 Use front matter at the top of each file:
 
@@ -145,7 +145,7 @@ app/                         Application source (Nuxt 4 convention)
   pages/                     File-based routes
   page-scripts/             Route setup and client-side topic helpers
   utils/toml.ts              Strict TOML parser
-content/                     Markdown blog posts (only `blog*` published)
+content/                     Markdown blog posts (all top-level `*.md` published)
   LinkedInPosts/             Unpublished source archive
 server/api/posts/            Post collection and single-post APIs
 server/utils/posts.ts        Markdown parsing and post metadata
