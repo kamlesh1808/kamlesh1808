@@ -1,7 +1,7 @@
 <script setup lang="ts">
-import { setupIndexPage } from '~/page-scripts/index'
+import { setupWritingPage } from '~/page-scripts/index'
 
-const { posts } = await setupIndexPage()
+const { posts } = await setupWritingPage()
 </script>
 
 <template>
