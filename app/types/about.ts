@@ -28,3 +28,24 @@ export interface SkillCategory {
   name: string
   items: Skill[]
 }
+
+export interface Profile {
+  name: string
+  subtitle: string
+  avatarUrl: string
+}
+
+export interface ContactLink {
+  url: string
+  ariaLabel: string
+  iconClass: string
+  external: boolean
+  showInFooter: boolean
+}
+
+export interface Contact {
+  location: string
+  locationUrl: string
+  region: string
+  links: ContactLink[]
+}
