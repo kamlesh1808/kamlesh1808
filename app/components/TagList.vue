@@ -1,6 +1,9 @@
 <script setup lang="ts">
 import { slugifyTopic } from '~/page-scripts/topic-utils'
 
+// wrapperClass is kept for backward compatibility: callers (e.g. tools/write.vue)
+// override the flex layout for inline tag previews. Default preserves the
+// card-meta layout used by PostCard.
 withDefaults(defineProps<{ tags?: string[]; variant?: 'link' | 'span'; wrapperClass?: string }>(), {
   tags: () => [],
   variant: 'link',

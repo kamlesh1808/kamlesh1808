@@ -46,7 +46,7 @@ async function onSubmit(): Promise<void> {
         <div v-if="error" class="invalid-feedback">{{ error }}</div>
       </div>
       <div class="d-flex gap-2 mt-3">
-        <button class="btn btn-dark" type="submit" :disabled="checking">
+        <button class="btn btn-dark" type="submit" :disabled="!passcode || checking">
           {{ checking ? 'Checking…' : 'Unlock' }}
         </button>
       </div>
