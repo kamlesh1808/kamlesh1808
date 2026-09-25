@@ -495,6 +495,35 @@
 
 /* ===== COMPONENTS ===== */
 @layer components {
+  /* Header/footer glow — blurred accent gradient under header and above footer.
+     Visible in both themes (no display:none kill-switch); light theme bumps opacity.
+     Static gradient: no animation, so no prefers-reduced-motion handling needed. */
+  .site-header::after,
+  .site-footer::before {
+    content: '';
+    position: absolute;
+    left: 20%;
+    right: 20%;
+    height: var(--space-xs);
+    background: linear-gradient(90deg, transparent, var(--accent-blue), var(--green), transparent);
+    filter: blur(8px);
+    opacity: 0.3;
+    pointer-events: none;
+  }
+
+  .site-header::after {
+    bottom: calc(var(--space-xs) * -1);
+  }
+
+  .site-footer::before {
+    top: calc(var(--space-xs) * -1);
+  }
+
+  [data-theme="light"] .site-header::after,
+  [data-theme="light"] .site-footer::before {
+    opacity: 0.45;
+  }
+
   /* Bootstrap override: dark button border follows the theme line token. */
   [data-theme="dark"] .btn-dark,
   [data-theme="dark"] .btn-dark:hover {
@@ -1191,6 +1220,20 @@
     margin-bottom: 0.45rem;
   }
 
+  /* Writing/blog listing (search-hero + count-only SectionHeader, like
+     topics): keep the hero-to-grid rhythm with the same content-section
+     top and compact SectionHeader gap.
+     Scoped with :not(.home-lead) so the index hero stack keeps its
+     padding-top:0 + padding-bottom:0 rhythm. */
+  #posts.content-section:not(.home-lead) {
+    padding-top: clamp(0.6rem, 1.8vw, 1rem);
+    padding-bottom: 1rem;
+  }
+
+  #posts.content-section:not(.home-lead) .section-title {
+    margin-bottom: 0.45rem;
+  }
+
   .hero.search-hero + .content-section .row,
   .hero.topics-hero + .content-section .row,
   .article-shell.topics-shell .row {
@@ -1319,6 +1362,13 @@
   .page-shell.about-shell {
     padding-top: 0;
   }
+
+  /* Home lead (index.vue): sibling intro above AboutComp — no bottom
+     padding so the stacked hero keeps the same 3rem rhythm as before
+     un-nesting (hero-identity margin + about-hero padding). */
+  .container.content-section.home-lead {
+    padding-bottom: 0;
+  }
 }
 
 /* ===== UTILITIES ===== */
@@ -1417,6 +1467,12 @@
     }
   }
 
+  @media (min-width: 992px) {
+    .site-header .navbar-toggler {
+      display: none;
+    }
+  }
+
   /* Merged small-screen rules (was two @media max-width:575px blocks). */
   @media (max-width: 575px) {
     .site-header .navbar-nav {
@@ -1456,16 +1512,6 @@
 
     .hero-copy {
       font-size: clamp(0.82rem, 3.8vw, 1.08rem);
-    }
-
-    /* About page mobile: remove horizontal gutter and col-12 padding */
-    .about-shell .row {
-      --bs-gutter-x: 0;
-    }
-
-    .about-shell .col-12 {
-      padding-left: 0;
-      padding-right: 0;
     }
 
     .hero.topics-hero {

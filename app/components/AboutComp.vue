@@ -19,7 +19,7 @@ defineProps<{
   <AboutHero :profile="profile" :contact="contact" />
   <section class="container page-shell resume about-shell">
 
-    <div class="row g-5">
+    <div class="row g-4">
       <div class="col-12">
 
         <section class="summary-section mb-4">
