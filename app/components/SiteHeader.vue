@@ -33,7 +33,7 @@ onBeforeUnmount(() => window.removeEventListener('keydown', onKeydown))
         <img class="brand-avatar" :src="siteLinks.profile.avatarUrl" alt="Kamlesh Patel" />
         <span>Kamlesh Patel</span>
       </NuxtLink>
-      <button ref="togglerRef" class="navbar-toggler" type="button" aria-controls="main-nav-collapse" :aria-expanded="open ? 'true' : 'false'" :aria-label="open ? 'Close navigation' : 'Toggle navigation'" @click="open = !open">
+      <button ref="togglerRef" class="navbar-toggler ms-auto" type="button" aria-controls="main-nav-collapse" :aria-expanded="open ? 'true' : 'false'" :aria-label="open ? 'Close navigation' : 'Toggle navigation'" @click="open = !open">
         <i :class="open ? 'fa-solid fa-xmark' : 'fa-solid fa-bars'" aria-hidden="true" />
       </button>
       <div id="main-nav-collapse" class="collapse navbar-collapse" :class="{ show: open }">

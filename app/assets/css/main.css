@@ -1,1554 +1,1540 @@
-@import "bootstrap/dist/css/bootstrap.min.css";
-/* ===== IMPORTS ===== */
-/* Google Fonts */
-@import url('https://fonts.googleapis.com/css2?family=Fira+Code:wght@300;400;500;600;700&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600;9..40,700&family=Fraunces:opsz,wght@9..144,600;9..144,700&display=swap');
-
-/* ===== CUSTOM PROPERTIES ===== */
-/* :root variables — light theme */
-:root {
-  --ink: #20211f;
-  --muted: #4d5250;
-  --paper: #ffffff;
-  --line: #d6d8d0;
-  --orange: #ffcc99;
-  --green: #1b5e20;
-  /* Accent-blue roles (light): --accent-blue = link/rest, --accent-blue-hover = link/heading hover, --accent-blue-focus = keyboard focus rings. */
-  --accent-blue: #084bb5;
-  --accent-blue-hover: #083da0;
-  --accent-blue-focus: #1f6feb;
-  --selection-bg: #0969da;
-  --nav-fg: #1a1a1a;
-  --card: #f5f4f0;
-  --pre-bg: #292b27;
-  --pre-fg: #f5f4ec;
-  /* Base alias: hover color always tracks the accent-blue hover token. */
-  --link-hover: var(--accent-blue-hover);
-  --code-fg: #9b3d1c;
-  --blockquote-bg: #fff4ec;
-  /* Tint triad: single source for tag/table-head/alert tinted surfaces. */
-  --tint-bg: #e6f4ea;
-  --tint-border: #9fd0b3;
-  --tint-fg: #0f3a2a;
-  --tag-bg: var(--tint-bg);
-  --tag-border: var(--tint-border);
-  --tag-fg: var(--tint-fg);
-  --eyebrow: #5a6230;
-  --input-focus-border: #1f6feb;
-  /* Reserved for future tinted hero surfaces (light hero is flat paper). */
-  --hero-tint: rgba(27, 94, 32, 0.08);
-  --table-head-bg: var(--tint-bg);
-  --table-head-fg: var(--tint-fg);
-  /* Timeline dot keeps a dark-orange readable on light paper; blockquote uses --quote-edge below. */
-  --timeline-dot: #c96a1a;
-  --quote-edge: #c96a1a;
-  /* Base alias: form surfaces track the card token. */
-  --form-bg: var(--card);
-  --placeholder: var(--muted);
-  --alert-fg: var(--tint-fg);
-  --alert-bg: var(--tint-bg);
-  --alert-border: var(--tint-border);
-  --btn-dark-bg: #20211f;
-  --btn-dark-hover: #3b3d38;
-  --on-dark: #ffffff;
-  --hero-em: #20211f;
-  --blockquote-fg: #20211f;
-  /* Semantic status colors: --success tracks the green token. */
-  --success: var(--green);
-  --danger: #b42326;
-  --warning: #7d5600;
-  --shadow-lg: 0 12px 35px rgba(28, 30, 26, 0.10);
-  --shadow-sm: 0 2px 8px rgba(28, 30, 26, 0.06);
-  --focus-ring: 0 0 0 0.2rem rgba(8, 75, 181, 0.35);
-  /* Intentional transparent list surfaces (resume/compaction) vs default card. */
-  --card-compact: transparent;
-  --code-bg: #eceee8;
-}
-
-/* Dark theme tokens */
-[data-theme="dark"] {
-  --ink: #f0f6fc;
-  --muted: #8b949e;
-  --paper: #0d1117;
-  --line: #30363d;
-  --orange: #ffcc99;
-  --green: #3fb950;
-  /* Accent-blue roles (dark): rest/hover/focus stay distinct — focus keeps #1f6feb so the ring never matches the link color. */
-  --accent-blue: #58a6ff;
-  --accent-blue-hover: #79c0ff;
-  --accent-blue-focus: #1f6feb;
-  --selection-bg: #1f6feb;
-  --nav-fg: #f0f6fc;
-  --card: #161b22;
-  --pre-bg: #292b27;
-  --pre-fg: #f5f4ec;
-  /* Base alias: hover color always tracks the accent-blue hover token. */
-  --link-hover: var(--accent-blue-hover);
-  /* Rust hue preserved for dark (was yellow #f2cc60 hue flip). */
-  --code-fg: #ff9d6b;
-  --code-bg: #2a2e35;
-  --blockquote-bg: rgba(255, 204, 153, 0.08);
-  /* Tint triad (dark). */
-  --tint-bg: #14261e;
-  --tint-border: rgba(167, 243, 208, 0.28);
-  --tint-fg: #a7f3d0;
-  --tag-bg: var(--tint-bg);
-  --tag-border: var(--tint-border);
-  --tag-fg: var(--tint-fg);
-  /* Light olive tinted for dark bg #0d1117 (was link-blue #58a6ff). */
-  --eyebrow: #b8c48a;
-  --input-focus-border: #1f6feb;
-  /* Reserved: dark hero is flat paper (blue #88a6ff wash unused, mirrors light). */
-  --hero-tint: rgba(88, 166, 255, 0.08);
-  --table-head-bg: var(--tint-bg);
-  --table-head-fg: var(--tint-fg);
-  /* Timeline dot tracks orange; blockquote edge tracks it too via --quote-edge. */
-  --timeline-dot: var(--orange);
-  --quote-edge: var(--orange);
-  /* Base alias: form surfaces track the card token. */
-  --form-bg: var(--card);
-  --placeholder: var(--muted);
-  --alert-fg: var(--tint-fg);
-  --alert-bg: var(--tint-bg);
-  --alert-border: var(--tint-border);
-  --btn-dark-bg: #21262d;
-  --btn-dark-hover: #30363d;
-  --blockquote-fg: #c9d1d9;
-  --hero-em: #f0f6fc;
-  --on-dark: #ffffff;
-  /* Semantic status colors: --success tracks the green token. */
-  --success: var(--green);
-  --danger: #ff7b72;
-  --warning: #d29922;
-  --shadow-lg: 0 12px 35px rgba(1, 4, 9, 0.32);
-  --shadow-sm: 0 2px 8px rgba(1, 4, 9, 0.32);
-  --focus-ring: 0 0 0 0.2rem rgba(31, 111, 235, 0.25);
-  /* Intentional transparent list surfaces (resume/compaction) vs default card. */
-  --card-compact: transparent;
-}
-
-/* Bootstrap override: dark button border follows the theme line token. */
-[data-theme="dark"] .btn-dark,
-[data-theme="dark"] .btn-dark:hover {
-  border-color: var(--line);
-}
-
-/* Bootstrap override: .btn-outline-dark follows theme tokens in both schemes. */
-.btn-outline-dark {
-  border-color: var(--line);
-  color: var(--ink);
-}
-
-.btn-outline-dark:hover {
-  border-color: var(--muted);
-  color: var(--ink);
-}
-
-/* Post-card title hover works in both themes (no dark-only guard). */
-.post-card h2 a:hover {
-  color: var(--accent-blue-hover);
-}
-
-/* Bootstrap override: .alert-success follows theme tokens in both schemes. */
-.alert-success {
-  color: var(--alert-fg);
-  background: var(--alert-bg);
-  border-color: var(--alert-border);
-}
-
-[data-theme="light"] .btn-dark,
-[data-theme="light"] .btn-dark:hover {
-  border-color: transparent;
-}
-
-/* ===== RESET & BASE ===== */
-/* box-sizing */
-* {
-  box-sizing: border-box;
-}
-
-/* html, body */
-html {
-  scroll-behavior: smooth;
-  font-size: 120%;
-  scrollbar-gutter: stable;
-}
-
-body {
-  background: var(--paper);
-  color: var(--ink);
-  font-family: 'Fira Code', monospace;
-  font-size: 1.05rem;
-  line-height: 1.65;
-}
-
-/* Global font enforcement — Fira Code with monospace fallback */
-html,
-body,
-h1,
-h2,
-h3,
-h4,
-h5,
-h6,
-p,
-li,
-ul,
-ol,
-a,
-span,
-div,
-button,
-input,
-textarea,
-select,
-label,
-code,
-pre,
-blockquote {
-  font-family: 'Fira Code', monospace;
-}
-
-/* Links */
-a {
-  color: inherit;
-  text-decoration: none;
-}
-
-a:hover {
-  color: var(--link-hover);
-}
-
-.article-body a,
-.read-link {
-  color: var(--accent-blue);
-}
-
-.read-link:hover {
-  color: var(--accent-blue-hover);
-}
-
-/* Selection readability — WCAG AA */
-::selection {
-  background: var(--selection-bg);
-  color: var(--on-dark);
-}
-
-::-moz-selection {
-  background: var(--selection-bg);
-  color: var(--on-dark);
-}
-
-/* ===== LAYOUT ===== */
-
-/* Header & navigation */
-.site-header {
-  position: relative;
-  background: transparent;
-  border-bottom: none;
-  backdrop-filter: blur(12px);
-}
-
-.site-header::after {
-  content: '';
-  position: absolute;
-  bottom: -0.5rem;
-  left: 20%;
-  right: 20%;
-  height: 0.5rem;
-  background: linear-gradient(90deg, transparent, var(--accent-blue), var(--green), transparent);
-  filter: blur(8px);
-  opacity: 0.3;
-  pointer-events: none;
-}
-
-.navbar-brand {
-  font-size: 1rem;
-  letter-spacing: normal;
-}
-
-/* Match the brand label to the typography used by the navigation links. */
-.site-header .navbar-brand span {
-  color: var(--nav-fg);
-  font-family: 'Fira Code', monospace;
-  font-size: 1rem;
-  font-weight: 600;
-  line-height: 1.5;
-}
-
-.site-header .navbar-brand,
-.site-header .navbar-brand:visited {
-  display: inline-flex;
-  align-items: center;
-  color: var(--nav-fg);
-  line-height: 1.5;
-  padding: 0.5rem 0;
-}
-
-.site-header .navbar-brand:hover,
-.site-header .navbar-brand:active,
-.site-header .navbar-brand:focus {
-  color: var(--link-hover);
-  text-decoration: underline;
-  text-underline-offset: 4px;
-}
-
-.site-header .navbar-brand:focus-visible {
-  color: var(--accent-blue);
-  outline: 2px solid var(--accent-blue-focus);
-  outline-offset: 2px;
-  border-radius: 4px;
-}
-
-.site-header .navbar-brand:hover span,
-.site-header .navbar-brand:active span,
-.site-header .navbar-brand:focus span {
-  color: inherit;
-}
-
-/* Brand avatar for header */
-.brand-avatar {
-  width: 3.9375rem;
-  height: 3.9375rem;
-  border-radius: 50%;
-  margin-right: 0.75rem;
-  object-fit: cover;
-  align-self: center;
-}
-
-.site-header .navbar {
-  align-items: center;
-}
-
-/* Header nav — specificity beats Bootstrap `.navbar-nav .nav-link.active` (0,3,0).
-   `.site-header .navbar-nav .nav-link[.active]` is (0,3,0)/(0,4,0), so no !important needed.
-   Bootstrap var overrides keep fallback colors correct even if vars leak through. */
-.site-header {
-  --bs-navbar-color: var(--nav-fg);
-  --bs-navbar-hover-color: var(--link-hover);
-  --bs-navbar-active-color: var(--ink);
-  --bs-nav-link-color: var(--nav-fg);
-  --bs-nav-link-hover-color: var(--link-hover);
-}
-
-.site-header .navbar-nav .nav-link {
-  color: var(--nav-fg);
-  font-weight: 600;
-  padding: 0.5rem 0.25rem !important;
-  background: transparent;
-  border: none;
-  border-radius: 0;
-  text-decoration: none;
-  transition: color 0.2s;
-}
-
-.site-header .navbar-nav .nav-link.active,
-.site-header .navbar-nav .nav-link.router-link-active,
-.site-header .navbar-nav .nav-link.router-link-exact-active {
-  color: var(--ink);
-  font-weight: 700;
-  background: transparent;
-  border: none;
-  border-radius: 0;
-  text-decoration: underline;
-  text-underline-offset: 4px;
-  text-decoration-thickness: 2px;
-}
-
-.site-header .navbar-nav .nav-link:hover {
-  color: var(--link-hover);
-  background: transparent;
-  border: none;
-  border-radius: 0;
-  text-decoration: underline;
-  text-underline-offset: 4px;
-}
-
-.site-header .navbar-nav .nav-link:focus-visible {
-  color: var(--accent-blue);
-  background: transparent;
-  border: none;
-  outline: 2px solid var(--accent-blue-focus);
-  outline-offset: 2px;
-}
-
-.site-header .navbar-collapse {
-  justify-content: center;
-}
-
-.site-header .navbar-nav {
-  justify-content: center;
-  text-align: center;
-}
-
-.header-icon-link {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  width: 2rem;
-  height: 2rem;
-  margin-left: 1rem;
-  color: var(--ink);
-  border-radius: 50%;
-}
-
-.header-icon-link:hover {
-  color: var(--link-hover);
-}
-
-.header-icon-link:focus-visible {
-  outline: 2px solid var(--accent-blue-focus);
-  outline-offset: 2px;
-}
-
-.theme-switcher {
-  display: inline-flex;
-  gap: 0.2rem;
-  margin-left: 1rem;
-  padding: 0.2rem;
-  border: 1px solid var(--line);
-  border-radius: 999px;
-}
-
-.theme-option {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  width: 1.7rem;
-  height: 1.7rem;
-  padding: 0;
-  border: 0;
-  border-radius: 999px;
-  background: transparent;
-  color: var(--muted);
-  font: inherit;
-  font-size: 0.8rem;
-  line-height: 1.2;
-  cursor: pointer;
-}
-
-.theme-option:hover {
-  background: var(--line);
-  color: var(--ink);
-}
-
-.theme-option:focus-visible {
-  outline: 2px solid var(--accent-blue-focus);
-  outline-offset: 2px;
-}
-
-.navbar-toggler {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  width: 44px;
-  height: 44px;
-  border: 1px solid var(--line);
-  border-radius: 8px;
-  color: var(--ink);
-  font-size: 1.25rem;
-  line-height: 1;
-}
-
-.navbar-toggler:focus:not(:focus-visible) {
-  box-shadow: none;
-}
-
-.navbar-toggler:focus-visible {
-  outline: 2px solid var(--accent-blue-focus);
-  outline-offset: 2px;
-}
-
-/* Footer */
-.site-footer {
-  position: relative;
-  color: var(--muted);
-  font-size: 0.85rem;
-}
-
-.site-footer::before {
-  content: '';
-  position: absolute;
-  top: -0.5rem;
-  left: 20%;
-  right: 20%;
-  height: 0.5rem;
-  background: linear-gradient(90deg, transparent, var(--accent-blue), var(--green), transparent);
-  filter: blur(8px);
-  opacity: 0.3;
-  pointer-events: none;
-}
-
-[data-theme="light"] .site-header::after,
-[data-theme="light"] .site-footer::before {
-  display: none;
-}
-
-/* Dark neutralized to match light (flat paper, no glow). */
-[data-theme="dark"] .site-header::after,
-[data-theme="dark"] .site-footer::before {
-  display: none;
-}
-
-[data-theme="light"] .hero {
-  background: var(--paper);
-}
-
-[data-theme="dark"] .hero {
-  background: var(--paper);
-}
-
-.site-footer a {
-  font-size: 1.1rem;
-  color: var(--muted);
-}
-
-.site-footer a:hover {
-  color: var(--link-hover);
-}
-
-.site-footer a:focus-visible {
-  outline: 2px solid var(--accent-blue-focus);
-  outline-offset: 2px;
-}
-
-.google-translate {
-  min-height: 2rem;
-}
-
-.google-translate .goog-te-gadget {
-  color: var(--muted);
-  font-family: inherit;
-  font-size: 0.8rem;
-}
-
-.google-translate .goog-te-gadget select {
-  max-width: 100%;
-  padding: 0.25rem 0.4rem;
-  border: 1px solid var(--line);
-  border-radius: 4px;
-  background: var(--form-bg);
-  color: var(--ink);
-  font: inherit;
-}
-
-.google-translate select:focus-visible {
-  outline: 2px solid var(--accent-blue-focus);
-  outline-offset: 2px;
-}
-
-/* Content sections & page shells */
-.content-section,
-.page-shell {
-  padding-top: clamp(3.5rem, 8vw, 6rem);
-  padding-bottom: 2rem;
-}
-
-#posts.content-section {
-  padding-top: 0;
-}
-
-.search-hint {
-  color: var(--muted);
-}
-
-.search-form {
-  max-width: 570px;
-  margin-bottom: 2rem;
-}
-
-.section-title {
-  display: flex;
-  align-items: flex-end;
-  justify-content: space-between;
-  margin-bottom: 2rem;
-}
-
-.section-title h2 {
-  margin: 0;
-  line-height: 1;
-}
-
-.section-title > span {
-  color: var(--muted);
-  font-size: 0.75rem;
-}
-
-/* ===== COMPONENTS ===== */
-
-/* Buttons */
-/* Bootstrap override: .btn-dark follows theme tokens in both schemes.
-   Uses --btn-dark-bg (not --ink: --ink flips light in dark mode and the
-   later base rule would wash out the dark-scheme button text at rest). */
-.btn-dark {
-  background: var(--btn-dark-bg);
-  border-color: var(--btn-dark-bg);
-  color: var(--on-dark);
-}
-
-.btn-dark:hover {
-  background: var(--btn-dark-hover);
-  border-color: var(--btn-dark-hover);
-  color: var(--on-dark);
-}
-
-.btn-dark:focus-visible {
-  background: var(--btn-dark-hover);
-  border-color: var(--btn-dark-hover);
-  color: var(--on-dark);
-  outline: 2px solid var(--accent-blue-focus);
-  outline-offset: 2px;
-}
-
-/* Tags & badges */
-.tag {
-  display: inline-block;
-  padding: 0.18rem 0.55rem;
-  border-radius: 20px;
-  background: var(--tag-bg);
-  color: var(--tag-fg);
-  border: 1px solid var(--tag-border);
-  font-size: 0.96rem;
-}
-
-/* Linked tags (SkillTag `a > .tag`, TagList `a.tag`) share site link hover/focus treatment. Plain span.tag is unaffected. */
-a.tag,
-a > .tag {
-  transition: color 0.2s, border-color 0.2s;
-}
-
-a.tag:hover,
-a > .tag:hover {
-  color: var(--accent-blue-hover);
-  border-color: var(--accent-blue);
-  text-decoration: underline;
-  text-underline-offset: 3px;
-}
-
-a.tag:focus-visible,
-a:focus-visible > .tag {
-  outline: 2px solid var(--accent-blue-focus);
-  outline-offset: 2px;
-}
-
-.tag-large {
-  font-size: 1.05rem;
-}
-
-.badge {
-  font-size: 0.96rem;
-  background: var(--tag-bg);
-  border: 1px solid var(--tag-border);
-  color: var(--tag-fg);
-  font-weight: 500;
-}
-
-/* Cards */
-.post-card {
-  height: 100%;
-  padding: 1.7rem;
-  border: 1px solid var(--line);
-  border-radius: 14px;
-  background: var(--card);
-  transition: transform 0.2s, box-shadow 0.2s;
-}
-
-.post-card:hover {
-  transform: translateY(-4px);
-  border-color: var(--accent-blue);
-  box-shadow: var(--shadow-lg);
-}
-
-/* Search and topics discovery cards share the same whole-card hover lift. */
-
-a.post-card {
-  color: inherit;
-  text-decoration: none;
-  cursor: pointer;
-}
-
-a.post-card:focus-visible {
-  transform: translateY(-4px);
-  border-color: var(--accent-blue);
-  box-shadow: var(--shadow-lg);
-  outline: 2px solid var(--accent-blue-focus);
-  outline-offset: 2px;
-}
-
-.post-card:hover .post-card-title,
-a.post-card:focus-visible .post-card-title {
-  color: var(--accent-blue-hover);
-}
-
-.post-card h2 {
-  font-size: 1.55rem;
-  line-height: 1;
-}
-
-.post-card h2 a {
-  font-size: inherit;
-}
-
-.post-card-title {
-  font-size: 1.05rem;
-  font-weight: 700;
-  letter-spacing: -0.01em;
-  margin: 0 0 0.4rem;
-  color: var(--ink);
-}
-
-.post-card-title a {
-  color: inherit;
-  text-decoration: none;
-}
-
-.post-card-title a:hover,
-.post-card-title a:focus-visible {
-  color: var(--accent-blue-hover);
-  text-decoration: underline;
-}
-
-.post-excerpt {
-  color: var(--muted);
-  font-size: 0.98rem;
-  line-height: 1.5;
-}
-
-.post-source,
-.article-source {
-  color: var(--muted);
-  font-size: 0.8rem;
-}
-
-.read-link {
-  font-size: 0.9rem;
-  font-weight: 600;
-}
-
-.empty-state {
-  padding: 3rem;
-  text-align: center;
-  border: 1px dashed var(--line);
-  color: var(--muted);
-}
-
-.profile-card,
-.skills-card {
-  padding: 2rem;
-  border: 1px solid var(--line);
-  border-radius: 14px;
-  background: var(--card);
-}
-
-/* About page (resume): blend cards with page background — no white card.
-   Uses --card-compact (transparent): intentional list surfaces vs default card. */
-.resume .profile-card,
-.resume .skills-card {
-  background: var(--card-compact);
-  border: none;
-  padding: 0;
-  border-radius: 0;
-}
-
-.resume .profile-card {
-  margin-bottom: 1rem;
-}
-
-.resume .skills-table {
-  --bs-table-bg: transparent;
-  background-color: transparent;
-}
-
-.resume .skills-table tbody th,
-.resume .skills-table tbody td {
-  background-color: transparent;
-}
-
-/* Forms & inputs */
-/* Bootstrap override: .form-control follows theme tokens in both schemes */
-.form-control {
-  padding: 0.7rem 0.8rem;
-  border-color: var(--line);
-  background: var(--form-bg);
-  color: var(--ink);
-}
-
-.form-control::placeholder {
-  color: var(--placeholder);
-  opacity: 1;
-}
-
-.form-control:focus {
-  color: var(--ink);
-  border-color: var(--input-focus-border);
-  box-shadow: var(--focus-ring);
-  background: var(--form-bg);
-}
-
-/* ===== PAGES ===== */
-
-/* Hero section */
-.hero {
-  padding: clamp(5rem, 12vw, 9rem) 0 clamp(4rem, 9vw, 7rem);
-  border-bottom: 1px solid var(--line);
-  background:
-    radial-gradient(circle at 80% 30%, var(--hero-tint) 0, transparent 24%),
-    var(--paper);
-}
-
-.eyebrow {
-  margin-bottom: 0.7rem;
-  color: var(--eyebrow);
-  font-size: 0.74rem;
-  letter-spacing: 0.1em;
-}
-
-.hero-copy {
-  max-width: 570px;
-  color: var(--muted);
-  margin: 1.7rem 0 2rem;
-  font-size: clamp(1.08rem, 2vw, 1.25rem);
-  font-weight: 400;
-  line-height: 1.5;
-  white-space: normal;
-}
-
-/* Primary page heroes share compact spacing and no divider line. */
-.hero.search-hero,
-.hero.about-hero {
-  padding-top: clamp(1rem, 2.5vw, 1.5rem);
-  padding-bottom: clamp(1.5rem, 4vw, 2.5rem);
-  border-bottom: none;
-}
-
-.hero.search-hero + .content-section {
-  padding-top: 0;
-}
-
-/* Typography */
-h1,
-h2,
-h3,
-h4,
-h5,
-h6 {
-  letter-spacing: -0.045em;
-  line-height: 1.06;
-}
-
-h1 {
-  font-size: clamp(2.7rem, 6.2vw, 5.3rem);
-  font-weight: 700;
-}
-
-.hero h1 em {
-  font-weight: 600;
-  color: var(--hero-em);
-}
-
-h2 {
-  font-size: clamp(1.65rem, 3vw, 2.3rem);
-  font-weight: 700;
-}
-
-h3 {
-  font-size: 1.25rem;
-  font-weight: 700;
-}
-
-/* Article / post */
-.article-shell {
-  padding-top: 3.5rem;
-}
-
-.back-link {
-  color: var(--muted);
-  font-size: 0.9rem;
-}
-
-.back-link:hover {
-  color: var(--link-hover);
-  text-decoration: underline;
-}
-
-.article-header {
-  max-width: 100%;
-  padding: 2.6rem 0 2rem;
-  border-bottom: 1px solid var(--line);
-}
-
-/* Topics detail: no divider line (scoped — post article-header untouched) */
-.article-shell.topics-shell .article-header {
-  border-bottom: none;
-}
-
-.article-header h1 {
-  font-size: clamp(1.25rem, 2.5vw, 2.125rem) !important;
-}
-
-.article-ai-assisted {
-  display: inline-block;
-  margin-left: 0.65rem;
-  padding: 0.25rem 0.45rem;
-  border: 1px solid var(--line);
-  border-radius: 999px;
-  color: var(--muted);
-  font-size: 0.42em;
-  font-weight: 600;
-  letter-spacing: 0.03em;
-  vertical-align: middle;
-  white-space: nowrap;
-}
-
-.article-body h1 {
-  font-size: clamp(1.25rem, 2.5vw, 2.125rem);
-  line-height: 1.15;
-  letter-spacing: -0.02em;
-  margin: 0 0 1rem;
-}
-
-.article-lede {
-  max-width: 100%;
-  margin-top: 1.4rem;
-  color: var(--muted);
-  font-size: 1.2rem;
-}
-
-.article-meta {
-  display: flex;
-  gap: 0.55rem;
-  color: var(--muted);
-  font-size: 0.75rem;
-}
-
-.article-body {
-  max-width: 100%;
-  padding: 3rem 0;
-}
-
-.article-body h2 {
-  margin: 2.8rem 0 1rem;
-  font-size: 1.8rem;
-}
-
-.article-body p,
-.article-body li {
-  font-size: 1.08rem;
-}
-
-.article-body a {
-  text-decoration: underline;
-  text-underline-offset: 3px;
-}
-
-.article-body blockquote {
-  margin: 2rem 0;
-  padding: 1rem 1.3rem;
-  border-left: 3px solid var(--quote-edge);
-  background: var(--blockquote-bg);
-  color: var(--blockquote-fg);
-  font-size: 1.25rem;
-}
-
-.article-body code {
-  color: var(--code-fg);
-}
-
-[data-theme="light"] .article-body code:not(pre code) {
-  background: var(--code-bg);
-  padding: 0.15em 0.35em;
-  border-radius: 4px;
-  border: 1px solid var(--line);
-}
-
-[data-theme="dark"] .article-body code:not(pre code) {
-  background: var(--code-bg);
-  padding: 0.15em 0.35em;
-  border-radius: 4px;
-  border: 1px solid var(--line);
-}
-
-.article-body pre {
-  padding: 1rem;
-  overflow: auto;
-  border-radius: 8px;
-  background: var(--pre-bg);
-  color: var(--pre-fg);
-}
-
-.article-body pre code {
-  padding: 0;
-  background: transparent;
-  color: inherit;
-}
-
-/* About / resume */
-.page-shell {
-  min-height: 70vh;
-}
-
-.page-shell .lead {
-  color: var(--muted);
-  font-size: 1.2rem;
-}
-
-.timeline-item {
-  position: relative;
-  padding: 0 0 2rem 1.45rem;
-  border-left: 1px solid var(--line);
-  min-width: 0;
-  overflow-wrap: anywhere;
-  word-break: break-word;
-}
-
-.timeline-item:before {
-  content: '';
-  position: absolute;
-  left: -5px;
-  top: 7px;
-  width: 9px;
-  height: 9px;
-  border-radius: 50%;
-  background: var(--timeline-dot);
-  border: 2px solid var(--paper);
-  box-shadow: 0 0 0 1px var(--line);
-}
-
-.timeline-date {
-  margin: 0 0 0.25rem;
-  color: var(--muted);
-  font-size: 0.72rem;
-}
-
-.timeline-item h3 span {
-  color: var(--muted);
-  font-weight: 400;
-}
-
-.timeline-item p:last-child {
-  color: var(--muted);
-}
-
-.resume h2 {
-  font-size: 1.35rem;
-  margin-bottom: 1.5rem;
-}
-
-/* Skills card */
-/* Bootstrap override: .table/.skills-table follows theme tokens in both schemes */
-/* Skills card keeps the shared 14px card radius (see .profile-card, .skills-card base). */
-.skills-card {
-  max-width: 100%;
-  overflow: hidden;
-}
-
-.skills-table {
-  width: 100%;
-  max-width: 100%;
-  color: var(--ink);
-  border-color: var(--line);
-  table-layout: fixed;
-  overflow-wrap: break-word;
-  word-break: break-word;
-}
-
-.skills-table thead th {
-  background-color: var(--table-head-bg);
-  color: var(--table-head-fg);
-  border-bottom-width: 2px;
-  border-color: var(--line);
-  font-weight: 600;
-  font-size: 0.75rem;
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
-  white-space: normal;
-  overflow-wrap: break-word;
-  word-break: break-word;
-  vertical-align: top;
-}
-
-.skills-table thead th:first-child,
-.skills-table tbody th {
-  width: 32%;
-}
-
-.skills-table thead th:last-child,
-.skills-table tbody td {
-  width: 68%;
-}
-
-.skills-table tbody th {
-  color: var(--ink);
-  font-weight: 600;
-  font-size: 0.92rem;
-  white-space: normal;
-  overflow-wrap: break-word;
-  word-break: break-word;
-  vertical-align: top;
-  background: transparent;
-  border-color: var(--line);
-}
-
-.skills-table tbody td {
-  color: var(--ink);
-  border-color: var(--line);
-  font-size: 0.92rem;
-  vertical-align: top;
-  line-height: 1.6;
-  white-space: normal;
-  overflow-wrap: break-word;
-  word-break: break-word;
-}
-
-.skills-table tbody td .tag {
-  vertical-align: middle;
-  white-space: normal;
-  overflow-wrap: break-word;
-  word-break: break-word;
-  display: inline-block;
-}
-
-.skills-table caption {
-  color: var(--muted);
-}
-
-.skills-table tbody tr:last-child th,
-.skills-table tbody tr:last-child td {
-  border-bottom: 0;
-}
-
-/* Employer link */
-.employer-link {
-  color: var(--accent-blue);
-  text-decoration: underline;
-  text-underline-offset: 3px;
-  text-decoration-thickness: 1.5px;
-  text-decoration-color: currentColor;
-  font-weight: 700;
-  transition: color 0.2s;
-}
-
-.employer-link:hover {
-  color: var(--accent-blue-hover);
-  text-decoration-thickness: 2px;
-}
-
-.employer-link:focus-visible {
-  outline: 2px solid var(--accent-blue-focus);
-  outline-offset: 2px;
-  border-radius: 2px;
-}
-
-/* Resume contact */
-.resume-contact {
-  color: var(--ink);
-  font-size: 1.08rem;
-  line-height: 1.6;
-}
-
-.resume-contact a {
-  color: var(--accent-blue);
-  text-decoration: underline;
-  text-underline-offset: 3px;
-  text-decoration-thickness: 1.5px;
-  text-decoration-color: currentColor;
-  font-weight: 500;
-  transition: color 0.2s;
-}
-
-.contact-links {
-  display: inline-flex;
-  gap: 0.85rem;
-  margin-left: 0.9rem;
-  vertical-align: middle;
-}
-
-.resume-contact a:hover {
-  color: var(--accent-blue-hover);
-  text-decoration-thickness: 2px;
-}
-
-.resume-contact a:focus-visible {
-  outline: 2px solid var(--accent-blue-focus);
-  outline-offset: 2px;
-  border-radius: 2px;
-}
-
-/* ===== BOOTSTRAP OVERRIDES ===== */
-/* Bootstrap override: muted text follows theme in both schemes */
-.text-muted {
-  color: var(--muted) !important;
-}
-
-/* Bootstrap override: success icons follow theme green in both schemes */
-.text-success {
-  color: var(--success) !important;
-}
-
-/* Bootstrap override: bg-secondary badges use theme tag tokens (about.vue Top Skills) */
-.badge.bg-secondary {
-  background: var(--tag-bg) !important;
-  border: 1px solid var(--tag-border) !important;
-  color: var(--tag-fg) !important;
-}
-
-/* Bootstrap override: dark buttons use theme tokens (hero CTA) — see .btn-dark rules (var(--btn-dark-bg)/var(--btn-dark-hover)/var(--on-dark)) */
-/* Bootstrap override: inputs use theme tokens — see .form-control rules (var(--form-bg)/var(--line)) */
-/* Bootstrap override: tables use theme tokens — see .skills-table rules (var(--table-head-bg)/var(--table-head-fg)/var(--line)) */
-
-/* Visited links keep readable contrast in both schemes */
-a:visited:not(.article-body a):not(.read-link) {
-  color: inherit;
-}
-
-.tag:visited:not(:hover) {
-  color: var(--tag-fg);
-}
-
-/* ===== UTILITIES ===== */
-
-/* Page template utility classes */
-.hero-title {
-  font-size: clamp(1.35rem, 3.1vw, 2.65rem);
-  line-height: 1;
-}
-
-.hero-avatar {
-  width: clamp(72px, 14vw, 120px);
-  height: auto;
-  aspect-ratio: 1 / 1;
-  flex-shrink: 0;
-  object-fit: cover;
-  border-radius: 50%;
-}
-
-.brand-avatar,
-.hero-avatar {
-  border: 2px solid var(--line);
-  box-shadow: 0 0 0 2px var(--paper);
-}
-
-.hero-identity {
-  display: flex;
-  align-items: center;
-  gap: clamp(1rem, 3vw, 1.75rem);
-  margin: 0 0 2rem;
-}
-
-.hero-identity .hero-title {
-  margin: 0;
-  min-width: 0;
-  overflow-wrap: anywhere;
-}
-
-.profile-name {
-  font-size: 1.65rem;
-}
-
-.profile-subtitle {
-  color: var(--ink);
-  font-size: 1.08rem;
-}
-
-/* ===== RESPONSIVE ===== */
-
-/* All @media (max-width) queries grouped together */
-@media (max-width: 991px) {
-  .site-header .navbar-collapse {
-    padding-top: 0.8rem;
+@layer bootstrap, tokens, base, components, pages, utilities;
+@import "bootstrap/dist/css/bootstrap.min.css" layer(bootstrap);
+
+/* ===== TOKENS ===== */
+@layer tokens {
+  /* :root variables — light theme */
+  :root {
+    --ink: #20211f;
+    --muted: #4d5250;
+    --paper: #ffffff;
+    --line: #d6d8d0;
+    --orange: #ffcc99;
+    --green: #1b5e20;
+    /* Accent-blue roles (light): --accent-blue = link/rest, --accent-blue-hover = link/heading hover, --accent-blue-focus = keyboard focus rings. */
+    --accent-blue: #084bb5;
+    --accent-blue-hover: #083da0;
+    --accent-blue-focus: #1f6feb;
+    --selection-bg: #0969da;
+    --nav-fg: #1a1a1a;
+    --card: #f5f4f0;
+    --pre-bg: #292b27;
+    --pre-fg: #f5f4ec;
+    /* Base alias: hover color always tracks the accent-blue hover token. */
+    --link-hover: var(--accent-blue-hover);
+    --code-fg: #9b3d1c;
+    --blockquote-bg: #fff4ec;
+    /* Tint triad: single source for tag/table-head/alert tinted surfaces. */
+    --tint-bg: #e6f4ea;
+    --tint-border: #9fd0b3;
+    --tint-fg: #0f3a2a;
+    --tag-bg: var(--tint-bg);
+    --tag-border: var(--tint-border);
+    --tag-fg: var(--tint-fg);
+    --eyebrow: #5a6230;
+    --input-focus-border: #1f6feb;
+    --table-head-bg: var(--tint-bg);
+    --table-head-fg: var(--tint-fg);
+    /* Timeline dot keeps a dark-orange readable on light paper; blockquote uses --quote-edge below. */
+    --timeline-dot: #c96a1a;
+    --quote-edge: #c96a1a;
+    /* Base alias: form surfaces track the card token. */
+    --form-bg: var(--card);
+    --placeholder: var(--muted);
+    --alert-fg: var(--tint-fg);
+    --alert-bg: var(--tint-bg);
+    --alert-border: var(--tint-border);
+    --btn-dark-bg: #20211f;
+    --btn-dark-hover: #3b3d38;
+    --on-dark: #ffffff;
+    --hero-em: #20211f;
+    --blockquote-fg: #20211f;
+    /* Semantic status colors: --success tracks the green token. */
+    --success: var(--green);
+    --danger: #b42326;
+    --warning: #7d5600;
+    --shadow-lg: 0 12px 35px rgba(28, 30, 26, 0.10);
+    --shadow-sm: 0 2px 8px rgba(28, 30, 26, 0.06);
+    --focus-ring: 0 0 0 0.2rem rgba(8, 75, 181, 0.35);
+    /* Intentional transparent list surfaces (resume/compaction) vs default card. */
+    --card-compact: transparent;
+    --code-bg: #eceee8;
+    --radius-card: 14px;
+    --space-xs: 0.5rem;
+    --space-sm: 0.75rem;
+    --space-md: 1rem;
+    --space-lg: 1.5rem;
+    --space-xl: 2rem;
   }
 
-  .site-header .navbar-collapse.show {
-    padding-bottom: 0.5rem;
+  /* Dark theme tokens */
+  [data-theme="dark"] {
+    --ink: #f0f6fc;
+    --muted: #8b949e;
+    --paper: #0d1117;
+    --line: #30363d;
+    --orange: #ffcc99;
+    --green: #3fb950;
+    /* Accent-blue roles (dark): rest/hover/focus stay distinct — focus keeps #1f6feb so the ring never matches the link color. */
+    --accent-blue: #58a6ff;
+    --accent-blue-hover: #79c0ff;
+    --accent-blue-focus: #1f6feb;
+    --selection-bg: #1f6feb;
+    --nav-fg: #f0f6fc;
+    --card: #161b22;
+    --pre-bg: #292b27;
+    --pre-fg: #f5f4ec;
+    /* Base alias: hover color always tracks the accent-blue hover token. */
+    --link-hover: var(--accent-blue-hover);
+    /* Rust hue preserved for dark (was yellow #f2cc60 hue flip). */
+    --code-fg: #ff9d6b;
+    --code-bg: #2a2e35;
+    --blockquote-bg: rgba(255, 204, 153, 0.08);
+    /* Tint triad (dark). */
+    --tint-bg: #14261e;
+    --tint-border: rgba(167, 243, 208, 0.28);
+    --tint-fg: #a7f3d0;
+    --tag-bg: var(--tint-bg);
+    --tag-border: var(--tint-border);
+    --tag-fg: var(--tint-fg);
+    /* Light olive tinted for dark bg #0d1117 (was link-blue #58a6ff). */
+    --eyebrow: #b8c48a;
+    --input-focus-border: #1f6feb;
+    --table-head-bg: var(--tint-bg);
+    --table-head-fg: var(--tint-fg);
+    /* Timeline dot tracks orange; blockquote edge tracks it too via --quote-edge. */
+    --timeline-dot: var(--orange);
+    --quote-edge: var(--orange);
+    /* Base alias: form surfaces track the card token. */
+    --form-bg: var(--card);
+    --placeholder: var(--muted);
+    --alert-fg: var(--tint-fg);
+    --alert-bg: var(--tint-bg);
+    --alert-border: var(--tint-border);
+    --btn-dark-bg: #21262d;
+    --btn-dark-hover: #30363d;
+    --blockquote-fg: #c9d1d9;
+    --hero-em: #f0f6fc;
+    --on-dark: #ffffff;
+    /* Semantic status colors: --success tracks the green token. */
+    --success: var(--green);
+    --danger: #ff7b72;
+    --warning: #d29922;
+    --shadow-lg: 0 12px 35px rgba(1, 4, 9, 0.32);
+    --shadow-sm: 0 2px 8px rgba(1, 4, 9, 0.32);
+    --focus-ring: 0 0 0 0.2rem rgba(31, 111, 235, 0.25);
+    /* Intentional transparent list surfaces (resume/compaction) vs default card. */
+    --card-compact: transparent;
+  }
+}
+
+/* ===== BASE ===== */
+@layer base {
+  /* html, body — Bootstrap Reboot already sets box-sizing: border-box globally. */
+  html {
+    scroll-behavior: smooth;
+    font-size: 120%;
+    scrollbar-gutter: stable;
   }
 
-  .site-header .navbar-nav {
-    align-items: center !important;
-    gap: 0.5rem;
-    text-align: center;
+  body {
+    background: var(--paper);
+    color: var(--ink);
+    font-family: 'Fira Code', monospace;
+    font-size: 1.05rem;
+    line-height: 1.65;
   }
 
-  .theme-switcher {
-    margin: 0.75rem auto 0;
+  /* Global font enforcement — Fira Code with monospace fallback */
+  html,
+  body,
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6,
+  p,
+  li,
+  ul,
+  ol,
+  a,
+  span,
+  div,
+  button,
+  input,
+  textarea,
+  select,
+  label,
+  code,
+  pre,
+  blockquote {
+    font-family: 'Fira Code', monospace;
   }
 
-  .header-icon-link {
-    margin: 0.75rem auto 0;
+  /* Links */
+  a {
+    color: inherit;
+    text-decoration: none;
+  }
+
+  a:hover {
+    color: var(--link-hover);
+  }
+
+  .article-body a,
+  .read-link {
+    color: var(--accent-blue);
+  }
+
+  .read-link:hover {
+    color: var(--accent-blue-hover);
+  }
+
+  /* Selection readability — WCAG AA */
+  ::selection {
+    background: var(--selection-bg);
+    color: var(--on-dark);
+  }
+
+  ::-moz-selection {
+    background: var(--selection-bg);
+    color: var(--on-dark);
+  }
+
+  /* Header & navigation */
+  .site-header {
+    position: relative;
+    background: transparent;
+    border-bottom: none;
+    backdrop-filter: blur(12px);
+  }
+
+  .navbar-brand {
+    font-size: 1rem;
+    letter-spacing: normal;
+  }
+
+  /* Match the brand label to the typography used by the navigation links. */
+  .site-header .navbar-brand span {
+    color: var(--nav-fg);
+    font-family: 'Fira Code', monospace;
+    font-size: 1rem;
+    font-weight: 600;
+    line-height: 1.5;
+  }
+
+  .site-header .navbar-brand,
+  .site-header .navbar-brand:visited {
+    display: inline-flex;
+    align-items: center;
+    color: var(--nav-fg);
+    line-height: 1.5;
+    padding: 0.5rem 0;
+  }
+
+  .site-header .navbar-brand:hover,
+  .site-header .navbar-brand:active,
+  .site-header .navbar-brand:focus {
+    color: var(--link-hover);
+    text-decoration: underline;
+    text-underline-offset: 4px;
+  }
+
+  .site-header .navbar-brand:focus-visible {
+    color: var(--accent-blue);
+    border-radius: 4px;
+  }
+
+  .site-header .navbar-brand:hover span,
+  .site-header .navbar-brand:active span,
+  .site-header .navbar-brand:focus span {
+    color: inherit;
+  }
+
+  /* Brand avatar for header */
+  .brand-avatar {
+    width: 3.9375rem;
+    height: 3.9375rem;
+    border-radius: 50%;
+    margin-right: 0.75rem;
+    object-fit: cover;
+    align-self: center;
+  }
+
+  .site-header .navbar {
+    align-items: center;
+  }
+
+  /* Header nav — specificity beats Bootstrap `.navbar-nav .nav-link.active` (0,3,0).
+     `.site-header .navbar-nav .nav-link[.active]` is (0,3,0)/(0,4,0), so no !important needed.
+     Bootstrap var overrides keep fallback colors correct even if vars leak through. */
+  .site-header {
+    --bs-navbar-color: var(--nav-fg);
+    --bs-navbar-hover-color: var(--link-hover);
+    --bs-navbar-active-color: var(--ink);
+    --bs-nav-link-color: var(--nav-fg);
+    --bs-nav-link-hover-color: var(--link-hover);
   }
 
   .site-header .navbar-nav .nav-link {
-    display: inline-flex;
-    justify-content: center;
-    align-items: center;
-    width: auto;
-    min-height: 0;
+    color: var(--nav-fg);
+    font-weight: 600;
     padding: 0.5rem 0.25rem !important;
+    background: transparent;
+    border: none;
+    border-radius: 0;
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+
+  .site-header .navbar-nav .nav-link.active,
+  .site-header .navbar-nav .nav-link.router-link-active,
+  .site-header .navbar-nav .nav-link.router-link-exact-active {
+    color: var(--ink);
+    font-weight: 700;
+    background: transparent;
+    border: none;
+    border-radius: 0;
+    text-decoration: underline;
+    text-underline-offset: 4px;
+    text-decoration-thickness: 2px;
+  }
+
+  .site-header .navbar-nav .nav-link:hover {
+    color: var(--link-hover);
+    background: transparent;
+    border: none;
+    border-radius: 0;
+    text-decoration: underline;
+    text-underline-offset: 4px;
+  }
+
+  .site-header .navbar-nav .nav-link:focus-visible {
+    color: var(--accent-blue);
+    background: transparent;
+    border: none;
+  }
+
+  .site-header .navbar-collapse {
+    justify-content: center;
+  }
+
+  .site-header .navbar-nav {
+    justify-content: center;
     text-align: center;
   }
 
-  .skills-table thead th,
-  .skills-table tbody th,
-  .skills-table tbody td {
-    font-size: 0.88rem;
-  }
-}
-
-@media (max-width: 575px) {
-  .site-header .navbar-nav {
-    gap: 0.75rem;
-  }
-
-  .site-header .navbar-collapse.show {
-    padding-bottom: 0.25rem;
+  .header-icon-link {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 2rem;
+    height: 2rem;
+    margin-left: 1rem;
+    color: var(--ink);
+    border-radius: 50%;
   }
 
-  .hero {
-    padding-top: 4.5rem;
+  .header-icon-link:hover {
+    color: var(--link-hover);
   }
 
-  /* Topics-hero mobile padding is set by the compaction override below (1rem winner). */
-
-  .post-card {
-    padding: 1.35rem;
+  .theme-switcher {
+    display: inline-flex;
+    gap: 0.2rem;
+    margin-left: 1rem;
+    padding: 0.2rem;
+    border: 1px solid var(--line);
+    border-radius: 999px;
   }
 
-  .article-shell {
-    padding-top: 2rem;
+  .theme-option {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 1.7rem;
+    height: 1.7rem;
+    padding: 0;
+    border: 0;
+    border-radius: 999px;
+    background: transparent;
+    color: var(--muted);
+    font: inherit;
+    font-size: 0.8rem;
+    line-height: 1.2;
+    cursor: pointer;
   }
 
-  .article-body {
-    padding-top: 2rem;
+  .theme-option:hover {
+    background: var(--line);
+    color: var(--ink);
+  }
+
+  .navbar-toggler {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 44px;
+    height: 44px;
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    color: var(--ink);
+    font-size: 1.25rem;
+    line-height: 1;
+  }
+
+  .navbar-toggler:focus:not(:focus-visible) {
+    box-shadow: none;
+  }
+
+  /* Footer */
+  .site-footer {
+    position: relative;
+    color: var(--muted);
+    font-size: 0.85rem;
+  }
+
+  .site-footer a {
+    font-size: 1.1rem;
+    color: var(--muted);
+  }
+
+  .site-footer a:hover {
+    color: var(--link-hover);
+  }
+
+  .google-translate {
+    min-height: 2rem;
+  }
+
+  .google-translate .goog-te-gadget {
+    color: var(--muted);
+    font-family: inherit;
+    font-size: 0.8rem;
+  }
+
+  .google-translate .goog-te-gadget select {
+    max-width: 100%;
+    padding: 0.25rem 0.4rem;
+    border: 1px solid var(--line);
+    border-radius: 4px;
+    background: var(--form-bg);
+    color: var(--ink);
+    font: inherit;
+  }
+
+  /* Content sections & page shells */
+  .content-section,
+  .page-shell {
+    padding-top: clamp(3.5rem, 8vw, 6rem);
+    padding-bottom: 2rem;
+  }
+
+  #posts.content-section {
+    padding-top: 0;
+  }
+
+  .search-hint {
+    color: var(--muted);
+  }
+
+  .search-form {
+    max-width: 570px;
+    margin-bottom: 2rem;
   }
 
   .section-title {
-    align-items: flex-start;
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    margin-bottom: 2rem;
+  }
+
+  .section-title h2 {
+    margin: 0;
+    line-height: 1;
+  }
+
+  .section-title > span {
+    color: var(--muted);
+    font-size: 0.75rem;
+  }
+
+  /* Typography */
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    letter-spacing: -0.045em;
+    line-height: 1.06;
+  }
+
+  h1 {
+    font-size: clamp(2.7rem, 6.2vw, 5.3rem);
+    font-weight: 700;
+  }
+
+  .hero h1 em {
+    font-weight: 600;
+    color: var(--hero-em);
+  }
+
+  h2 {
+    font-size: clamp(1.65rem, 3vw, 2.3rem);
+    font-weight: 700;
+  }
+
+  h3 {
+    font-size: 1.25rem;
+    font-weight: 700;
+  }
+}
+
+/* ===== COMPONENTS ===== */
+@layer components {
+  /* Header/footer glow — blurred accent gradient under header and above footer.
+     Visible in both themes (no display:none kill-switch); light theme bumps opacity.
+     Static gradient: no animation, so no prefers-reduced-motion handling needed. */
+  .site-header::after,
+  .site-footer::before {
+    content: '';
+    position: absolute;
+    left: 20%;
+    right: 20%;
+    height: var(--space-xs);
+    background: linear-gradient(90deg, transparent, var(--accent-blue), var(--green), transparent);
+    filter: blur(8px);
+    opacity: 0.3;
+    pointer-events: none;
+  }
+
+  .site-header::after {
+    bottom: calc(var(--space-xs) * -1);
+  }
+
+  .site-footer::before {
+    top: calc(var(--space-xs) * -1);
+  }
+
+  [data-theme="light"] .site-header::after,
+  [data-theme="light"] .site-footer::before {
+    opacity: 0.45;
+  }
+
+  /* Bootstrap override: dark button border follows the theme line token. */
+  [data-theme="dark"] .btn-dark,
+  [data-theme="dark"] .btn-dark:hover {
+    border-color: var(--line);
+  }
+
+  /* Bootstrap override: .btn-outline-dark follows theme tokens in both schemes. */
+  .btn-outline-dark {
+    border-color: var(--line);
+    color: var(--ink);
+  }
+
+  .btn-outline-dark:hover {
+    border-color: var(--muted);
+    color: var(--ink);
+  }
+
+  /* Post-card title hover works in both themes (no dark-only guard). */
+  .post-card h2 a:hover {
+    color: var(--accent-blue-hover);
+  }
+
+  /* Bootstrap override: .alert-success follows theme tokens in both schemes. */
+  .alert-success {
+    color: var(--alert-fg);
+    background: var(--alert-bg);
+    border-color: var(--alert-border);
+  }
+
+  [data-theme="light"] .btn-dark,
+  [data-theme="light"] .btn-dark:hover {
+    border-color: transparent;
+  }
+
+  /* Buttons */
+  /* Bootstrap override: .btn-dark follows theme tokens in both schemes.
+     Uses --btn-dark-bg (not --ink: --ink flips light in dark mode and the
+     later base rule would wash out the dark-scheme button text at rest). */
+  .btn-dark {
+    background: var(--btn-dark-bg);
+    border-color: var(--btn-dark-bg);
+    color: var(--on-dark);
+  }
+
+  .btn-dark:hover {
+    background: var(--btn-dark-hover);
+    border-color: var(--btn-dark-hover);
+    color: var(--on-dark);
+  }
+
+  .btn-dark:focus-visible {
+    background: var(--btn-dark-hover);
+    border-color: var(--btn-dark-hover);
+    color: var(--on-dark);
+  }
+
+  /* Tags & badges */
+  .tag {
+    display: inline-block;
+    padding: 0.18rem 0.55rem;
+    border-radius: 20px;
+    background: var(--tag-bg);
+    color: var(--tag-fg);
+    border: 1px solid var(--tag-border);
+    font-size: 0.96rem;
+  }
+
+  /* Linked tags (SkillTag `a > .tag`, TagList `a.tag`) share site link hover/focus treatment. Plain span.tag is unaffected. */
+  a.tag,
+  a > .tag {
+    transition: color 0.2s, border-color 0.2s;
+  }
+
+  a.tag:hover,
+  a > .tag:hover {
+    color: var(--accent-blue-hover);
+    border-color: var(--accent-blue);
+    text-decoration: underline;
+    text-underline-offset: 3px;
+  }
+
+  .tag-large {
+    font-size: 1.05rem;
+  }
+
+  .badge {
+    font-size: 0.96rem;
+    background: var(--tag-bg);
+    border: 1px solid var(--tag-border);
+    color: var(--tag-fg);
+    font-weight: 500;
+  }
+
+  /* Cards */
+  .post-card {
+    height: 100%;
+    padding: 1.7rem;
+    border: 1px solid var(--line);
+    border-radius: var(--radius-card);
+    background: var(--card);
+    transition: transform 0.2s, box-shadow 0.2s;
+  }
+
+  .post-card:hover {
+    transform: translateY(-4px);
+    border-color: var(--accent-blue);
+    box-shadow: var(--shadow-lg);
+  }
+
+  /* Search and topics discovery cards share the same whole-card hover lift. */
+
+  a.post-card {
+    color: inherit;
+    text-decoration: none;
+    cursor: pointer;
+  }
+
+  a.post-card:focus-visible {
+    transform: translateY(-4px);
+    border-color: var(--accent-blue);
+    box-shadow: var(--shadow-lg);
+  }
+
+  .post-card:hover .post-card-title,
+  a.post-card:focus-visible .post-card-title {
+    color: var(--accent-blue-hover);
+  }
+
+  .post-card h2 {
+    font-size: 1.55rem;
+    line-height: 1;
+  }
+
+  .post-card h2 a {
+    font-size: inherit;
+  }
+
+  .post-card-title {
+    font-size: 1.05rem;
+    font-weight: 700;
+    letter-spacing: -0.01em;
+    margin: 0 0 0.4rem;
+    color: var(--ink);
+  }
+
+  .post-card-title a {
+    color: inherit;
+    text-decoration: none;
+  }
+
+  .post-card-title a:hover,
+  .post-card-title a:focus-visible {
+    color: var(--accent-blue-hover);
+    text-decoration: underline;
+  }
+
+  .post-excerpt {
+    color: var(--muted);
+    font-size: 0.98rem;
+    line-height: 1.5;
+  }
+
+  .post-source,
+  .article-source {
+    color: var(--muted);
+    font-size: 0.8rem;
+  }
+
+  .read-link {
+    font-size: 0.9rem;
+    font-weight: 600;
+  }
+
+  .empty-state {
+    padding: 3rem;
+    text-align: center;
+    border: 1px dashed var(--line);
+    color: var(--muted);
   }
 
   .profile-card,
   .skills-card {
-    padding: 1.35rem;
+    padding: 2rem;
+    border: 1px solid var(--line);
+    border-radius: var(--radius-card);
+    background: var(--card);
+  }
+
+  /* About page (resume): blend cards with page background — no white card.
+     Uses --card-compact (transparent): intentional list surfaces vs default card. */
+  .resume .profile-card,
+  .resume .skills-card {
+    background: var(--card-compact);
+    border: none;
+    padding: 0;
+    border-radius: 0;
+  }
+
+  .resume .profile-card {
+    margin-bottom: 1rem;
+  }
+
+  .resume .skills-table {
+    --bs-table-bg: transparent;
+    background-color: transparent;
+  }
+
+  .resume .skills-table tbody th,
+  .resume .skills-table tbody td {
+    background-color: transparent;
+  }
+
+  /* Forms & inputs */
+  /* Bootstrap override: .form-control follows theme tokens in both schemes */
+  .form-control {
+    padding: 0.7rem 0.8rem;
+    border-color: var(--line);
+    background: var(--form-bg);
+    color: var(--ink);
+  }
+
+  .form-control::placeholder {
+    color: var(--placeholder);
+    opacity: 1;
+  }
+
+  .form-control:focus {
+    color: var(--ink);
+    border-color: var(--input-focus-border);
+    box-shadow: var(--focus-ring);
+    background: var(--form-bg);
+  }
+
+  /* Page template utility classes */
+  .hero-title {
+    font-size: clamp(1.35rem, 3.1vw, 2.65rem);
+    line-height: 1;
+  }
+
+  .hero-avatar {
+    width: clamp(72px, 14vw, 120px);
+    height: auto;
+    aspect-ratio: 1 / 1;
+    flex-shrink: 0;
+    object-fit: cover;
+    border-radius: 50%;
+  }
+
+  .brand-avatar,
+  .hero-avatar {
+    border: 2px solid var(--line);
+    box-shadow: 0 0 0 2px var(--paper);
+  }
+
+  .hero-identity {
+    display: flex;
+    align-items: center;
+    gap: clamp(1rem, 3vw, 1.75rem);
+    margin: 0 0 2rem;
+  }
+
+  .hero-identity .hero-title {
+    margin: 0;
+    min-width: 0;
+    overflow-wrap: anywhere;
+  }
+
+  .profile-name {
+    font-size: 1.65rem;
+  }
+
+  .profile-subtitle {
+    color: var(--ink);
+    font-size: 1.08rem;
+  }
+
+  /* Bootstrap overrides: muted/success/tag tokens */
+  .text-muted {
+    color: var(--muted) !important;
+  }
+
+  .text-success {
+    color: var(--success) !important;
+  }
+
+  .badge.bg-secondary {
+    background: var(--tag-bg) !important;
+    border: 1px solid var(--tag-border) !important;
+    color: var(--tag-fg) !important;
+  }
+
+  /* Visited links keep readable contrast in both schemes */
+  a:visited:not(.article-body a):not(.read-link) {
+    color: inherit;
+  }
+
+  .tag:visited:not(:hover) {
+    color: var(--tag-fg);
+  }
+
+  /* Write tool — formerly scoped in tools/write.vue */
+  .write-body {
+    min-height: 16rem;
+  }
+
+  .write-output {
+    max-height: 24rem;
+    overflow: auto;
+    white-space: pre-wrap;
+    overflow-wrap: anywhere;
+  }
+}
+
+/* ===== PAGES ===== */
+@layer pages {
+  /* Hero section — flat paper in both themes (no gradient wash). */
+  .hero {
+    padding: clamp(5rem, 12vw, 9rem) 0 clamp(4rem, 9vw, 7rem);
+    border-bottom: 1px solid var(--line);
+    background: var(--paper);
+  }
+
+  .eyebrow {
+    margin-bottom: 0.7rem;
+    color: var(--eyebrow);
+    font-size: 0.74rem;
+    letter-spacing: 0.1em;
   }
 
   .hero-copy {
-    font-size: clamp(0.82rem, 3.8vw, 1.08rem);
+    max-width: 570px;
+    color: var(--muted);
+    margin: 1.7rem 0 2rem;
+    font-size: clamp(1.08rem, 2vw, 1.25rem);
+    font-weight: 400;
+    line-height: 1.5;
+    white-space: normal;
   }
 
-  /* About page mobile: remove horizontal gutter and col-12 padding */
-  .about-shell .row {
-    --bs-gutter-x: 0;
-  }
-
-  .about-shell .col-12 {
-    padding-left: 0;
-    padding-right: 0;
-  }
-}
-
-/* Topics and Search page compaction.
-   Shared selectors keep both discovery pages visually consistent while their
-   page-specific content remains independent.
-   Compaction cards use --card-compact (transparent) intentionally vs default card. */
-.hero.topics-hero {
-  padding-top: clamp(1rem, 2.5vw, 1.5rem);
-  padding-bottom: clamp(0.5rem, 1.5vw, 0.9rem);
-  border-bottom: none;
-}
-
-.hero.search-hero {
-  padding-bottom: clamp(0.5rem, 1.5vw, 0.9rem);
-}
-
-.hero.search-hero .eyebrow,
-.hero.topics-hero .eyebrow {
-  margin-bottom: 0.3rem;
-}
-
-.hero.search-hero .hero-title {
-  font-size: clamp(1rem, 1.6vw, 1.25rem);
-  margin: 0 0 0.35rem;
-}
-
-/* Intentional size difference: topics hero title runs larger than the search hero title. */
-.hero.topics-hero .hero-title {
-  font-size: clamp(1.15rem, 2.4vw, 1.75rem);
-  margin: 0 0 0.35rem;
-}
-
-.hero.search-hero + .content-section,
-.hero.topics-hero + .content-section {
-  padding-top: clamp(0.6rem, 1.8vw, 1rem);
-  padding-bottom: 1rem;
-}
-
-.hero.topics-hero + .content-section .section-title {
-  margin-bottom: 0.45rem;
-}
-
-.hero.search-hero + .content-section .row,
-.hero.topics-hero + .content-section .row {
-  --bs-gutter-x: 0.5rem;
-  --bs-gutter-y: 0.5rem;
-}
-
-.hero.search-hero + .content-section .post-card,
-.hero.topics-hero + .content-section .post-card {
-  padding: 0.6rem 0.7rem;
-  border: none;
-  background: var(--card-compact);
-  box-shadow: none;
-}
-
-.hero.search-hero + .content-section .post-card h2,
-.hero.topics-hero + .content-section .post-card h2 {
-  font-size: 1rem;
-  margin-bottom: 0;
-  line-height: 1.18;
-}
-
-.article-shell.topics-shell .row {
-  --bs-gutter-x: 0.5rem;
-  --bs-gutter-y: 0.5rem;
-}
-
-.article-shell.topics-shell .post-card {
-  padding: 0.6rem 0.7rem;
-  border: none;
-  background: var(--card-compact);
-  box-shadow: none;
-}
-
-.article-shell.topics-shell .post-card h2 {
-  font-size: 1rem;
-  margin-bottom: 0;
-  line-height: 1.18;
-}
-
-.topic-card-header {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  gap: 0.15rem;
-}
-
-.topic-count {
-  color: var(--muted);
-  font-size: 0.8rem;
-  white-space: nowrap;
-  line-height: 1.2;
-}
-
-.hero.search-hero + .content-section .post-excerpt,
-.hero.topics-hero + .content-section .post-excerpt {
-  font-size: 0.78rem;
-  margin-bottom: 0;
-}
-
-.hero.search-hero + .content-section .empty-state,
-.hero.topics-hero + .content-section .empty-state {
-  padding: 1.25rem 1rem;
-  font-size: 0.95rem;
-}
-
-.search-page .search-form {
-  margin-bottom: 0.6rem;
-}
-
-.article-shell.topics-shell {
-  padding-top: 1.2rem;
-  padding-bottom: 1rem;
-  background: transparent;
-}
-
-.article-shell.topics-shell .back-link {
-  display: inline-block;
-  margin-bottom: 0.45rem;
-}
-
-.article-shell.topics-shell .article-header {
-  padding: 0.7rem 0 0.65rem;
-}
-
-.article-shell.topics-shell .article-header h1 {
-  display: block;
-  font-size: clamp(1.1rem, 2.2vw, 1.45rem) !important;
-  margin: 0;
-}
-
-.article-shell.topics-shell .article-lede {
-  display: block;
-  margin-top: 0.2rem;
-  font-size: 0.8rem;
-  line-height: 1.4;
-  color: var(--muted);
-  font-weight: 500;
-}
-
-.article-shell.topics-shell .post-card .mb-3 {
-  margin-bottom: 0.3rem !important;
-}
-
-.container.content-section.topics-missing {
-  padding-top: 1.5rem;
-  padding-bottom: 1.25rem;
-}
-
-.container.content-section.topics-missing .back-link {
-  display: inline-block;
-  margin-bottom: 0.6rem;
-}
-
-.container.content-section.topics-missing .empty-state {
-  padding: 1.25rem 1rem;
-  font-size: 0.95rem;
-}
-
-/* Unified green headings: writing explore + search hero title + topics hero copy share typography and color.
-   Topics vs search hero titles keep intentionally different sizes (see compaction rules above);
-   topics hero copy intentionally matches the writing-explore size. */
-.writing-explore,
-.hero.search-hero .hero-title,
-.hero.topics-hero .hero-copy {
-  color: var(--green);
-  font-size: clamp(1rem, 1.6vw, 1.25rem);
-  font-weight: 700;
-  letter-spacing: -0.02em;
-  line-height: 1.2;
-}
-
-.hero.about-hero .profile-card {
-  margin-top: 1.25rem;
-  padding: 0;
-  border: none;
-  border-radius: 0;
-  background: var(--card-compact);
-}
-
-.page-shell.about-shell {
-  padding-top: 0;
-}
-
-@media (max-width: 575px) {
+  /* Primary page heroes share compact spacing and no divider line. */
+  .hero.search-hero,
+  .hero.about-hero,
   .hero.topics-hero {
-    padding-top: 1rem;
+    padding-top: clamp(1rem, 2.5vw, 1.5rem);
+    border-bottom: none;
   }
 
+  .hero.search-hero,
+  .hero.about-hero {
+    padding-bottom: clamp(1.5rem, 4vw, 2.5rem);
+  }
+
+  .hero.search-hero + .content-section {
+    padding-top: 0;
+  }
+
+  /* Article / post */
+  .article-shell {
+    padding-top: 3.5rem;
+  }
+
+  .back-link {
+    color: var(--muted);
+    font-size: 0.9rem;
+  }
+
+  .back-link:hover {
+    color: var(--link-hover);
+    text-decoration: underline;
+  }
+
+  .article-header {
+    max-width: 100%;
+    padding: 2.6rem 0 2rem;
+    border-bottom: 1px solid var(--line);
+  }
+
+  /* Topics detail: no divider line (scoped — post article-header untouched) */
+  .article-shell.topics-shell .article-header {
+    border-bottom: none;
+  }
+
+  .article-header h1 {
+    font-size: clamp(1.25rem, 2.5vw, 2.125rem) !important;
+  }
+
+  .article-ai-assisted {
+    display: inline-block;
+    margin-left: 0.65rem;
+    padding: 0.25rem 0.45rem;
+    border: 1px solid var(--line);
+    border-radius: 999px;
+    color: var(--muted);
+    font-size: 0.42em;
+    font-weight: 600;
+    letter-spacing: 0.03em;
+    vertical-align: middle;
+    white-space: nowrap;
+  }
+
+  .article-body h1 {
+    font-size: clamp(1.25rem, 2.5vw, 2.125rem);
+    line-height: 1.15;
+    letter-spacing: -0.02em;
+    margin: 0 0 1rem;
+  }
+
+  .article-lede {
+    max-width: 100%;
+    margin-top: 1.4rem;
+    color: var(--muted);
+    font-size: 1.2rem;
+  }
+
+  .article-meta {
+    display: flex;
+    gap: 0.55rem;
+    color: var(--muted);
+    font-size: 0.75rem;
+  }
+
+  .article-body {
+    max-width: 100%;
+    padding: 3rem 0;
+  }
+
+  .article-body h2 {
+    margin: 2.8rem 0 1rem;
+    font-size: 1.8rem;
+  }
+
+  .article-body p,
+  .article-body li {
+    font-size: 1.08rem;
+  }
+
+  .article-body a {
+    text-decoration: underline;
+    text-underline-offset: 3px;
+  }
+
+  .article-body blockquote {
+    margin: 2rem 0;
+    padding: 1rem 1.3rem;
+    border-left: 3px solid var(--quote-edge);
+    background: var(--blockquote-bg);
+    color: var(--blockquote-fg);
+    font-size: 1.25rem;
+  }
+
+  .article-body code {
+    color: var(--code-fg);
+  }
+
+  /* Shared inline-code treatment in both themes (was duplicated light/dark blocks). */
+  .article-body code:not(pre code) {
+    background: var(--code-bg);
+    padding: 0.15em 0.35em;
+    border-radius: 4px;
+    border: 1px solid var(--line);
+  }
+
+  .article-body pre {
+    padding: 1rem;
+    overflow: auto;
+    border-radius: 8px;
+    background: var(--pre-bg);
+    color: var(--pre-fg);
+  }
+
+  .article-body pre code {
+    padding: 0;
+    background: transparent;
+    color: inherit;
+  }
+
+  /* About / resume */
+  .page-shell {
+    min-height: 70vh;
+  }
+
+  .page-shell .lead {
+    color: var(--muted);
+    font-size: 1.2rem;
+  }
+
+  .timeline-item {
+    position: relative;
+    padding: 0 0 2rem 1.45rem;
+    border-left: 1px solid var(--line);
+    min-width: 0;
+    overflow-wrap: anywhere;
+  }
+
+  .timeline-item:before {
+    content: '';
+    position: absolute;
+    left: -5px;
+    top: 7px;
+    width: 9px;
+    height: 9px;
+    border-radius: 50%;
+    background: var(--timeline-dot);
+    border: 2px solid var(--paper);
+    box-shadow: 0 0 0 1px var(--line);
+  }
+
+  .timeline-date {
+    margin: 0 0 0.25rem;
+    color: var(--muted);
+    font-size: 0.72rem;
+  }
+
+  .timeline-item h3 span {
+    color: var(--muted);
+    font-weight: 400;
+  }
+
+  .timeline-item p:last-child {
+    color: var(--muted);
+  }
+
+  .resume h2 {
+    font-size: 1.35rem;
+    margin-bottom: 1.5rem;
+  }
+
+  /* Skills card */
+  /* Bootstrap override: .table/.skills-table follows theme tokens in both schemes */
+  /* Skills card keeps the shared card radius (see .profile-card, .skills-card base). */
+  .skills-card {
+    max-width: 100%;
+    overflow: hidden;
+  }
+
+  .skills-table {
+    width: 100%;
+    max-width: 100%;
+    color: var(--ink);
+    border-color: var(--line);
+    table-layout: fixed;
+    overflow-wrap: anywhere;
+  }
+
+  .skills-table thead th {
+    background-color: var(--table-head-bg);
+    color: var(--table-head-fg);
+    border-bottom-width: 2px;
+    border-color: var(--line);
+    font-weight: 600;
+    font-size: 0.75rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    white-space: normal;
+    overflow-wrap: anywhere;
+    vertical-align: top;
+  }
+
+  .skills-table thead th:first-child,
+  .skills-table tbody th {
+    width: 32%;
+  }
+
+  .skills-table thead th:last-child,
+  .skills-table tbody td {
+    width: 68%;
+  }
+
+  .skills-table tbody th {
+    color: var(--ink);
+    font-weight: 600;
+    font-size: 0.92rem;
+    white-space: normal;
+    overflow-wrap: anywhere;
+    vertical-align: top;
+    background: transparent;
+    border-color: var(--line);
+  }
+
+  .skills-table tbody td {
+    color: var(--ink);
+    border-color: var(--line);
+    font-size: 0.92rem;
+    vertical-align: top;
+    line-height: 1.6;
+    white-space: normal;
+    overflow-wrap: anywhere;
+  }
+
+  .skills-table tbody td .tag {
+    vertical-align: middle;
+    white-space: normal;
+    overflow-wrap: anywhere;
+    display: inline-block;
+  }
+
+  .skills-table caption {
+    color: var(--muted);
+  }
+
+  .skills-table tbody tr:last-child th,
+  .skills-table tbody tr:last-child td {
+    border-bottom: 0;
+  }
+
+  /* Employer link */
+  .employer-link {
+    color: var(--accent-blue);
+    text-decoration: underline;
+    text-underline-offset: 3px;
+    text-decoration-thickness: 1.5px;
+    text-decoration-color: currentColor;
+    font-weight: 700;
+    transition: color 0.2s;
+  }
+
+  .employer-link:hover {
+    color: var(--accent-blue-hover);
+    text-decoration-thickness: 2px;
+  }
+
+  .employer-link:focus-visible {
+    border-radius: 2px;
+  }
+
+  /* Resume contact */
+  .resume-contact {
+    color: var(--ink);
+    font-size: 1.08rem;
+    line-height: 1.6;
+  }
+
+  .resume-contact a {
+    color: var(--accent-blue);
+    text-decoration: underline;
+    text-underline-offset: 3px;
+    text-decoration-thickness: 1.5px;
+    text-decoration-color: currentColor;
+    font-weight: 500;
+    transition: color 0.2s;
+  }
+
+  .contact-links {
+    display: inline-flex;
+    gap: 0.85rem;
+    margin-left: 0.9rem;
+    vertical-align: middle;
+  }
+
+  .resume-contact a:hover {
+    color: var(--accent-blue-hover);
+    text-decoration-thickness: 2px;
+  }
+
+  .resume-contact a:focus-visible {
+    border-radius: 2px;
+  }
+
+  /* Topics and Search page compaction.
+     Shared selectors keep both discovery pages visually consistent while their
+     page-specific content remains independent.
+     Compaction cards use --card-compact (transparent) intentionally vs default card. */
+  .hero.topics-hero {
+    padding-bottom: clamp(0.5rem, 1.5vw, 0.9rem);
+  }
+
+  .hero.search-hero {
+    padding-bottom: clamp(0.5rem, 1.5vw, 0.9rem);
+  }
+
+  .hero.search-hero .eyebrow,
+  .hero.topics-hero .eyebrow {
+    margin-bottom: 0.3rem;
+  }
+
+  .hero.search-hero .hero-title {
+    font-size: clamp(1rem, 1.6vw, 1.25rem);
+    margin: 0 0 0.35rem;
+  }
+
+  /* Intentional size difference: topics hero title runs larger than the search hero title. */
+  .hero.topics-hero .hero-title {
+    font-size: clamp(1.15rem, 2.4vw, 1.75rem);
+    margin: 0 0 0.35rem;
+  }
+
+  .hero.search-hero + .content-section,
+  .hero.topics-hero + .content-section {
+    padding-top: clamp(0.6rem, 1.8vw, 1rem);
+    padding-bottom: 1rem;
+  }
+
+  .hero.topics-hero + .content-section .section-title {
+    margin-bottom: 0.45rem;
+  }
+
+  /* Writing/blog listing (search-hero + count-only SectionHeader, like
+     topics): keep the hero-to-grid rhythm with the same content-section
+     top and compact SectionHeader gap.
+     Scoped with :not(.home-lead) so the index hero stack keeps its
+     padding-top:0 + padding-bottom:0 rhythm. */
+  #posts.content-section:not(.home-lead) {
+    padding-top: clamp(0.6rem, 1.8vw, 1rem);
+    padding-bottom: 1rem;
+  }
+
+  #posts.content-section:not(.home-lead) .section-title {
+    margin-bottom: 0.45rem;
+  }
+
+  .hero.search-hero + .content-section .row,
   .hero.topics-hero + .content-section .row,
   .article-shell.topics-shell .row {
     --bs-gutter-x: 0.5rem;
     --bs-gutter-y: 0.5rem;
   }
 
+  /* Compaction card surface — see .post-card--compact utility (utilities layer). */
+  .hero.search-hero + .content-section .post-card,
   .hero.topics-hero + .content-section .post-card,
   .article-shell.topics-shell .post-card {
-    padding: 0.65rem 0.7rem;
+    padding: 0.6rem 0.7rem;
+    border: none;
+    background: var(--card-compact);
+    box-shadow: none;
+  }
+
+  .hero.search-hero + .content-section .post-card h2,
+  .hero.topics-hero + .content-section .post-card h2,
+  .article-shell.topics-shell .post-card h2 {
+    font-size: 1rem;
+    margin-bottom: 0;
+    line-height: 1.18;
+  }
+
+  .topic-card-header {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.15rem;
+  }
+
+  .topic-count {
+    color: var(--muted);
+    font-size: 0.8rem;
+    white-space: nowrap;
+    line-height: 1.2;
+  }
+
+  .hero.search-hero + .content-section .post-excerpt,
+  .hero.topics-hero + .content-section .post-excerpt {
+    font-size: 0.78rem;
+    margin-bottom: 0;
+  }
+
+  .hero.search-hero + .content-section .empty-state,
+  .hero.topics-hero + .content-section .empty-state {
+    padding: 1.25rem 1rem;
+    font-size: 0.95rem;
+  }
+
+  .search-page .search-form {
+    margin-bottom: 0.6rem;
   }
 
   .article-shell.topics-shell {
-    padding-top: 1.25rem;
+    padding-top: 1.2rem;
+    padding-bottom: 1rem;
+    background: transparent;
+  }
+
+  .article-shell.topics-shell .back-link {
+    display: inline-block;
+    margin-bottom: 0.45rem;
   }
 
   .article-shell.topics-shell .article-header {
     padding: 0.7rem 0 0.65rem;
   }
 
+  .article-shell.topics-shell .article-header h1 {
+    display: block;
+    font-size: clamp(1.1rem, 2.2vw, 1.45rem) !important;
+    margin: 0;
+  }
+
+  .article-shell.topics-shell .article-lede {
+    display: block;
+    margin-top: 0.2rem;
+    font-size: 0.8rem;
+    line-height: 1.4;
+    color: var(--muted);
+    font-weight: 500;
+  }
+
+  .article-shell.topics-shell .post-card .mb-3 {
+    margin-bottom: 0.3rem !important;
+  }
+
+  .container.content-section.topics-missing {
+    padding-top: 1.5rem;
+    padding-bottom: 1.25rem;
+  }
+
+  .container.content-section.topics-missing .back-link {
+    display: inline-block;
+    margin-bottom: 0.6rem;
+  }
+
+  .container.content-section.topics-missing .empty-state {
+    padding: 1.25rem 1rem;
+    font-size: 0.95rem;
+  }
+
+  /* Unified green headings: writing explore + search hero title + topics hero copy share typography and color.
+     Topics vs search hero titles keep intentionally different sizes (see compaction rules above);
+     topics hero copy intentionally matches the writing-explore size. */
+  .writing-explore,
+  .hero.search-hero .hero-title,
+  .hero.topics-hero .hero-copy {
+    color: var(--green);
+    font-size: clamp(1rem, 1.6vw, 1.25rem);
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    line-height: 1.2;
+  }
+
+  .hero.about-hero .profile-card {
+    margin-top: 1.25rem;
+    padding: 0;
+    border: none;
+    border-radius: 0;
+    background: var(--card-compact);
+  }
+
+  .page-shell.about-shell {
+    padding-top: 0;
+  }
+
+  /* Home lead (index.vue): sibling intro above AboutComp — no bottom
+     padding so the stacked hero keeps the same 3rem rhythm as before
+     un-nesting (hero-identity margin + about-hero padding). */
+  .container.content-section.home-lead {
+    padding-bottom: 0;
+  }
+}
+
+/* ===== UTILITIES ===== */
+@layer utilities {
+  /* Single global keyboard-focus ring — per-component duplicates removed
+     (components keep border-radius where needed). */
+  :where(a, button, input, select, textarea, [tabindex]):focus-visible {
+    outline: 2px solid var(--accent-blue-focus);
+    outline-offset: 2px;
+  }
+
+  /* Shared underline treatment for repeated 3px offset link rules. */
+  .link-underline {
+    text-decoration: underline;
+    text-underline-offset: 3px;
+  }
+
+  /* Compact hero — shared compact spacing, no divider (replaces 3x hero duplicates). */
+  .hero--compact {
+    padding-top: clamp(1rem, 2.5vw, 1.5rem);
+    padding-bottom: clamp(0.5rem, 1.5vw, 0.9rem);
+    border-bottom: none;
+  }
+
+  /* Compact post card — transparent list surface (replaces 3x post-card duplicates). */
+  .post-card--compact {
+    padding: 0.6rem 0.7rem;
+    border: none;
+    background: var(--card-compact);
+    box-shadow: none;
+  }
+
+  .post-card--compact h2 {
+    font-size: 1rem;
+    margin-bottom: 0;
+    line-height: 1.18;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+
+    .post-card,
+    a.post-card,
+    .post-card:hover,
+    a.post-card:focus-visible {
+      transform: none;
+      box-shadow: none;
+    }
+
+    *,
+    *::before,
+    *::after {
+      transition-duration: 0.01ms !important;
+    }
+  }
+
+  @media (max-width: 991px) {
+    .site-header .navbar-collapse {
+      padding-top: 0.8rem;
+    }
+
+    .site-header .navbar-collapse.show {
+      padding-bottom: 0.5rem;
+    }
+
+    .site-header .navbar-nav {
+      align-items: center !important;
+      gap: 0.5rem;
+      text-align: center;
+    }
+
+    .theme-switcher {
+      margin: 0.75rem auto 0;
+    }
+
+    .header-icon-link {
+      margin: 0.75rem auto 0;
+    }
+
+    .site-header .navbar-nav .nav-link {
+      display: inline-flex;
+      justify-content: center;
+      align-items: center;
+      width: auto;
+      min-height: 0;
+      padding: 0.5rem 0.25rem !important;
+      text-align: center;
+    }
+
+    .skills-table thead th,
+    .skills-table tbody th,
+    .skills-table tbody td {
+      font-size: 0.88rem;
+    }
+  }
+
+  @media (min-width: 992px) {
+    .site-header .navbar-toggler {
+      display: none;
+    }
+  }
+
+  /* Merged small-screen rules (was two @media max-width:575px blocks). */
+  @media (max-width: 575px) {
+    .site-header .navbar-nav {
+      gap: 0.75rem;
+    }
+
+    .site-header .navbar-collapse.show {
+      padding-bottom: 0.25rem;
+    }
+
+    .hero {
+      padding-top: 4.5rem;
+    }
+
+    /* Topics-hero mobile padding is set by the compaction override below (1rem winner). */
+
+    .post-card {
+      padding: 1.35rem;
+    }
+
+    .article-shell {
+      padding-top: 2rem;
+    }
+
+    .article-body {
+      padding-top: 2rem;
+    }
+
+    .section-title {
+      align-items: flex-start;
+    }
+
+    .profile-card,
+    .skills-card {
+      padding: 1.35rem;
+    }
+
+    .hero-copy {
+      font-size: clamp(0.82rem, 3.8vw, 1.08rem);
+    }
+
+    .hero.topics-hero {
+      padding-top: 1rem;
+    }
+
+    .hero.topics-hero + .content-section .row,
+    .article-shell.topics-shell .row {
+      --bs-gutter-x: 0.5rem;
+      --bs-gutter-y: 0.5rem;
+    }
+
+    .hero.topics-hero + .content-section .post-card,
+    .article-shell.topics-shell .post-card {
+      padding: 0.65rem 0.7rem;
+    }
+
+    .article-shell.topics-shell {
+      padding-top: 1.25rem;
+    }
+
+    .article-shell.topics-shell .article-header {
+      padding: 0.7rem 0 0.65rem;
+    }
+  }
 }
