@@ -8,7 +8,7 @@ defineProps<{ post: PostSummary }>()
 
 <template>
   <article class="post-card">
-    <div class="d-flex justify-content-between align-items-center small text-muted mb-3">
+    <div class="d-flex justify-content-between align-items-center post-meta mb-3">
       <FormattedDate :date="post.date" />
       <span>{{ post.readingTime || DEFAULT_READING_TIME }}</span>
     </div>
