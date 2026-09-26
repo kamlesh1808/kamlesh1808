@@ -5,7 +5,7 @@ const { posts, topics } = await setupTopicsPage()
 </script>
 
 <template>
-  <PageHero variant="topics-hero" eyebrow="TOPICS" title="Topics">
+  <PageHero variant="topics-hero" eyebrow="TOPICS">
     <template #copy>Browse posts by topic.</template>
   </PageHero>
   <section class="container content-section">
