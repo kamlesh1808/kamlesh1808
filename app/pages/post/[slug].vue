@@ -15,7 +15,7 @@ const isGated = computed((): boolean => post.value?.disabled === true && !unlock
     <BackLink :to="siteLinks.routes.home">All writing</BackLink>
     <header class="article-header">
       <h1>{{ post.title }}<span v-if="post.aiAssisted" class="article-ai-assisted">AI-assisted</span></h1>
-      <TagList :tags="post.tags" wrapper-class="d-flex flex-wrap gap-2 mb-4" />
+      <TagList v-if="post.tags?.length" :tags="post.tags" wrapper-class="d-flex flex-wrap gap-2 mb-4" />
       <p v-if="post.source" class="article-source">Source: {{ post.source }}</p>
       <p class="article-lede">{{ post.excerpt }}</p>
       <div class="article-meta"><FormattedDate :date="post.date" format="long" /><span>·</span><span>{{ post.readingTime }}</span></div>

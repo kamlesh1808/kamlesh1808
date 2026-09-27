@@ -13,7 +13,7 @@ defineProps<{ post: PostSummary }>()
       <span>{{ post.readingTime || DEFAULT_READING_TIME }}</span>
     </div>
     <h2 class="post-card-title"><NuxtLink :to="`/post/${post.slug}`">{{ post.title }}</NuxtLink></h2>
-    <TagList :tags="post.tags" />
+    <TagList v-if="post.tags?.length" :tags="post.tags" />
     <p v-if="post.source" class="post-source">Source: {{ post.source }}</p>
     <p class="post-excerpt">{{ post.excerpt }}</p>
     <div class="d-flex justify-content-end align-items-center">
