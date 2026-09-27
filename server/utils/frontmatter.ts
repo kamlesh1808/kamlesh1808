@@ -2,17 +2,30 @@ export interface Frontmatter {
   [key: string]: string | boolean | string[]
 }
 
+function stripQuotes(value: string): string {
+  return value.replace(/^['"]|['"]$/g, '')
+}
+
 function splitList(value: string): string[] {
   const contents = value.slice(1, -1).trim()
   if (!contents) return []
-  return contents.split(',').map(item => (item ?? '').trim().replace(/^['"]|['"]$/g, '')).filter(Boolean)
+  return contents.split(',').map(item => stripQuotes((item ?? '').trim())).filter(Boolean)
 }
+
+interface ValueParser {
+  test: (trimmed: string) => boolean
+  parse: (trimmed: string) => string | boolean | string[]
+}
+
+// Hard-coded value shapes (list, boolean); anything else falls through to unquoted string.
+const VALUE_PARSERS: ValueParser[] = [
+  { test: trimmed => trimmed.startsWith('[') && trimmed.endsWith(']'), parse: trimmed => splitList(trimmed) },
+  { test: trimmed => trimmed === 'true' || trimmed === 'false', parse: trimmed => trimmed === 'true' },
+]
 
 function parseValue(value: string): string | boolean | string[] {
   const trimmed = value.trim()
-  if (trimmed.startsWith('[') && trimmed.endsWith(']')) return splitList(trimmed)
-  if (trimmed === 'true' || trimmed === 'false') return trimmed === 'true'
-  return trimmed.replace(/^['"]|['"]$/g, '')
+  return VALUE_PARSERS.find(({ test }) => test(trimmed))?.parse(trimmed) ?? stripQuotes(trimmed)
 }
 
 export function parseFrontmatter(source: string): { fields: Frontmatter; body: string } {
@@ -22,9 +35,11 @@ export function parseFrontmatter(source: string): { fields: Frontmatter; body: s
   const fields: Frontmatter = {}
   const frontmatter = match[1] ?? ''
   const body = match[2] ?? ''
-  for (const [index, rawLine] of frontmatter.split(/\r?\n/).entries()) {
-    const line = rawLine.trim()
-    if (!line || line.startsWith('#')) continue
+  const entries = frontmatter
+    .split(/\r?\n/)
+    .map((rawLine, index) => ({ rawLine, index, line: rawLine.trim() }))
+    .filter(({ line }) => line !== '' && !line.startsWith('#'))
+  for (const { rawLine, index, line } of entries) {
     const separator = line.indexOf(':')
     if (separator < 1) throw new Error(`Invalid frontmatter on line ${index + 1}: ${rawLine}`)
     const key = line.slice(0, separator).trim()

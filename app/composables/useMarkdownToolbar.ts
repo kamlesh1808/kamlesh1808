@@ -63,18 +63,20 @@ export function useMarkdownToolbar(body: Ref<string>, bodyRef: Ref<HTMLTextAreaE
     })
   }
 
+  const toolbarCommands: Record<string, () => void> = {
+    bold: () => surround('**', '**'),
+    italic: () => surround('*', '*'),
+    h2: () => prefixSelectedLines('## '),
+    h3: () => prefixSelectedLines('### '),
+    ul: () => prefixSelectedLines('- '),
+    ol: () => prefixSelectedLines((index) => `${index + 1}. `),
+    quote: () => prefixSelectedLines('> '),
+    code: () => surround('`', '`', 'code'),
+    link: () => surround('[', '](https://)', 'text'),
+  }
+
   function applyToolbar(action: string): void {
-    switch (action) {
-      case 'bold': surround('**', '**'); break
-      case 'italic': surround('*', '*'); break
-      case 'h2': prefixSelectedLines('## '); break
-      case 'h3': prefixSelectedLines('### '); break
-      case 'ul': prefixSelectedLines('- '); break
-      case 'ol': prefixSelectedLines(index => `${index + 1}. `); break
-      case 'quote': prefixSelectedLines('> '); break
-      case 'code': surround('`', '`', 'code'); break
-      case 'link': surround('[', '](https://)', 'text'); break
-    }
+    toolbarCommands[action]?.()
   }
 
   return { surround, prefixSelectedLines, applyToolbar, toolbarActions }
