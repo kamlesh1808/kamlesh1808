@@ -69,11 +69,11 @@ export function usePrivateAuth() {
       clearExpiryTimer()
       return false
     }
+    if (!flagged && !unlocked.value) {
+      clearExpiryTimer()
+      return false
+    }
     if (!flagged || storedAt === null || nowMs - storedAt > UNLOCK_TTL_MS) {
-      if (!flagged && !unlocked.value) {
-        clearExpiryTimer()
-        return false
-      }
       lock()
       return false
     }
@@ -115,11 +115,11 @@ export function usePrivateAuth() {
     const trimmed = input.trim()
     if (!trimmed) return false
     refreshAuthState()
-    if (candidatePasswords(now).includes(trimmed)) {
-      unlock()
-      return true
+    if (!candidatePasswords(now).includes(trimmed)) {
+      return false
     }
-    return false
+    unlock()
+    return true
   }
 
   return { unlocked, verifyPasscode, unlock, lock, refreshAuthState }

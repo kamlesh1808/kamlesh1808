@@ -1,7 +1,25 @@
 export type Theme = 'dark' | 'light'
 
+const themeIcons: Record<Theme, string> = {
+  dark: 'fa-solid fa-sun',
+  light: 'fa-solid fa-moon',
+}
+
+const themeToggleLabels: Record<Theme, string> = {
+  dark: 'Use light theme',
+  light: 'Use dark theme',
+}
+
+const nextThemes: Record<Theme, Theme> = {
+  dark: 'light',
+  light: 'dark',
+}
+
 export function useTheme() {
   const theme = useState<Theme>('theme', () => 'dark')
+  const isDark = computed(() => theme.value === 'dark')
+  const themeIcon = computed(() => themeIcons[theme.value])
+  const themeToggleLabel = computed(() => themeToggleLabels[theme.value])
 
   function setTheme(nextTheme: Theme) {
     theme.value = nextTheme
@@ -9,6 +27,10 @@ export function useTheme() {
       document.documentElement.dataset.theme = nextTheme
       localStorage.setItem('theme', nextTheme)
     }
+  }
+
+  function toggleTheme() {
+    setTheme(nextThemes[theme.value])
   }
 
   if (import.meta.client) {
@@ -22,5 +44,5 @@ export function useTheme() {
     })
   }
 
-  return { theme, setTheme }
+  return { theme, setTheme, isDark, themeIcon, themeToggleLabel, toggleTheme }
 }

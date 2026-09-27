@@ -2,7 +2,7 @@
 import { siteLinks } from '~/data/site'
 
 const route = useRoute()
-const { theme, setTheme } = useTheme()
+const { themeIcon, themeToggleLabel, toggleTheme } = useTheme()
 const open = ref(false)
 const togglerRef = ref<HTMLButtonElement | null>(null)
 const links = siteLinks.navigation
@@ -49,11 +49,11 @@ onBeforeUnmount(() => window.removeEventListener('keydown', onKeydown))
           <button
             type="button"
             class="theme-option"
-            :aria-label="theme === 'dark' ? 'Use light theme' : 'Use dark theme'"
-            :title="theme === 'dark' ? 'Use light theme' : 'Use dark theme'"
-            @click="setTheme(theme === 'dark' ? 'light' : 'dark')"
+            :aria-label="themeToggleLabel"
+            :title="themeToggleLabel"
+            @click="toggleTheme"
           >
-            <i :class="theme === 'dark' ? 'fa-solid fa-sun' : 'fa-solid fa-moon'" aria-hidden="true" />
+            <i :class="themeIcon" aria-hidden="true" />
           </button>
         </div>
       </div>

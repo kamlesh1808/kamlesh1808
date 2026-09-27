@@ -2,122 +2,130 @@ import siteToml from './site.toml?raw'
 import { parseToml, type TomlTable, type TomlValue } from '~/utils/toml'
 import type { Education, Experience, SkillCategory } from '~/types/about'
 
-function table(value: TomlValue | undefined, name: string): TomlTable {
-  if (!value || typeof value !== 'object' || Array.isArray(value)) throw new Error(`Expected TOML table: ${name}`)
-  return value
+const FALLBACK_PROFILE = {
+  name: 'Kamlesh Patel',
+  subtitle: 'Software Engineering',
+  avatarUrl: 'https://github.com/kamlesh1808.png',
 }
 
-function tableArray(value: TomlValue | undefined, name: string): TomlTable[] {
-  if (!Array.isArray(value) || value.some(item => typeof item !== 'object' || Array.isArray(item))) {
-    throw new Error(`Expected TOML table array: ${name}`)
-  }
-  return value as TomlTable[]
+const FALLBACK_CONTACT = {
+  location: 'Mississauga',
+  locationUrl: 'https://en.wikipedia.org/wiki/Mississauga',
+  region: 'Ontario, Canada',
 }
 
-function stringValue(value: TomlValue | undefined, name: string): string {
-  if (typeof value !== 'string') throw new Error(`Expected TOML string: ${name}`)
-  return value
+const FALLBACK_ROUTES = {
+  home: '/',
+  search: '/search',
+  topics: '/topics',
+  toolsWrite: '/tools/write',
+  toolsDrafts: '/tools/drafts',
 }
 
-function optionalString(value: TomlValue | undefined, name: string): string | undefined {
-  if (value === undefined) return undefined
-  return stringValue(value, name)
-}
+const asTable = (value: TomlValue | undefined, fallback: TomlTable = {}): TomlTable =>
+  typeof value === 'object' && value !== null && !Array.isArray(value) ? (value as TomlTable) : fallback
 
-function booleanValue(value: TomlValue | undefined, name: string): boolean {
-  if (typeof value !== 'boolean') throw new Error(`Expected TOML boolean: ${name}`)
-  return value
-}
+const asTableArray = (value: TomlValue | undefined): TomlTable[] =>
+  (Array.isArray(value) ? value : []).filter(
+    (item): item is TomlTable => typeof item === 'object' && item !== null && !Array.isArray(item),
+  )
 
-function stringArray(value: TomlValue | undefined, name: string): string[] {
-  if (!Array.isArray(value) || value.some(item => typeof item !== 'string')) {
-    throw new Error(`Expected TOML string array: ${name}`)
-  }
-  return value as string[]
-}
+const asString = (value: TomlValue | undefined, fallback = ''): string =>
+  typeof value === 'string' ? value : fallback
 
-const siteData = parseToml(siteToml)
-const profile = table(siteData.profile, 'profile')
-const contact = table(siteData.contact, 'contact')
-const routes = table(siteData.routes, 'routes')
-const contactLinks = tableArray(contact.links, 'contact.links').map(link => ({
-  url: stringValue(link.url, 'contact.links.url'),
-  ariaLabel: stringValue(link.label, 'contact.links.label'),
-  iconClass: stringValue(link.icon_class, 'contact.links.icon_class'),
-  external: booleanValue(link.external, 'contact.links.external'),
-  showInFooter: booleanValue(link.show_in_footer, 'contact.links.show_in_footer'),
+const asOptionalString = (value: TomlValue | undefined): string | undefined =>
+  typeof value === 'string' ? value : undefined
+
+const asBoolean = (value: TomlValue | undefined, fallback = false): boolean =>
+  typeof value === 'boolean' ? value : fallback
+
+const asStringArray = (value: TomlValue | undefined): string[] =>
+  (Array.isArray(value) ? value : []).filter((item): item is string => typeof item === 'string')
+
+const siteData: TomlTable = parseToml(siteToml)
+const profile = asTable(siteData?.profile)
+const contact = asTable(siteData?.contact)
+const routes = asTable(siteData?.routes)
+const contactLinks = asTableArray(contact?.links).map(link => ({
+  url: asString(link?.url),
+  ariaLabel: asString(link?.label),
+  iconClass: asString(link?.icon_class),
+  external: asBoolean(link?.external),
+  showInFooter: asBoolean(link?.show_in_footer),
 }))
 
 export const siteLinks = {
   profile: {
-    name: stringValue(profile.name, 'profile.name'),
-    subtitle: stringValue(profile.subtitle, 'profile.subtitle'),
-    avatarUrl: stringValue(profile.avatar_url, 'profile.avatar_url'),
+    name: asString(profile?.name, FALLBACK_PROFILE.name),
+    subtitle: asString(profile?.subtitle, FALLBACK_PROFILE.subtitle),
+    avatarUrl: asString(profile?.avatar_url, FALLBACK_PROFILE.avatarUrl),
   },
   contact: {
-    location: stringValue(contact.location, 'contact.location'),
-    locationUrl: stringValue(contact.location_url, 'contact.location_url'),
-    region: stringValue(contact.region, 'contact.region'),
+    location: asString(contact?.location, FALLBACK_CONTACT.location),
+    locationUrl: asString(contact?.location_url, FALLBACK_CONTACT.locationUrl),
+    region: asString(contact?.region, FALLBACK_CONTACT.region),
     links: contactLinks,
   },
   routes: {
-    home: stringValue(routes.home, 'routes.home'),
-    search: stringValue(routes.search, 'routes.search'),
-    topics: stringValue(routes.topics, 'routes.topics'),
-    toolsWrite: stringValue(routes.tools_write, 'routes.tools_write'),
-    toolsDrafts: stringValue(routes.tools_drafts, 'routes.tools_drafts'),
+    home: asString(routes?.home, FALLBACK_ROUTES.home),
+    search: asString(routes?.search, FALLBACK_ROUTES.search),
+    topics: asString(routes?.topics, FALLBACK_ROUTES.topics),
+    toolsWrite: asString(routes?.tools_write, FALLBACK_ROUTES.toolsWrite),
+    toolsDrafts: asString(routes?.tools_drafts, FALLBACK_ROUTES.toolsDrafts),
   },
-  navigation: tableArray(siteData.navigation, 'navigation').map(link => ({
-    label: stringValue(link.label, 'navigation.label'),
-    to: stringValue(link.to, 'navigation.to'),
+  navigation: asTableArray(siteData?.navigation).map(link => ({
+    label: asString(link?.label),
+    to: asString(link?.to),
   })),
   social: contactLinks.filter(link => link.showInFooter),
 }
 
-const summary = table(siteData.summary, 'summary')
-const impact = table(siteData.impact, 'impact')
+const summary = asTable(siteData?.summary)
+const impact = asTable(siteData?.impact)
 
-const experience = tableArray(siteData.experience, 'experience').map(item => ({
-  date: stringValue(item.date, 'experience.date'),
-  employer: stringValue(item.employer, 'experience.employer'),
-  employerUrl: optionalString(item.employer_url, 'experience.employer_url'),
-  role: stringValue(item.role, 'experience.role'),
-  bullets: stringArray(item.bullets, 'experience.bullets'),
-  projectPrefix: optionalString(item.project_prefix, 'experience.project_prefix'),
-  projectUrl: optionalString(item.project_url, 'experience.project_url'),
+const experience = asTableArray(siteData?.experience).map(item => ({
+  date: asString(item?.date),
+  employer: asString(item?.employer),
+  employerUrl: asOptionalString(item?.employer_url),
+  role: asString(item?.role),
+  bullets: asStringArray(item?.bullets),
+  projectPrefix: asOptionalString(item?.project_prefix),
+  projectUrl: asOptionalString(item?.project_url),
 }))
 
-const education = tableArray(siteData.education, 'education').map(item => ({
-  date: stringValue(item.date, 'education.date'),
-  program: stringValue(item.program, 'education.program'),
-  credentialLabel: stringValue(item.credential_label, 'education.credential_label'),
-  credentialUrl: stringValue(item.credential_url, 'education.credential_url'),
-  duration: stringValue(item.duration, 'education.duration'),
-  institution: stringValue(item.institution, 'education.institution'),
+const education = asTableArray(siteData?.education).map(item => ({
+  date: asString(item?.date),
+  program: asString(item?.program),
+  credentialLabel: asString(item?.credential_label),
+  credentialUrl: asString(item?.credential_url),
+  duration: asString(item?.duration),
+  institution: asString(item?.institution),
 }))
 
-const skillsData = table(siteData.skills, 'skills')
-const topSkills = stringArray(skillsData.top, 'skills.top')
-const skillCategories = tableArray(siteData.skill_categories, 'skill_categories').map(category => ({
-  name: stringValue(category.name, 'skill_categories.name'),
-  items: tableArray(category.items, 'skill_categories.items').map(item => ({
-    name: stringValue(item.name, 'skill_categories.items.name'),
-    linkKey: optionalString(item.link_key, 'skill_categories.items.link_key'),
-    className: stringValue(item.class_name, 'skill_categories.items.class_name'),
-    title: optionalString(item.title, 'skill_categories.items.title'),
+const skillsData = asTable(siteData?.skills)
+const topSkills = asStringArray(skillsData?.top)
+const skillCategories = asTableArray(siteData?.skill_categories).map(category => ({
+  name: asString(category?.name),
+  items: asTableArray(category?.items).map(item => ({
+    name: asString(item?.name),
+    linkKey: asOptionalString(item?.link_key),
+    className: asString(item?.class_name),
+    title: asOptionalString(item?.title),
   })),
 }))
 
-const skillLinksTable = table(siteData.skill_links, 'skill_links')
-const skillLinks = Object.fromEntries(
-  Object.entries(skillLinksTable).map(([name, url]) => [name, stringValue(url, `skill_links.${name}`)]),
+const skillLinksTable = asTable(siteData?.skill_links)
+const skillLinks: Record<string, string> = Object.fromEntries(
+  Object.entries(skillLinksTable).flatMap(([name, url]) =>
+    typeof url === 'string' ? [[name, url] as const] : [],
+  ),
 )
 
 export const aboutData = {
   profile: siteLinks.profile,
   contact: siteLinks.contact,
-  summaryItems: stringArray(summary.items, 'summary.items'),
-  impactItems: stringArray(impact.items, 'impact.items'),
+  summaryItems: asStringArray(summary?.items),
+  impactItems: asStringArray(impact?.items),
   topSkills,
   experience: experience as Experience[],
   education: education as Education[],

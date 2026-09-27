@@ -6,6 +6,6 @@ defineProps<{ posts: PostSummary[] | null }>()
 
 <template>
   <SectionHeader :count="posts?.length || 0" />
-  <PostGrid :posts="posts ?? []" />
-  <EmptyState v-if="!posts?.length">No posts yet. Add a my-slug-YYYYMonDD.md file to the content folder.</EmptyState>
+  <PostGrid v-if="posts?.length" :posts="posts ?? []" />
+  <EmptyState v-else>No posts yet. Add a my-slug-YYYYMonDD.md file to the content folder.</EmptyState>
 </template>

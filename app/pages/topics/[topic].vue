@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { setupTopicPage } from '~/page-scripts/topic'
 import { siteLinks } from '~/data/site'
+import { plural } from '~/utils/plural'
 
 const { topic, filtered } = await setupTopicPage()
 
@@ -16,7 +17,7 @@ if (!topic.value) {
     <BackLink :to="siteLinks.routes.topics">Topics</BackLink>
     <header class="article-header">
       <h1>{{ topic.name }}</h1>
-      <p class="article-lede">{{ topic.count }} {{ topic.count === 1 ? 'post' : 'posts' }}</p>
+      <p class="article-lede">{{ topic.count }} {{ plural(topic.count, 'post', 'posts') }}</p>
     </header>
     <PostGrid :posts="filtered" />
   </article>
