@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import { plural } from '~/utils/plural'
+
 withDefaults(defineProps<{ count: number; noun?: string; singular?: string; eyebrow?: string; title?: string; titleClass?: string }>(), {
   noun: 'posts',
   singular: 'post',
@@ -14,6 +16,6 @@ withDefaults(defineProps<{ count: number; noun?: string; singular?: string; eyeb
       <p v-if="eyebrow" class="eyebrow">{{ eyebrow }}</p>
       <h2 v-if="title" :class="titleClass">{{ title }}</h2>
     </div>
-    <span>{{ count }} {{ count === 1 ? singular : noun }}</span>
+    <span>{{ count }} {{ plural(count, singular, noun) }}</span>
   </div>
 </template>
