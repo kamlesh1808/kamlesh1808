@@ -57,6 +57,11 @@ const errors = computed(() => validateComposer({
   tagsInput: tagsInput.value,
   body: body.value,
 }).errors)
+// Branch conditions as computeds: template v-if/v-else stays declarative,
+// no inline `submitted && errors.*` / `.trim()` / `.length` logic in markup.
+const showTagsError = computed(() => submitted.value && Boolean(errors.value.tags))
+const showTagsPreview = computed(() => !showTagsError.value && tags.value.length > 0)
+const hasPreviewBody = computed(() => body.value.trim().length > 0)
 
 const { applyToolbar, toolbarActions } = useMarkdownToolbar(body, bodyRef)
 const { copyMarkdown, downloadMarkdown } = useMarkdownFile(result, copyStatus)
@@ -155,8 +160,8 @@ function onSubmit(): void {
             type="text"
             placeholder="Nuxt, Writing"
           >
-          <div v-if="submitted && errors.tags" class="invalid-feedback">{{ errors.tags }}</div>
-          <TagList v-else-if="tags.length" :tags="tags" variant="span" wrapper-class="d-flex flex-wrap gap-2 mt-2" />
+          <div v-if="showTagsError" class="invalid-feedback">{{ errors.tags }}</div>
+          <TagList v-else-if="showTagsPreview" :tags="tags" variant="span" wrapper-class="d-flex flex-wrap gap-2 mt-2" />
         </div>
       </div>
 
@@ -179,8 +184,7 @@ function onSubmit(): void {
 
         <h2 class="mt-4">Preview</h2>
         <PostCard :post="previewPost" />
-        <div v-if="body.trim()" class="article-body" v-html="renderedHtml" />
-        <EmptyState v-else as="p" extra-class="mt-3">Nothing to preview yet — start writing above.</EmptyState>
+        <WritePreview :has-content="hasPreviewBody" :html="renderedHtml" />
       </ClientOnly>
 
       <div class="d-flex gap-2 mt-4">

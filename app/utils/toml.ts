@@ -6,30 +6,45 @@ export interface TomlTable {
 
 export type TomlValue = string | number | boolean | TomlArray | TomlTable
 
+const TOML_NUMBER_PATTERN = /^-?(?:0|[1-9]\d*)(?:\.\d+)?$/
+
+function parseTomlStringValue(value: string, lineNumber: number): TomlValue {
+  if (!value.endsWith('"')) throw new Error(`Unterminated TOML string on line ${lineNumber}`)
+  try {
+    const parsed = JSON.parse(value)
+    if (typeof parsed !== 'string') throw new Error()
+    return parsed
+  } catch {
+    throw new Error(`Invalid TOML string on line ${lineNumber}`)
+  }
+}
+
+function parseTomlArrayValue(value: string, lineNumber: number): TomlValue {
+  if (!value.endsWith(']')) throw new Error(`Unterminated TOML array on line ${lineNumber}`)
+  const contents = value.slice(1, -1).trim()
+  if (!contents) return []
+  return splitTomlList(contents, lineNumber).map(item => parseTomlValue(item, lineNumber))
+}
+
+interface TomlValueHandler {
+  matches: (value: string) => boolean
+  parse: (value: string, lineNumber: number) => TomlValue
+}
+
+const TOML_VALUE_HANDLERS: TomlValueHandler[] = [
+  { matches: value => value.startsWith('"'), parse: parseTomlStringValue },
+  { matches: value => value.startsWith('['), parse: parseTomlArrayValue },
+  { matches: value => value === 'true' || value === 'false', parse: value => value === 'true' },
+  { matches: value => TOML_NUMBER_PATTERN.test(value), parse: value => Number(value) },
+]
+
 function parseTomlValue(rawValue: string, lineNumber: number): TomlValue {
   const value = rawValue.trim()
   if (!value) throw new Error(`Missing TOML value on line ${lineNumber}`)
 
-  if (value.startsWith('"')) {
-    if (!value.endsWith('"')) throw new Error(`Unterminated TOML string on line ${lineNumber}`)
-    try {
-      const parsed = JSON.parse(value)
-      if (typeof parsed !== 'string') throw new Error()
-      return parsed
-    } catch {
-      throw new Error(`Invalid TOML string on line ${lineNumber}`)
-    }
+  for (const handler of TOML_VALUE_HANDLERS) {
+    if (handler.matches(value)) return handler.parse(value, lineNumber)
   }
-
-  if (value.startsWith('[')) {
-    if (!value.endsWith(']')) throw new Error(`Unterminated TOML array on line ${lineNumber}`)
-    const contents = value.slice(1, -1).trim()
-    if (!contents) return []
-    return splitTomlList(contents, lineNumber).map(item => parseTomlValue(item, lineNumber))
-  }
-
-  if (value === 'true' || value === 'false') return value === 'true'
-  if (/^-?(?:0|[1-9]\d*)(?:\.\d+)?$/.test(value)) return Number(value)
   throw new Error(`Unsupported TOML value on line ${lineNumber}`)
 }
 

@@ -22,9 +22,16 @@ const contentDir = join(process.cwd(), 'content')
 const markdown = new MarkdownIt({ html: false, linkify: true, typographer: true })
 let productionAllPostsCache: Post[] | undefined
 
+export const POST_DEFAULTS = {
+  date: '2026-01-01',
+  excerpt: '',
+  wordsPerMinute: 200,
+} as const
+
 function parsePost(filename: string, rawSource: string): Post {
   const { fields, body } = parseFrontmatter(rawSource)
   const words = body.trim().split(/\s+/).filter(Boolean).length
+  const slug = filename.replace(/\.md$/, '')
   const title = frontmatterString(fields, 'title')
   const date = frontmatterString(fields, 'date')
   const excerpt = frontmatterString(fields, 'excerpt')
@@ -32,14 +39,14 @@ function parsePost(filename: string, rawSource: string): Post {
   const aiAssisted = frontmatterBoolean(fields, 'aiAssisted')
   const readingTime = frontmatterString(fields, 'readingTime')
   return {
-    slug: filename.replace(/\.md$/, ''),
-    title: title || filename.replace(/\.md$/, ''),
-    date: date || '2026-01-01',
-    excerpt: excerpt || '',
+    slug,
+    title: title ?? slug,
+    date: date ?? POST_DEFAULTS.date,
+    excerpt: excerpt ?? POST_DEFAULTS.excerpt,
     tags: frontmatterStringArray(fields, 'tags'),
     source,
     aiAssisted,
-    readingTime: readingTime || `${Math.max(1, Math.ceil(words / 200))} min read`,
+    readingTime: readingTime ?? `${Math.max(1, Math.ceil(words / POST_DEFAULTS.wordsPerMinute))} min read`,
     html: markdown.render(body),
     disabled: frontmatterBoolean(fields, 'disabled'),
   }
@@ -62,12 +69,15 @@ export async function getAllPosts(): Promise<Post[]> {
   return posts
 }
 
-export async function getPosts(): Promise<Post[]> {
+export async function queryPosts(predicate: (post: Post) => boolean = () => true): Promise<Post[]> {
   const posts = await getAllPosts()
-  return posts.filter(post => !post.disabled).sort((a, b) => b.date.localeCompare(a.date))
+  return posts.filter(predicate).sort((a, b) => b.date.localeCompare(a.date))
+}
+
+export async function getPosts(): Promise<Post[]> {
+  return queryPosts(post => !post.disabled)
 }
 
 export async function getDraftPosts(): Promise<Post[]> {
-  const posts = await getAllPosts()
-  return posts.filter(post => post.disabled).sort((a, b) => b.date.localeCompare(a.date))
+  return queryPosts(post => post.disabled)
 }

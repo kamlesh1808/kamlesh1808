@@ -106,23 +106,47 @@ function rawTagList(input: string): string[] {
   return tags
 }
 
+function validateTitle(title: string): string | undefined {
+  if (!title) return 'Title is required.'
+  if (countWords(title) > MAX_TITLE_WORDS) return 'Title must be 16 words or fewer.'
+  return undefined
+}
+
+function validateExcerpt(excerpt: string): string | undefined {
+  if (countWords(excerpt) > MAX_SUMMARY_WORDS) return 'Summary must be 32 words or fewer.'
+  return undefined
+}
+
+function validateBody(body: string): string | undefined {
+  if (!body) return 'Body is required.'
+  if (countWords(body) > MAX_BODY_WORDS) return 'Body must be 1800 words or fewer.'
+  return undefined
+}
+
+function validateTags(tagsInput: string): string | undefined {
+  const rawTags = rawTagList(tagsInput)
+  if (rawTags.length > MAX_TAGS) return 'Maximum 8 tags allowed.'
+  if (rawTags.some(tag => tag.length > MAX_TAG_LENGTH)) return 'Each tag must be 30 characters or fewer.'
+  return undefined
+}
+
 export function validateComposer(input: ComposerInput): ComposerResult {
-  const errors: Record<string, string> = {}
   const title = singleLine(input.title)
   const excerpt = singleLine(input.excerpt)
   const body = input.body.trim()
 
-  if (!title) errors.title = 'Title is required.'
-  else if (countWords(title) > MAX_TITLE_WORDS) errors.title = 'Title must be 16 words or fewer.'
+  const fieldValidators: Record<string, () => string | undefined> = {
+    title: () => validateTitle(title),
+    excerpt: () => validateExcerpt(excerpt),
+    body: () => validateBody(body),
+    tags: () => validateTags(input.tagsInput),
+  }
 
-  if (countWords(excerpt) > MAX_SUMMARY_WORDS) errors.excerpt = 'Summary must be 32 words or fewer.'
-
-  if (!body) errors.body = 'Body is required.'
-  else if (countWords(body) > MAX_BODY_WORDS) errors.body = 'Body must be 1800 words or fewer.'
-
-  const rawTags = rawTagList(input.tagsInput)
-  if (rawTags.length > MAX_TAGS) errors.tags = 'Maximum 8 tags allowed.'
-  else if (rawTags.some(tag => tag.length > MAX_TAG_LENGTH)) errors.tags = 'Each tag must be 30 characters or fewer.'
+  const errors: Record<string, string> = {}
+  for (const [field, runValidator] of Object.entries(fieldValidators)) {
+    const message = runValidator()
+    if (message) errors[field] = message
+  }
 
   return {
     errors,
