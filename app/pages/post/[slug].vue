@@ -1,15 +1,13 @@
 <script setup lang="ts">
 import { setupPostPage } from '~/page-scripts/post'
 import { siteLinks } from '~/data/site'
-import type { Post } from '~~/server/utils/posts'
+import { NOT_FOUND_ERRORS, assertFound, type Post } from '~~/server/utils/posts'
 
 const { post } = await setupPostPage()
 
 // Early return: missing post is a 404 (setupPostPage throws on fetch error;
 // this covers a null payload without an error).
-if (!post.value) {
-  throw createError({ statusCode: 404, statusMessage: 'Post not found', fatal: true })
-}
+assertFound(post.value, { ...NOT_FOUND_ERRORS.post, fatal: true })
 
 // Hard-coded page fallback data (server Post shape is read-only).
 const fallbackPost: Post = {
