@@ -2,14 +2,13 @@
 import { setupTopicPage } from '~/page-scripts/topic'
 import { siteLinks } from '~/data/site'
 import { plural } from '~/utils/plural'
+import { NOT_FOUND_ERRORS, assertFound } from '~~/server/utils/posts'
 
 const { topic, filtered } = await setupTopicPage()
 
 // Surface a proper 404 status for crawlers/readers on unknown slugs while
 // keeping the EmptyState fallback below for client-side navigation.
-if (!topic.value) {
-  throw createError({ statusCode: 404, statusMessage: 'Topic not found', fatal: true })
-}
+assertFound(topic.value, { ...NOT_FOUND_ERRORS.topic, fatal: true })
 </script>
 
 <template>

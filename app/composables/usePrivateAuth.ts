@@ -27,13 +27,38 @@ function clearExpiryTimer(): void {
   }
 }
 
+function requireClient(): boolean {
+  return import.meta.client
+}
+
+type AuthStatus = 'idle' | 'missing' | 'expired' | 'active'
+
+const AUTH_STATUS: Record<AuthStatus, { active: boolean; needsLock: boolean }> = {
+  idle: { active: false, needsLock: false },
+  missing: { active: false, needsLock: true },
+  expired: { active: false, needsLock: true },
+  active: { active: true, needsLock: false },
+}
+
+function resolveAuthStatus(
+  flagged: boolean,
+  storedAt: number | null,
+  isUnlocked: boolean,
+  nowMs: number,
+): AuthStatus {
+  if (!flagged && !isUnlocked) return 'idle'
+  if (!flagged || storedAt === null) return 'missing'
+  if (nowMs - storedAt > UNLOCK_TTL_MS) return 'expired'
+  return 'active'
+}
+
 export function usePrivateAuth() {
   const unlocked = useState<boolean>('private-unlocked', () => false)
 
   function lock(): void {
     unlocked.value = false
     clearExpiryTimer()
-    if (import.meta.client) {
+    if (requireClient()) {
       try {
         sessionStorage.removeItem(STORAGE_KEY)
         sessionStorage.removeItem(TIMESTAMP_KEY)
@@ -45,7 +70,7 @@ export function usePrivateAuth() {
 
   function scheduleAutoLock(remainingMs: number): void {
     clearExpiryTimer()
-    if (!import.meta.client || remainingMs <= 0) return
+    if (!requireClient() || remainingMs <= 0) return
     expiryTimer = setTimeout(lock, remainingMs)
     const maybeUnref = expiryTimer as unknown as { unref?: () => void }
     if (typeof maybeUnref.unref === 'function') {
@@ -56,7 +81,7 @@ export function usePrivateAuth() {
   // Re-read storage and enforce the 60-minute expiry. Returns current state.
   // Safe to call on page mount, on focus/visibility, and before verifying.
   function refreshAuthState(nowMs: number = Date.now()): boolean {
-    if (!import.meta.client) {
+    if (!requireClient()) {
       return unlocked.value
     }
     let flagged = false
@@ -69,23 +94,25 @@ export function usePrivateAuth() {
       clearExpiryTimer()
       return false
     }
-    if (!flagged && !unlocked.value) {
-      clearExpiryTimer()
-      return false
-    }
-    if (!flagged || storedAt === null || nowMs - storedAt > UNLOCK_TTL_MS) {
-      lock()
+    const status = resolveAuthStatus(flagged, storedAt, unlocked.value, nowMs)
+    const entry = AUTH_STATUS[status]
+    if (!entry.active) {
+      if (entry.needsLock) {
+        lock()
+      } else {
+        clearExpiryTimer()
+      }
       return false
     }
     unlocked.value = true
-    scheduleAutoLock(UNLOCK_TTL_MS - (nowMs - storedAt))
+    scheduleAutoLock(UNLOCK_TTL_MS - (nowMs - (storedAt as number)))
     return true
   }
 
   function unlock(): void {
     const nowMs = Date.now()
     unlocked.value = true
-    if (import.meta.client) {
+    if (requireClient()) {
       try {
         sessionStorage.setItem(STORAGE_KEY, '1')
         sessionStorage.setItem(TIMESTAMP_KEY, nowMs.toString())
@@ -96,7 +123,7 @@ export function usePrivateAuth() {
     scheduleAutoLock(UNLOCK_TTL_MS)
   }
 
-  if (import.meta.client) {
+  if (requireClient()) {
     refreshAuthState()
     if (!activityListenersAttached) {
       activityListenersAttached = true
