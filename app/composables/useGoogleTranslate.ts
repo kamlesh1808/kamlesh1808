@@ -38,13 +38,19 @@ function initializeWidget(widgetId: string = WIDGET_ID): boolean {
   }
 }
 
-function ensureScript(onReady: () => void): void {
-  const existing = document.querySelector<HTMLScriptElement>(SCRIPT_SELECTOR)
-  if (existing) {
-    // Script already present (e.g. client-side nav): init immediately if API ready.
-    if (window.google?.translate?.TranslateElement) onReady()
-    return
-  }
+function isTranslateReady(): boolean {
+  return Boolean(window.google?.translate?.TranslateElement)
+}
+
+type ScriptState = 'ready' | 'loading' | 'missing'
+
+function getScriptState(existing: HTMLScriptElement | null): ScriptState {
+  if (!existing) return 'missing'
+  if (isTranslateReady()) return 'ready'
+  return 'loading'
+}
+
+function appendScript(onReady: () => void): void {
   window.googleTranslateElementInit = onReady
   const script = document.createElement('script')
   script.src = SCRIPT_SRC
@@ -55,6 +61,21 @@ function ensureScript(onReady: () => void): void {
     delete window.googleTranslateElementInit
   }
   document.head.appendChild(script)
+}
+
+const SCRIPT_STATE: Record<ScriptState, (onReady: () => void) => void> = {
+  ready: (onReady) => {
+    onReady()
+  },
+  loading: () => {},
+  missing: (onReady) => {
+    appendScript(onReady)
+  },
+}
+
+function ensureScript(onReady: () => void): void {
+  const existing = document.querySelector<HTMLScriptElement>(SCRIPT_SELECTOR)
+  SCRIPT_STATE[getScriptState(existing)](onReady)
 }
 
 /**

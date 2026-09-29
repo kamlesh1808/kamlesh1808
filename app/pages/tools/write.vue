@@ -26,8 +26,17 @@ const result = ref<{ filename: string; markdown: string } | null>(null)
 const copyStatus = ref('')
 const bodyRef = ref<HTMLTextAreaElement | null>(null)
 
+const FALLBACK_SLUG = 'untitled-post'
+
+function getEffectiveSlug(rawSlug: string, suggested: string): string {
+  if (rawSlug.trim()) return suggestSlug(rawSlug)
+  return suggested || FALLBACK_SLUG
+}
+
+const SUBMIT_GATE = (errors: Record<string, string>): boolean => Object.keys(errors).length > 0
+
 const suggestedSlug = computed(() => suggestSlug(postName.value.trim() || title.value.trim()))
-const effectiveSlug = computed(() => (slugInput.value.trim() ? suggestSlug(slugInput.value) : suggestedSlug.value))
+const effectiveSlug = computed(() => getEffectiveSlug(slugInput.value, suggestedSlug.value))
 const tags = computed(() => parseTags(tagsInput.value))
 // Stable today string: single computed, reused by preview + filename.
 const today = computed(() => {
@@ -76,7 +85,7 @@ function onSubmit(): void {
     tagsInput: tagsInput.value,
     body: body.value,
   })
-  if (Object.keys(validation.errors).length > 0) {
+  if (SUBMIT_GATE(validation.errors)) {
     result.value = null
     return
   }

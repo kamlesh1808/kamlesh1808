@@ -15,38 +15,50 @@ function tableArray(value: TomlValue | undefined, name: string): TomlTable[] {
   return value as TomlTable[]
 }
 
-function stringValue(value: TomlValue | undefined, name: string): string {
-  if (typeof value !== 'string') throw new Error(`Expected TOML string: ${name}`)
-  return value
+type LanguageFieldParser<T> = (value: TomlValue | undefined, name: string) => T
+
+const LANGUAGE_FIELD_PARSERS = {
+  code: ((value: TomlValue | undefined, name: string): string => {
+    if (typeof value !== 'string') throw new Error(`Expected TOML string: ${name}`)
+    return value
+  }) satisfies LanguageFieldParser<string>,
+  name: ((value: TomlValue | undefined, name: string): string => {
+    if (typeof value !== 'string') throw new Error(`Expected TOML string: ${name}`)
+    return value
+  }) satisfies LanguageFieldParser<string>,
+  usersMillions: ((value: TomlValue | undefined, name: string): number => {
+    if (typeof value !== 'number') throw new Error(`Expected TOML number: ${name}`)
+    if (!(value > 0)) throw new Error(`Expected positive TOML number: ${name}`)
+    return value
+  }) satisfies LanguageFieldParser<number>,
+  approx: ((value: TomlValue | undefined, name: string): boolean | undefined => {
+    if (value === undefined) return undefined
+    if (typeof value !== 'boolean') throw new Error(`Expected TOML boolean: ${name}`)
+    return value
+  }) satisfies LanguageFieldParser<boolean | undefined>,
 }
 
-function numberValue(value: TomlValue | undefined, name: string): number {
-  if (typeof value !== 'number') throw new Error(`Expected TOML number: ${name}`)
-  return value
-}
-
-function optionalBoolean(value: TomlValue | undefined, name: string): boolean | undefined {
-  if (value === undefined) return undefined
-  if (typeof value !== 'boolean') throw new Error(`Expected TOML boolean: ${name}`)
-  return value
-}
-
-const languages: Language[] = tableArray(parseToml(languagesToml).language, 'language').map((item) => {
-  const usersMillions = numberValue(item.users_millions, 'language.users_millions')
-  if (!(usersMillions > 0)) throw new Error('Expected positive TOML number: language.users_millions')
+function parseLanguageItem(item: TomlTable): Language {
+  const usersMillions = LANGUAGE_FIELD_PARSERS.usersMillions(item.users_millions, 'language.users_millions')
   return {
-    code: stringValue(item.code, 'language.code'),
-    name: stringValue(item.name, 'language.name'),
+    code: LANGUAGE_FIELD_PARSERS.code(item.code, 'language.code'),
+    name: LANGUAGE_FIELD_PARSERS.name(item.name, 'language.name'),
     usersMillions,
-    approx: optionalBoolean(item.approx, 'language.approx'),
+    approx: LANGUAGE_FIELD_PARSERS.approx(item.approx, 'language.approx'),
   }
-})
-
-const seenCodes = new Set<string>()
-for (const language of languages) {
-  if (seenCodes.has(language.code)) throw new Error(`Duplicate language code: ${language.code}`)
-  seenCodes.add(language.code)
 }
+
+function assertUniqueCodes(languages: Language[]): void {
+  const seenCodes = new Set<string>()
+  for (const language of languages) {
+    if (seenCodes.has(language.code)) throw new Error(`Duplicate language code: ${language.code}`)
+    seenCodes.add(language.code)
+  }
+}
+
+const languages: Language[] = tableArray(parseToml(languagesToml).language, 'language').map(parseLanguageItem)
+
+assertUniqueCodes(languages)
 
 export const LANGUAGES: Language[] = languages
 export const LANGUAGE_CODES: string[] = languages.map(language => language.code)

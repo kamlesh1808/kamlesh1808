@@ -8,6 +8,7 @@ import MarkdownIt from 'markdown-it'
 const UNSAFE_PROTOCOLS = ['javascript:', 'vbscript:', 'data:']
 
 function isSafeLink(url: string): boolean {
+  if (typeof url !== 'string') return false
   const normalized = url.trim().toLowerCase()
   return !UNSAFE_PROTOCOLS.some(protocol => normalized.startsWith(protocol))
 }
@@ -16,13 +17,13 @@ function createMarkdown(): InstanceType<typeof MarkdownIt> {
   const md = new MarkdownIt({ html: false, linkify: true, typographer: true })
   const defaultValidate = md.validateLink.bind(md)
   md.validateLink = (url: string): boolean => {
+    if (!isSafeLink(url)) return false
     try {
-      if (!isSafeLink(url)) return false
+      return defaultValidate(url)
     }
     catch {
       return false
     }
-    return defaultValidate(url)
   }
   return md
 }
