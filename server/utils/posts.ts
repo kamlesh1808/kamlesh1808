@@ -28,6 +28,25 @@ export const POST_DEFAULTS = {
   wordsPerMinute: 200,
 } as const
 
+export const NOT_FOUND_ERRORS = {
+  post: { statusCode: 404, statusMessage: 'Post not found' },
+  topic: { statusCode: 404, statusMessage: 'Topic not found' },
+} as const
+
+export type NotFoundError = {
+  statusCode: number
+  statusMessage: string
+  fatal?: boolean
+}
+
+export function assertFound<T>(value: T | null | undefined, notFound: NotFoundError = NOT_FOUND_ERRORS.post): asserts value is T {
+  if (!value) throw createError(notFound)
+}
+
+const FS_ERROR_HANDLERS: Record<string, () => Post[]> = {
+  ENOENT: () => [],
+}
+
 function parsePost(filename: string, rawSource: string): Post {
   const { fields, body } = parseFrontmatter(rawSource)
   const words = body.trim().split(/\s+/).filter(Boolean).length
@@ -59,7 +78,9 @@ export async function getAllPosts(): Promise<Post[]> {
   try {
     files = await fs.readdir(contentDir)
   } catch (error: unknown) {
-    if (error instanceof Error && 'code' in error && error.code === 'ENOENT') return []
+    const code = error instanceof Error && 'code' in error ? (error as { code?: unknown }).code : undefined
+    const handler = typeof code === 'string' ? FS_ERROR_HANDLERS[code] : undefined
+    if (handler) return handler()
     throw error
   }
 
