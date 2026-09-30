@@ -2,7 +2,7 @@
 import { setupTopicPage } from '~/page-scripts/topic'
 import { siteLinks } from '~/data/site'
 import { plural } from '~/utils/plural'
-import { NOT_FOUND_ERRORS, assertFound } from '~~/server/utils/posts'
+import { NOT_FOUND_ERRORS, assertFound } from '~/utils/post-errors'
 
 const { topic, filtered } = await setupTopicPage()
 

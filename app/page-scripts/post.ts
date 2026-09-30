@@ -1,4 +1,5 @@
-import { NOT_FOUND_ERRORS, assertFound, type Post } from '../../server/utils/posts'
+import { NOT_FOUND_ERRORS, assertFound } from '~/utils/post-errors'
+import type { Post } from '~/types/post'
 
 export async function setupPostPage() {
   const route = useRoute()
