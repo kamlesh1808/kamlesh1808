@@ -1,7 +1,8 @@
 <script setup lang="ts">
 import { setupPostPage } from '~/page-scripts/post'
 import { siteLinks } from '~/data/site'
-import { NOT_FOUND_ERRORS, assertFound, type Post } from '~~/server/utils/posts'
+import { NOT_FOUND_ERRORS, assertFound } from '~/utils/post-errors'
+import type { Post } from '~/types/post'
 
 const { post } = await setupPostPage()
 
