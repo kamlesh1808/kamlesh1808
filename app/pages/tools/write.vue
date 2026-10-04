@@ -57,7 +57,9 @@ const previewPost = computed(() => ({
   date: today.value,
   excerpt: excerpt.value.trim(),
   tags: tags.value,
+  aiAssisted: false,
   readingTime: readingTime.value,
+  disabled: true,
 }))
 const errors = computed(() => validateComposer({
   postName: postName.value,
