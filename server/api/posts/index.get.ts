@@ -1,4 +1,5 @@
-import { getPosts, type PostSummary } from '../../utils/posts'
+import { getPosts } from '../../utils/posts'
+import type { PostSummary } from '~/types/post'
 
 export default defineEventHandler(async (): Promise<PostSummary[]> => {
   const posts = await getPosts()

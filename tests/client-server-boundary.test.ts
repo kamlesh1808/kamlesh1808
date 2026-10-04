@@ -77,5 +77,5 @@ test('should match real routes when link targets are checked', () => {
 test('should export shared Post types when post type module is read', () => {
   const source = readFileSync(new URL('../app/types/post.ts', import.meta.url), 'utf8')
   assert.ok(source.includes('export interface Post {'), 'missing interface Post')
-  assert.ok(source.includes('export interface PostSummary'), 'missing interface PostSummary')
+  assert.ok(source.includes('export type PostSummary'), 'missing type PostSummary')
 })

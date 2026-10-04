@@ -2,21 +2,9 @@ import { promises as fs } from 'node:fs'
 import { join } from 'node:path'
 import MarkdownIt from 'markdown-it'
 import { frontmatterBoolean, frontmatterString, frontmatterStringArray, parseFrontmatter } from './frontmatter'
+import type { Post, PostSummary } from '~/types/post'
 
-export interface Post {
-  slug: string
-  title: string
-  date: string
-  excerpt: string
-  tags: string[]
-  source?: string
-  aiAssisted: boolean
-  readingTime: string
-  html: string
-  disabled: boolean
-}
-
-export type PostSummary = Omit<Post, 'html'>
+export type { Post, PostSummary }
 
 const contentDir = join(process.cwd(), 'content')
 const markdown = new MarkdownIt({ html: false, linkify: true, typographer: true })
